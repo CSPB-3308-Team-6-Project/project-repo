@@ -9,10 +9,12 @@ _In alignment with Milestone 1, this README has been created with the following 
 - **Team Name:** StudySync
 - 
 ### Team Members
-- **Aisha Rahman** (GitHub: `aishar-dev`, Email: aira1234@colorado.edu)
-- **Miguel Alvarez** (GitHub: `malvarez-cs`, Email: mial5678@colorado.edu)
-- **Priya Patel** (GitHub: `priyap-code`, Email: prpa9012@colorado.edu)
-- **Jordan Thompson** (GitHub: `jthompson-dev`, Email: joth3456@colorado.edu)
+_For more info, see Projects->Collaborators Info_
+
+- **Carl Seaholm** (GitHub: `cdseaholm`, Email: cdseaholm@gmail.com)
+- **Conner Mongoven** (GitHub: `??`, Email: Conner.Mongoven@colorado.edu)
+- **Ledys De La Rosa** (GitHub: `??`, Email: Ledy.DeLaRosa@colorado.edu)
+- **Linda Maccagnan** (GitHub: `??`, Email: Linda.Maccagnan@colorado.edu)
 
 ### Scheduled Weekly Team Meeting
 **Sundays, 6:00 PM MT**
