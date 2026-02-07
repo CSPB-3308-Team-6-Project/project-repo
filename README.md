@@ -9,7 +9,7 @@ _In alignment with Milestone 1, this README has been created with the following 
 - **Team Name:** StudySync
 - 
 ### Team Members
-_For more info, see Projects->Collaborators Info_
+_For more info, in the Repo go to Documentation -> Collaborators_Info_
 
 - **Carl Seaholm** (GitHub: `cdseaholm`, Email: cdseaholm@gmail.com)
 - **Conner Mongoven** (GitHub: `??`, Email: Conner.Mongoven@colorado.edu)
