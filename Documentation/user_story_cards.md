@@ -34,7 +34,7 @@ Then:
 ____________________________________________________________________________
 
 
-User Story Card
+User Story Card (Story 11)
 ______________________________________________________________________________
 As a 	: developer
 I want	: to write a basic SQL INSERT statement to add rows to a table
@@ -61,7 +61,7 @@ Then:
 ____________________________________________________________________________
 
 
-User Story Card
+User Story Card (Story 18)
 ______________________________________________________________________________
 As a 	: team member
 I want	: to discuss and agree on acceptance criteria for a Python-based task
