@@ -2,6 +2,33 @@
 _In alignment with Milestone 1, this README has been created with the following information_
 
 ## Project Title
+Health Tracker - General Health/feeling with numerical answers to basic questions + stats/graphs/report
+
+
+Ideas for Proposal: 
+  1. Work out app that directs you specific work outs and videos for workouts
+    - Logging of workout sessions
+  2. Calorie tracker with math based on variables (personal and external)
+    - Sport/Weather/Body weight
+  3. Animal care tracking
+  4. Injury Tracking
+    - Yes/no questions
+    - 
+  6. Health Tracking
+    - How many glasses of water? How many hours of sleep? etc.
+    - 
+
+     Tracker--
+       - Guidance based on the user
+       - Prompts after a track to see how the results are -> gives report at end
+    
+
+
+     (Wants to make sure this will be something we can all track and connect with so we can see growth as use ourselves as a growth)
+
+## Team Name
+
+**THE TRACKERS**
 
 ## Team Information
 - **Team Number:** 6
@@ -21,26 +48,29 @@ _For more info, in the Repo go to Documentation -> Collaborators_Info_
 
 ---
 
-## Vision Statement
+## Vision Statement - Linda
 
 ---
 
-## Motivation
+## Motivation - Linda
 
 ---
 
-## Risks to Project Completion
+## Risks to Project Completion - Ledy
 
 ---
 
-## Mitigation Strategy
+## Mitigation Strategy - Conner
 
 ---
+
 ## Development Method
 
+Agile
+
 ---
 
-## Development Steps
+## Development Steps - Carl
 
 ---
 
@@ -48,4 +78,6 @@ _For more info, in the Repo go to Documentation -> Collaborators_Info_
 
 ---
 
-## Technology Stack
+## Technology Stack - Carl
+
+
