@@ -68,7 +68,10 @@ _For more info, in the Repo go to Documentation -> Collaborators_Info_
 
 ## Development Method
 
-Agile
+The TRACKERS will follow an Agile, sprint-based approach with weekly planning meetings,
+short development iterations, and continuous integration. Each task will be broken into
+small, testable components, allowing the project to adapt based on progress and
+challenges.
 
 ---
 
@@ -77,6 +80,8 @@ Agile
 ---
 
 ## Project Tracking
+
+The Project Tracking is done via Github within the Organization we are all a part of (Prof included). [Here is a link to the Project Board](https://github.com/orgs/CSPB-3308-Team-6-Project/projects/3)
 
 ---
 
