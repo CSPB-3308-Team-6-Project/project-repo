@@ -52,6 +52,7 @@ Heath Tracker is a personal web application designed to help an individual track
 ---
 
 ## Motivation - Linda
+People generally know what is recommended for general health and well-being, but keeping track of progress is hard, especially if the recommendations are not already a part of your normal habits. Using an easy interface to track daily activities can help provide gentle reminders and reports can sustain motivation for continued progress and habit building. 
 
 ---
 
