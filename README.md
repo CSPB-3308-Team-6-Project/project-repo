@@ -4,7 +4,8 @@ _In alignment with Milestone 1, this README has been created with the following 
 ## Project Title
 Health Tracker - General Health/feeling with numerical answers to basic questions + stats/graphs/report
 
-
+```
+NOTES: 
 Ideas for Proposal: 
   1. Work out app that directs you specific work outs and videos for workouts
     - Logging of workout sessions
@@ -25,6 +26,7 @@ Ideas for Proposal:
 
 
      (Wants to make sure this will be something we can all track and connect with so we can see growth as use ourselves as a growth)
+```
 
 ## Team Name
 
