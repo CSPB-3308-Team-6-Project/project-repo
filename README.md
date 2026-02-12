@@ -28,13 +28,9 @@ Ideas for Proposal:
      (Wants to make sure this will be something we can all track and connect with so we can see growth as use ourselves as a growth)
 ```
 
-## Team Name
-
-**THE TRACKERS**
-
 ## Team Information
 - **Team Number:** 6
-- **Team Name:** 
+- **Team Name:** The Trackers
 
 ### Team Members
 _For more info, in the Repo go to Documentation -> Collaborators_Info_
