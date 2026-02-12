@@ -1,9 +1,15 @@
 User Story Card (Story 2)
 
 Team Number 6
-Team Name: 
+
+Team Name: TBD
+
 Met for this doc at Saturday 7th, 11 am MT.
-[FAIL] Team doc lists members + scrum master - missing 
+
+Carl Seaholm (GitHub: cdseaholm, Email: cdseaholm@gmail.com)
+Conner Mongoven (GitHub: mongovencm, Email: Conner.Mongoven@colorado.edu)
+Ledys De La Rosa (GitHub: ledy11, Email: Ledy.DeLaRosa@colorado.edu)
+Linda Maccagnan (GitHub: lmaccagnan, Email: Linda.Maccagnan@colorado.edu)
 
 ______________________________________________________________________________
 As a 	: developer
