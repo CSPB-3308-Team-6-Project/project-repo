@@ -2,7 +2,7 @@ User Story Card (Story 2)
 
 Team Number 6
 
-Team Name: TBD
+Team Name: The Trackers
 
 Met for this doc at Saturday 7th, 11 am MT.
 
