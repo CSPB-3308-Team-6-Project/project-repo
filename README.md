@@ -47,6 +47,7 @@ _For more info, in the Repo go to Documentation -> Collaborators_Info_
 ---
 
 ## Vision Statement - Linda
+Heath Tracker is a personal web application designed to help an individual track progress on variables that support general health and well-being. The application will allow users to easily track data such as amount of water, sleep, exercise, general nutrition, etc. each day and provide reporting to the user can see progress. 
 
 ---
 
