@@ -1,4 +1,10 @@
 User Story Card (Story 2)
+
+Team Number 6
+Team Name: 
+Met for this doc at Saturday 7th, 11 am MT.
+[FAIL] Team doc lists members + scrum master - missing 
+
 ______________________________________________________________________________
 As a 	: developer
 I want	: to write a simple Python function and test it with multiple inputs
