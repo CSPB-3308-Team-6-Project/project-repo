@@ -97,29 +97,38 @@ The Project Tracking is done via Github within the Organization we are all a par
 ## Technology Stack
 
 I plugged my 3 options into ChatGPT to give a detailed explanation of Pros/Cons. I don't want anyone to feel like I'm steering us in a certain direction because I'm down with whatever, I just want to give full transparency to some general options
+
 (When we decide, I'll move this out of here and only write out what we are using and why)
+
+.
+.
+.
 
 **Option 1: Next.js (React/TypeScript) + MongoDB**
 
-  Frontend: Next.js with React and TypeScript for building the UI, handling forms, and rendering graphs.
-  Backend: Next.js API routes for server-side logic, integrated with MongoDB for storing user health data (NoSQL, schemaless for flexibility with varying question responses). 
-  Pros: 
-    - Very modern stack used by Startups
-    - Fast development with SSR/SSG for better performance
-    - TypeScript adds type safety
-    - MongoDB is lightweight and scales well for unstructured data like health logs.
-    - Carl has a ton of experience with Next.js, React, and Vercel, so fast prototyping and configuring.
+Frontend: Next.js with React and TypeScript for building the UI, handling forms, and rendering graphs.
+  
+Backend: Next.js API routes for server-side logic, integrated with MongoDB for storing user health data (NoSQL, schemaless for flexibility with varying question responses). 
+  
+Pros: 
+  - Very modern stack used by Startups
+  - Fast development with SSR/SSG for better performance
+  - TypeScript adds type safety
+  - MongoDB is lightweight and scales well for unstructured data like health logs.
+  - Carl has a ton of experience with Next.js, React, and Vercel, so fast prototyping and configuring.
     
-  Cons: 
-    - A bit more challening.
-    - MongoDB is NoSQL, so it doesn't directly satisfy the SQL interest Ledy had— you'd need to pivot to something like Prisma ORM with a SQL DB if wanted SQL.
+Cons: 
+  - A bit more challening.
+  - MongoDB is NoSQL, so it doesn't directly satisfy the SQL interest Ledy had— you'd need to pivot to something like Prisma ORM with a SQL DB if wanted SQL.
     
-  Team Fit: 
-    - Good for the HTML/CSS learner (React involves a lot of component styling with CSS-in-JS or Tailwind). 
-    - I can handle the heavy lifting and fill in where needed + do configs, allowing others to focus where they want to focus on and learn. 
-    - There wouldn't be great SQL learning as MongoDB is No-SQL
-
-
+Team Fit: 
+  - Good for the HTML/CSS learner (React involves a lot of component styling with CSS-in-JS or Tailwind).
+  - I can handle the heavy lifting and fill in where needed + do configs, allowing others to focus where they want to focus on and learn.
+  - There wouldn't be great SQL learning as MongoDB is No-SQL
+    
+.
+.
+.
 
 **Option 2: Flask (Python) + SQLite + HTML/CSS/JavaScript**
 
@@ -140,11 +149,14 @@ Cons:
   - Carl not as familiar so configs/general support will be more team oriented and less time to learn what you want to learn
 
 Team Fit:
+
   - Perfect for the SQL learner (hands-on with database schemas and queries).
   - The HTML/CSS enthusiast gets direct exposure to building layouts and styles from scratch.
   - You can lead on Python logic if needed, and it's a good "learn by doing" stack overall.
-
-
+    
+.
+.
+.
 
 **Option 3: Next.js (React/TypeScript) + Prisma (with PostgreSQL)**
 
