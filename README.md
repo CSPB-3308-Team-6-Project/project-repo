@@ -73,7 +73,18 @@ challenges.
 
 ---
 
-## Development Steps - Carl
+## Development Steps
+
+(I will update this more once we meet and decide some initial stuff so this is more steps rather than a checklist)
+
+  1. Decide stack
+  2. Discuss Routes, Types, Pages, and Experience
+  3. Assign work
+  4. Build initial app and get everyone access
+  5. Build routes
+  6. Add supporting pages
+  7. Stylize
+  8. Finalize
 
 ---
 
@@ -86,29 +97,74 @@ The Project Tracking is done via Github within the Organization we are all a par
 ## Technology Stack
 
 I plugged my 3 options into ChatGPT to give a detailed explanation of Pros/Cons. I don't want anyone to feel like I'm steering us in a certain direction because I'm down with whatever, I just want to give full transparency to some general options
+(When we decide, I'll move this out of here and only write out what we are using and why)
 
-Option 1: Next.js (React/TypeScript) + MongoDB
+**Option 1: Next.js (React/TypeScript) + MongoDB**
 
-Frontend: Next.js with React and TypeScript for building the UI, handling forms, and rendering graphs.
-Backend: Next.js API routes for server-side logic, integrated with MongoDB for storing user health data (NoSQL, schemaless for flexibility with varying question responses).
-Pros: Carl has a ton of experience with it, Fast development with SSR/SSG for better performance; TypeScript adds type safety; MongoDB is lightweight and scales well for unstructured data like health logs.
-Cons: A bit more challening. MongoDB is NoSQL, so it doesn't directly satisfy the SQL interest Ledy had— you'd need to pivot to something like Prisma ORM with a SQL DB if wanted SQL.
-Team Fit: Good for the HTML/CSS learner (React involves a lot of component styling with CSS-in-JS or Tailwind). I can handle the heavy lifting and fill in, allowing others to focus where they want to focus. For SQL interest, it's a stretch unless you swap MongoDB for PostgreSQL.
+  Frontend: Next.js with React and TypeScript for building the UI, handling forms, and rendering graphs.
+  Backend: Next.js API routes for server-side logic, integrated with MongoDB for storing user health data (NoSQL, schemaless for flexibility with varying question responses). 
+  Pros: 
+    - Very modern stack used by Startups
+    - Fast development with SSR/SSG for better performance
+    - TypeScript adds type safety
+    - MongoDB is lightweight and scales well for unstructured data like health logs.
+    - Carl has a ton of experience with Next.js, React, and Vercel, so fast prototyping and configuring.
+    
+  Cons: 
+    - A bit more challening.
+    - MongoDB is NoSQL, so it doesn't directly satisfy the SQL interest Ledy had— you'd need to pivot to something like Prisma ORM with a SQL DB if wanted SQL.
+    
+  Team Fit: 
+    - Good for the HTML/CSS learner (React involves a lot of component styling with CSS-in-JS or Tailwind). 
+    - I can handle the heavy lifting and fill in where needed + do configs, allowing others to focus where they want to focus on and learn. 
+    - There wouldn't be great SQL learning as MongoDB is No-SQL
 
-Option 2: Flask (Python) + SQLite + HTML/CSS/JavaScript
+
+
+**Option 2: Flask (Python) + SQLite + HTML/CSS/JavaScript**
 
 Frontend: Vanilla HTML/CSS with JavaScript (or a light framework like Bootstrap for styling and responsiveness), using Flask's Jinja templates for dynamic rendering. Add Chart.js for graphs.
 Backend: Flask for routing, form handling, and API endpoints. Use SQLite as the lightweight SQL database for storing data—it's file-based, no server setup needed.
-Why this? As you suggested, it's Python-based and simple for a backend-focused app. Flask keeps things minimal, and SQLite introduces SQL without complexity.
-Pros: Quick to set up; Flask is beginner-friendly for Python devs. SQLite satisfies the SQL desire with real queries (e.g., SELECT for stats). Pure HTML/CSS lets the team member dive deep into styling without framework overhead. Easy local testing and deployment (e.g., via Heroku).
-Cons: Less "modern" feel than React—manual DOM manipulation in JS could feel clunky for interactive graphs. Scaling might require migrating to a full SQL DB like PostgreSQL later.
-Team Fit: Perfect for the SQL learner (hands-on with database schemas and queries). The HTML/CSS enthusiast gets direct exposure to building layouts and styles from scratch. You can lead on Python logic if needed, and it's a good "learn by doing" stack overall.
 
-Option 3: Express.js (Node.js) + PostgreSQL + HTML/CSS/JavaScript
+Pros:
+  - Team as a whole is more python familiar (Conner and Carl have used Flask)
+  - Quick to set up;
+  - Flask is beginner-friendly for Python devs.
+  - SQLite satisfies the SQL desire with real queries
+  - Pure HTML/CSS lets the team members dive deep into styling without framework overhead.
+  - Easy local testing and deployment (e.g., via Heroku or Render).
 
-Frontend: HTML/CSS with vanilla JavaScript (or EJS templates for dynamic views), plus a library like Chart.js for graphs. Keep it simple to emphasize raw styling.
-Backend: Express.js for server-side routing and API, connected to PostgreSQL (a robust SQL DB) via an ORM like Sequelize for easier queries.
-Why this? It's a JavaScript-full-stack alternative to your Next.js preference, bridging to SQL while staying lightweight. PostgreSQL is free and powerful for structured health data (e.g., tables for users, questions, and metrics).
-Pros: All JS ecosystem, so transferable skills if anyone knows basic web dev. PostgreSQL handles complex queries well for stats (e.g., aggregations for graphs). Easy integration with frontend templates. Deployment via platforms like Render or AWS Free Tier.
-Cons: Requires some Node.js setup knowledge; not as batteries-included as Flask or Next.js. If the team is Python-leaning, it might feel like a shift.
-Team Fit: Directly hits the SQL goal with PostgreSQL (real relational DB experience). The HTML/CSS focus shines in template rendering without heavy frameworks. You can tie it back to your JS comfort zone, making it a collaborative middle ground.
+Cons:
+  - Less "modern" feel than React—manual DOM manipulation in JS could feel clunky for interactive graphs.
+  - Scaling might require migrating to a full SQL DB like PostgreSQL later.
+  - Carl not as familiar so configs/general support will be more team oriented and less time to learn what you want to learn
+
+Team Fit:
+  - Perfect for the SQL learner (hands-on with database schemas and queries).
+  - The HTML/CSS enthusiast gets direct exposure to building layouts and styles from scratch.
+  - You can lead on Python logic if needed, and it's a good "learn by doing" stack overall.
+
+
+
+**Option 3: Next.js (React/TypeScript) + Prisma (with PostgreSQL)**
+
+Frontend: Next.js with React and TypeScript for building the UI, handling forms, and rendering graphs (e.g., using Recharts or Chart.js).
+Backend: Next.js API routes (or Server Actions) for server-side logic, integrated with Prisma ORM connected to PostgreSQL for real SQL database operations.
+
+Pros:
+  - Somewhat modern stack used by Startups
+  - Fast development with SSR/SSG for better performance.
+  - TypeScript adds type safety across frontend and backend.
+  - Prisma gives excellent SQL experience (schemas, migrations, type-safe queries) while keeping things simple in Next.js.
+  - Easy deployment (Vercel handles everything)
+  - Carl has a ton of experience with Next.js, React, and Vercel, so fast prototyping and configuring.
+
+Cons:
+  - A bit more challenging (App Router + Prisma setup has a learning curve for newcomers).
+  - Slightly more setup than pure MongoDB if sticking to NoSQL originally.
+  - Not as much team experience so it will be more of a group effort on Database configs
+
+Team Fit:
+  - Good for the HTML/CSS learner (React involves a lot of component styling with CSS-in-JS or Tailwind).
+  - Carl can handle the heavy lifting and fill in, allowing others to focus where they want.
+  - Directly satisfies SQL interest via Prisma + PostgreSQL (real relational DB, queries, joins for stats/graphs)—much better than MongoDB for Ledy's goal.
