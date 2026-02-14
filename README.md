@@ -57,6 +57,14 @@ People generally know what is recommended for general health and well-being, but
 ---
 
 ## Risks to Project Completion - Ledy
+###Communication Gaps in a Remote Environment
+Because the team operates entirely remotely, there is an increased risk of miscommunication, delayed responses, or unclear expectations regarding task ownership and deliverables. 
+
+###Time Underestimation
+Software development tasks may take longer than anticipated due to debugging, integration issues, and unforeseen technical challenges. There is also a risk of not allocating sufficient time to properly design, implement, and test specific features. 
+
+###Technical Challenges and Learning Curves
+Some team members will be working with new programming languages, frameworks, or development tools for the first time. This learning curve may slow early development and introduce errors as concepts are being learned and applied simultaneously.
 
 ---
 
