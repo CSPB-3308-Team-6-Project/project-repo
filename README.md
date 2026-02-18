@@ -69,6 +69,14 @@ Some team members will be working with new programming languages, frameworks, or
 ---
 
 ## Mitigation Strategy - Conner
+### Clear Communication Practices
+To reduce miscommunication and unclear expectations, the team will hold consistent weekly meetings and use a shared communication platform for day-to-day questions and updates. Tasks will be clearly defined and tracked in a shared project board to ensure ownership and visibility. Meeting notes and decisions will be documented to keep everyone aligned and prevent misunderstandings.
+
+### Incremental Progress Tracking
+To avoid underestimating time, the team will break features into small tasks and track progress against initial estimates. If a task begins taking longer than expected, it will be reevaluated, simplified, or redistributed among team members. Regular progress check-ins will allow the team to adust priorities so any delays do not block overall development. 
+
+### Early Familiarization with Technology
+To address learning curves, the team will decide on a technology stack early and spend initial time experimenting with setup and small prototypes. Team members will collaborate through code reviews and shared debugging sessions, and documnetation will be maintained to help everyone understand design decisions and implementation details.
 
 ---
 
