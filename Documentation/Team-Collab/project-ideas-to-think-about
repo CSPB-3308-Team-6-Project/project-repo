@@ -1,0 +1,51 @@
+# Project Ideas to Think About
+
+## Types
+
+- Think about what kind of Types we will need for our database.
+- We are declaring what type each 
+- Example:
+```
+export interface ITrackerType = {
+
+	_id: string;
+	name: string;
+	userID: string;
+	description: string;
+	createdAt: Date;
+	updatedAt: Date;
+	
+}
+
+const myTracker = {
+
+  _id: "0",
+  name: "Carl",
+  userID: "1",
+  description: "A tracker type",
+  createAt: new Date(),
+  updatedAt: new Date(),
+
+} as ITrackType
+```
+
+## Routes
+
+- Do we want just health/wellness route?
+- What pages do we need to be fetching data from the database?
+- What pages do we need to be creating/editing/deleting to the database?
+- Do we want modals? Popovers? Or all in one page (doubt it but just saying)
+- What kind of menu/nav?
+
+## Colors
+
+- What sorts of colors will our theme have?
+- We will need to make sure we use these color schemes in everything we do and share components
+
+## Work split
+
+- How much do you want to do with HTML/CSS (Frontend) or SQL (Backend)?
+
+## Component Sharing
+
+- Do we make a button and share it? Or do we not worry about components to share?
