@@ -100,6 +100,6 @@ The Project Tracking is done via Github within the Organization we are all a par
 - Prisma and SQL with RESTful API routes leveraging connection to our database
   
 ### Database
-- PostgreSQL for development, with the option to migrate to SQLite if local machines don't work
+- PostgreSQL for development, with the option to migrate to SQLite/Flask(Python)/MongoDB(final fallback) depending on how backend work goes
 
 
