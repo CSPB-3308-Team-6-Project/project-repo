@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+.dark {
+  --background: #171717;
+  --foreground: #ffffff;
+}
+
+/* Examples of color schemes we can use and then plug them into tailwind with something like "bg-background"
+
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-mainBack: var(--mainBack);
+  --color-cardBack: var(--cardBack);
+  --color-accent: var(--accent);
+  --color-accentMuted: var(--accentMuted);
+  --color-highlight: var(--highlight);
+  --color-altBack: var(--altBack);
+  --color-mainText: var(--mainText);
+  --color-lightText: var(--lightText);
+  --color-linkText: var(--linkText);
+  --color-golden: var(--golden);
+}
+
+  :root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --mainBack: #f9f4ef;
+  --mainContent: #fffffe;
+  --altContent: #fff8dc;
+  --accent: #f25042;
+  --highlight: #7b3f00;
+  --altBack: #deb887;
+  --mainText: #8b4513;
+  --lightText: #ffffff;
+  --darkText: #000000;
+}
+
+.dark {
+  --background: #171717;
+  --foreground: #ffffff;
+  --mainBack: #222222;
+  --mainContent: #303030;
+  --altContent: #3c3c3c;
+  --accent: #f25042;
+  --highlight: #ffa500;
+  --altBack: #696969;
+  --mainText: #ffffff;
+  --lightText: #000000;
+  --darkText: #ffffff;
+}*/
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@layer utilities {
+  .bg-background {
+    background-color: var(--color-background);
+  }
+  .text-foreground {
+    color: var(--color-foreground);
+  }
+}
+
