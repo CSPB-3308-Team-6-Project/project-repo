@@ -1,32 +1,8 @@
 # Team 6 Project README
-_In alignment with Milestone 1, this README has been created with the following information_
+_In alignment with Milestone 1, this README has been created with the following information. It is subject to change_
 
 ## Project Title
 Health Tracker - General Health/feeling with numerical answers to basic questions + stats/graphs/report
-
-```
-NOTES: 
-Ideas for Proposal: 
-  1. Work out app that directs you specific work outs and videos for workouts
-    - Logging of workout sessions
-  2. Calorie tracker with math based on variables (personal and external)
-    - Sport/Weather/Body weight
-  3. Animal care tracking
-  4. Injury Tracking
-    - Yes/no questions
-    - 
-  6. Health Tracking
-    - How many glasses of water? How many hours of sleep? etc.
-    - 
-
-     Tracker--
-       - Guidance based on the user
-       - Prompts after a track to see how the results are -> gives report at end
-    
-
-
-     (Wants to make sure this will be something we can all track and connect with so we can see growth as use ourselves as a growth)
-```
 
 ## Team Information
 - **Team Number:** 6
@@ -46,17 +22,17 @@ _For more info, in the Repo go to Documentation -> Collaborators_Info_
 
 ---
 
-## Vision Statement - Linda
+## Vision Statement
 Heath Tracker is a personal web application designed to help an individual track progress on variables that support general health and well-being. The application will allow users to easily track data such as amount of water, sleep, exercise, general nutrition, etc. each day and provide reporting to the user can see progress. 
 
 ---
 
-## Motivation - Linda
+## Motivation
 People generally know what is recommended for general health and well-being, but keeping track of progress is hard, especially if the recommendations are not already a part of your normal habits. Using an easy interface to track daily activities can help provide gentle reminders and reports can sustain motivation for continued progress and habit building. 
 
 ---
 
-## Risks to Project Completion - Ledy
+## Risks to Project Completion
 ### Communication Gaps in a Remote Environment
 Because the team operates entirely remotely, there is an increased risk of miscommunication, delayed responses, or unclear expectations regarding task ownership and deliverables. 
 
@@ -68,7 +44,7 @@ Some team members will be working with new programming languages, frameworks, or
 
 ---
 
-## Mitigation Strategy - Conner
+## Mitigation Strategy
 ### Clear Communication Practices
 To reduce miscommunication and unclear expectations, the team will hold consistent weekly meetings and use a shared communication platform for day-to-day questions and updates. Tasks will be clearly defined and tracked in a shared project board to ensure ownership and visibility. Meeting notes and decisions will be documented to keep everyone aligned and prevent misunderstandings.
 
@@ -91,15 +67,19 @@ challenges.
 
 ## Development Steps
 
-(I will update this more once we meet and decide some initial stuff so this is more steps rather than a checklist)
-
-  1. Decide stack
-  2. Discuss Routes, Types, Pages, and Experience
-  3. Assign work
-  4. Build initial app and get everyone access
-  5. Build routes
-  6. Add supporting pages
-  7. Stylize
+  1. Decide on the requirements needed to solve the problem we aim to fix
+      - The stack we will need
+      - The scope of the work (number of user pathways)
+      - Level of user interaction
+      - Types of reporting, stats, and graphs
+  2. Design database schema (types) for users, trackers, graphs, and reporting
+  3. Begin building a skeleton to work from
+      - Frontend: Basic Homepage, Profile, and Route layouts (not fully implemented yet)
+      - Backend: Structure API routes with types assigned so the UI can test Database interactions
+  4. Fill in frontend routes such as Graphs, Reporting, Manipulating tasks (creating, editing, deleting, etc), Profile, homepage, modals(?).
+  5. Sew together Frontend and Backend while testing to assure cohesion and user stability
+  6. Test Frontend and Backend further after both have been fully integrated together. (More so frontend testing here)
+  7. Stylize, Polish, and Fill gaps
   8. Finalize
 
 ---
@@ -111,5 +91,15 @@ The Project Tracking is done via Github within the Organization we are all a par
 ---
 
 ## Technology Stack
+
+### Frontend
+- HTML and CSS with Tailwind for layout and styling
+- JavaScript with React and Mantine for interactive UI components
+
+### Backend
+- Prisma and SQL with RESTful API routes leveraging connection to our database
+  
+### Database
+- PostgreSQL for development, with the option to migrate to SQLite if local machines don't work
 
 
