@@ -1,5 +1,4 @@
 # Team 6 Project README
-_In alignment with Milestone 1, this README has been created with the following information. It is subject to change_
 
 ## Project Title
 Health Tracker - General Health/feeling with numerical answers to basic questions + stats/graphs/report
