@@ -97,7 +97,7 @@ The Project Tracking is done via Github within the Organization we are all a par
 - JavaScript with React and Mantine for interactive UI components
 
 ### Backend
-- Prisma and SQL with RESTful API routes leveraging connection to our database
+- Prisma and Supabase(SQL) with RESTful API routes leveraging connection to our Supabase database
   
 ### Database
 - PostgreSQL for development, with the option to migrate to SQLite/Flask(Python)/MongoDB(final fallback) depending on how backend work goes
