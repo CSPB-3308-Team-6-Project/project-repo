@@ -14,6 +14,7 @@ _For more info, in the Repo go to Documentation -> Collaborators_Info_
 - **Conner Mongoven** (GitHub: `mongovencm`, Email: Conner.Mongoven@colorado.edu)
 - **Ledys De La Rosa** (GitHub: `ledy11`, Email: Ledy.DeLaRosa@colorado.edu)
 - **Linda Maccagnan** (GitHub: `lmaccagnan`, Email: Linda.Maccagnan@colorado.edu)
+- **Stephanie Gillihan** (GitHub: `sgillihan`, Email: Stephanie.Gillihan@colorado.edu)
 
 ### Scheduled Weekly Team Meeting
 **Wednesdays, 5:00 PM MT**
