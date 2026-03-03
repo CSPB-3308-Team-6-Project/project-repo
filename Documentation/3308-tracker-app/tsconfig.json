@@ -40,7 +40,7 @@
     ".next/types/**/*.ts",
     "next-env.d.ts",
     ".next/dev/types/**/*.ts"
-  ],
+, "types/prisma-models/prisma-user.prisma"  ],
   "exclude": [
     "node_modules",
     ".react-email"
