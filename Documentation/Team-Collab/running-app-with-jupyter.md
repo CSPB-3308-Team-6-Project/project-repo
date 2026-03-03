@@ -1,14 +1,13 @@
 # Running App 
 
-## With Jupyter (MAIN)
-
+### With Jupyter (MAIN)
 
 - Open Jupyterhub, and clone our repo into your files.
 - cd into the app so for me it's 3308/team-project/project-repo/Documentation/3308-tracker-app/
 - Now, open new launcher and click VC Code IDE
 - It should take you to a new window for VS Code and it should have your folders on the right.
 
-### YOU WILL ONLY NEED TO DO THESE ONCE:
+#### YOU WILL ONLY NEED TO DO THESE ONCE:
 
 - In the root of the folder, add a file ".env.local". It'll be on the same level with the config files.
 - In the .env.local add "NEXT_ASSET_PREFIX=https://coding.csel.io/user/<YOUR_NAME>/codeserver/proxy/3000"
@@ -26,6 +25,8 @@
 - do npm install (this will install the deps from the project)
 - Now do npm run build, this will take a second to build. This is just to make sure everything installed right
 - You can begin the app with npm run dev or npm run start. I recommend using npm run dev to see changes a bit quicker without having to rebuild it every time.
+
+_END OF ONLY DO ONCE_
 
 ### Everytime you log in:
 
