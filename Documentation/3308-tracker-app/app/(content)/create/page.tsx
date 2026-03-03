@@ -8,7 +8,7 @@
 'use client' //required at the top of any interactive component
 
 import { useState } from 'react'
-import { CreateButton } from '../components/createButton'
+import { CreateButton } from '../../components/createButton'
 export default function CreateEntryPage() {
     const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
     const handleCreate = async () => {

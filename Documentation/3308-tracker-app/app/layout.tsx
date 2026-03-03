@@ -2,8 +2,8 @@
 import '@mantine/dates/styles.css';
 import '@mantine/charts/styles.css';
 import '@mantine/core/styles.css';
-import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
+import { Geist, Geist_Mono } from "next/font/google";
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
 import { Metadata } from 'next';
 
