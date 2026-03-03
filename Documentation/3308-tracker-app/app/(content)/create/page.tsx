@@ -6,9 +6,11 @@
 // displays a success message when the POST request is successful
 
 'use client' //required at the top of any interactive component
+import { href } from '../../../lib/url-helper';
 
 import { useState } from 'react'
-import { CreateButton } from '../../components/createButton'
+import { CreateButton } from './components/createButton'
+import Link from 'next/link'
 export default function CreateEntryPage() {
     const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
     const handleCreate = async () => {
@@ -35,6 +37,9 @@ export default function CreateEntryPage() {
             <CreateButton onClick={handleCreate} disabled={state === 'loading'} loading={state === 'loading'} />
             {state === 'success' && <p>Entry created successfully</p>}
             {state === 'error' && <p>Failed to create entry</p>}
+            <Link href={href('/')}>
+                Homepage
+            </Link>
         </div>
     )
 }

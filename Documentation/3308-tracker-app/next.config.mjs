@@ -5,10 +5,13 @@ const withBundleAnalyzerConfig = withBundleAnalyzer({
 });
 
 const assetPrefix = process.env.NEXT_ASSET_PREFIX ?? '';
-
+const basePath = process.env.NEXT_BASE_PATH ?? '';
+  
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   assetPrefix,
+  ...(basePath && { basePath }),
+
 
   async headers() {
     return [
