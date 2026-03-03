@@ -36,7 +36,18 @@
 
 - Run npm run build to make sure it passes without build errors
 - Either create a branch and push
-- Or if you're sure you only touched your own files, push to main. Not advised to avoid merge conflicts but okay if working on your own stuff 
+- Or if you're sure you only touched your own files, push to main. Not advised to avoid merge conflicts but okay if working on your own stuff
+- If you need to stash changes you've made before pulling from main (like if you forgot to pull or changes were made while you were coding):
+    - git stash push -m "some message to help declare your stash"
+    - git pull origin main
+    - Assuming git pull origin main ran without issues, do: git stash pop
+        - else: Fix conflicts if easy, or ask Carl if need help. Then git stash pop
+    - After git stash pop, fix your merges if any
+    - git add .
+    - git commit -m 'Some message for your commit'
+- If you want to create a new branch (preferred for most things)
+    - git checkout -b branch-name
+    - git push origin branch-name
 
 
 ### Notes
