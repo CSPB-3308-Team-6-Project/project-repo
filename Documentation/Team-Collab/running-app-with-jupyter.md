@@ -3,14 +3,17 @@
 ## With Jupyter (MAIN)
 
 - Open Jupyterhub, and clone our repo into your files.
+- cd into the app so for me it's 3308/team-project/project-repo/Documentation/3308-tracker-app/
 - Now, open new launcher and click VC Code IDE
 - It should take you to a new window for VS Code and it should have your folders on the right.
-- cd into the app so for me it's 3308/team-project/project-repo/Documentation/3308-tracker-app/
 - In the root of the folder, add a file ".env.local". It'll be on the same level with the config files.
 - In the .env.local add "NEXT_ASSET_PREFIX=https://coding.csel.io/user/<YOUR_NAME>/codeserver/proxy/3000"
     - Remove <YOUR_NAME> and replace it with your cuid.
     - Mine for example: NEXT_ASSET_PREFIX=https://coding.csel.io/user/case9539/codeserver/proxy/3000
     - Save
+- In the .env.local file add NEXT_PUBLIC_BASE_PATH=https://coding.csel.io/user/<YOUR_NAME>/codeserver/proxy/3000
+    - It's the same as above
+    - I'm keeping these seperate despite having the same path because one is for assets, the other is for file routing
 - Open a new terminal (Ctrl + `)
 - do npm install (this will install the deps from the project)
 - Now do npm run build, this will take a second to build
