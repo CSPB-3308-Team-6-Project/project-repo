@@ -1,0 +1,100 @@
+# Team 6 Project Weekly Status for Milestone 3. 
+### March 4th 2026
+
+## Project Title
+Health Tracker - General Health/feeling with numerical answers to basic questions + stats/graphs/report
+
+## Team Information
+- **Team Number:** 6
+- **Team Name:** The Trackers
+
+### Team Members
+_For more info, in the Repo go to Documentation -> Collaborators_Info_
+
+- **Carl Seaholm** (GitHub: `cdseaholm`, Email: cdseaholm@gmail.com)
+- **Conner Mongoven** (GitHub: `mongovencm`, Email: Conner.Mongoven@colorado.edu)
+- **Ledys De La Rosa** (GitHub: `ledy11`, Email: Ledy.DeLaRosa@colorado.edu)
+- **Linda Maccagnan** (GitHub: `lmaccagnan`, Email: Linda.Maccagnan@colorado.edu)
+- **Stephanie Gillihan** (GitHub: `sgillihan`, Email: Stephanie.Gillihan@colorado.edu)
+
+### Scheduled Weekly Team Meeting
+**Wednesdays, 5:00 PM MT**
+30-60 minutes via Zoom
+
+---
+
+## Overview
+This document captures the **weekly status** of the TRACKERS project. Specifically for Milestone 3, due March 5th.
+It is to provide insight into the progress, plans, and hurdles faced during the weekly meetings.
+This weekly status format is designed to:
+- Create a solidified plan to follow and keep us on track
+- Track progress
+- Raise concerns/questions
+
+---
+
+## Project Management Snapshot
+The team is using a shared Github organization connected to the repo to manage tasks and sprint progress.
+At the time of this report:
+- Columns include: ToDo, In Progress, Done
+- Tasks are assigned to individual team members
+- Due dates and priorities
+- Go to ./milestone-3-board-image to see the board as it stands now.
+  - You can see we have kept it up to date with each milestone/meeting and have began to dole out individual responsibilites. Each which has details within their cards.
+
+---
+
+## Progress Since Last Week
+
+This week, the team focused on soldifying project setup, type/schema creation and beginning to build.
+Key accomplishments include:
+- Creation of a shared GitHub repository with all members added
+- Establishment of a basic frontend and backend project structure
+- Agreement on the minimum viable product (MVP) feature set
+  - Single mood tracker with create, delete, edit, get
+  - User interface
+  - User sign up, delete, edit, get
+- Initial page ideation
+
+---
+
+## Completed Tasks
+- Integrated new team member Stephanie into the group
+- Confirmed User and Mood type schemas for Prisma and App usage
+- Divided the work needed for the next few weeks
+- Made sure everyone's enviornment is running
+- Set up all dependencies
+- Agree on direction the app is flowing in
+
+---
+
+## Planned Tasks for Next Week
+- Initial pages set up and meeting requirements for Milestone 4
+- User and Mood CREATE, EDIT, DELETE, GET, forms, and pages stood up (if not finished)
+- Create Nav routing, as well as a clean UI
+- Setting up Auth for security
+
+---
+
+## Blockers and Issues
+No major technical blockers were encountered this week.
+
+---
+
+## Risks and Mitigation
+- Time constraints
+  - Making sure we are staying on time with Milestones and keeping our eyes aware of the finish line.
+  - Mitigating this by proper planning and communication with team members.
+- Understanding what we are doing
+  - Mitigating by making sure that each student in this project doesn't feel lost, unheard, or left behind as we move forward.
+---
+
+## Team Reflection
+
+While the task has been taken on, there have been early concerns surrounding the direction and some confusion with the project.
+Carl mitigated these concerns by:
+  - understanding what each student wanted to learn
+  - dividing the work appropriately based on desires
+  - answering clarifying questions
+  - Siloing each person's work so that merge conflicts shouldn't be much of an issue for now (mostly to reduce mental load of things to think about
+
