@@ -6,7 +6,7 @@
 // displays a success message when the POST request is successful
 
 'use client' //required at the top of any interactive component
-import { href } from '../../../lib/url-helper';
+import { href } from '../../../../lib/url-helper';
 
 import { useState } from 'react'
 import { CreateButton } from './components/createButton'

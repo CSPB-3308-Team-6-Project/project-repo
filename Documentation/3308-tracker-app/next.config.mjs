@@ -12,7 +12,6 @@ const nextConfig = {
   assetPrefix,
   ...(basePath && { basePath }),
 
-
   async headers() {
     return [
       {
@@ -30,12 +29,7 @@ const nextConfig = {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks']
   },
   productionBrowserSourceMaps: true,
-  webpack: (config, { dev }) => {
-    if (!dev) {
-      config.devtool = 'source-map';
-    }
-    return config;
-  }
+  turbopack: {},
 };
 
 export default withBundleAnalyzerConfig(nextConfig);
