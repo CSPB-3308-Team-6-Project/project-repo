@@ -39,7 +39,7 @@ At the time of this report:
 - Columns include: ToDo, In Progress, Done
 - Tasks are assigned to individual team members
 - Due dates and priorities
-- Go to ./milestone-3-board-image to see the board as it stands now.
+- Go to ./march-4-project-board-screenshot.png to see the board as it stands now.
   - You can see we have kept it up to date with each milestone/meeting and have began to dole out individual responsibilites. Each which has details within their cards.
 
 ---
@@ -77,7 +77,8 @@ Key accomplishments include:
 ---
 
 ## Blockers and Issues
-No major technical blockers were encountered this week.
+- Proxy routing with Jupyter/Next.js css files was the only one.
+- Worked around this by creating dynamic forwards and making sure each project partner's .env's and organized correctly
 
 ---
 
