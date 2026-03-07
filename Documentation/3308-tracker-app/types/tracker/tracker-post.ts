@@ -1,5 +1,8 @@
+import { Emotion } from '@/lib/generated/prisma/enums'
+
 export interface ITrackerPost {
     _id: string,
-    val: string,
-    else: boolean
+    val: number, //intensity 1-10
+    emotion: Emotion,
+    recordedAt: Date //timestamp
 }
