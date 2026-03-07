@@ -18,8 +18,8 @@ datasource db {
 model User {
   id         Int      @id @default(autoincrement())
   email      String   @unique
-  name       String?
-  cuID       String?  @unique
+  name       String
+  cuID       String   @unique
   trackerIDs String[]
   createdAt  DateTime @default(now())
 }
