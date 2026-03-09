@@ -6,6 +6,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 import { Metadata } from 'next';
 import Providers from '@/components/providers/providers';
+import NavWrapper from '@/components/nav-wrapper';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,9 +34,11 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>
+      <Providers>
+        <NavWrapper>
           {children}
-        </Providers>
+        </NavWrapper>
+      </Providers>
       </body>
     </html>
   );
