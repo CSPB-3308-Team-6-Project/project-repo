@@ -1,8 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import IUser from "@/models/user";
-// import { VerifyPassword } from "@/utils/userHelpers/verifyPassword";
-// import connectDB from "@/lib/mongodb";
+import { prisma } from "@/lib/prisma";
+import { verifyPassword } from "@/lib/auth";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -11,52 +10,30 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials) => {
+      authorize: async (credentials): Promise<{ id: string; email: string; name: string } | null> => {
         try {
           const { email, password } = credentials as Record<string, string>;
 
-          if (!email || !password) {
-            return null;
-          }
+          if (!email || !password) return null;
 
-        //  need to wait for prisma set
-        //   await connectDB();
-        //   const user = await MongoUser.findOne({ email });
-        //   if (!user) {
-        //     return null;
-        //   }
+          // Prisma equivalent of MongoUser.findOne({ email })
+          const user = await prisma.user.findUnique({ where: { email } });
+          if (!user) return null;
 
-        //   const validPassword = await VerifyPassword(password, user.password);
-        //   if (!validPassword) {
-        //     return null;
-        //   }
+          const validPassword = await verifyPassword(password, user.password);
+          if (!validPassword) return null;
 
-        //   const plainUser = user.toObject();
-        //   const userID = plainUser._id.toString();
-        //   return {
-        //     id: userID,
-        //     email: plainUser.email,
-        //     name: plainUser.name,
-        //   };
-        return {
-            id: '',
-            email: 'fake',
-            name: 'stand in'
-        }
+          return { id: user.id.toString(), email: user.email, name: user.name };
         } catch (error) {
-          console.error('Error during authorization:', error);
+          console.error("Error during authorization:", error);
           return null;
         }
       },
-    })
+    }),
   ],
-  session: {
-    strategy: 'jwt',
-  },
+  session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: '/signin',
-  },
+  pages: { signIn: "/signin" },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -77,5 +54,4 @@ export const authOptions: NextAuthOptions = {
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };

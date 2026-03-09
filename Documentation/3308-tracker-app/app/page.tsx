@@ -12,6 +12,7 @@ export default async function Home() {
     //     id: 1,
     //     name: "Linda",
     //     email: "lima7804@colorado.edu",
+    //     password: "added by carl -- sorry (change to what you want)"
     //     cuID: "lima7804",
     //     trackerIDs: [],
     //     createdAt: new Date(),

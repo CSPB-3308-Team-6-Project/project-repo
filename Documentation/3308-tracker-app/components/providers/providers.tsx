@@ -5,7 +5,7 @@ import { MantineProvider } from "@mantine/core";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <SessionProvider>
+    <SessionProvider basePath={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/api/auth`}>
       <MantineProvider>
         {children}
       </MantineProvider>
