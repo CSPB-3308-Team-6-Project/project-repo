@@ -17,3 +17,7 @@
       const session = await getServerSession(authOptions);
       ```
     - [More info](https://next-auth.js.org/getting-started/example#backend---api-route)
+- In order to access the server sessions and do some DB functions, add the proxy path to the .env.local under a new name: 
+    ```
+    NEXTAUTH_URL=https://coding.csel.io/user/case9539/codeserver/proxy/3000
+    ```
