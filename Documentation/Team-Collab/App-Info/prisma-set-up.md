@@ -3,9 +3,9 @@
 ## Setup
 
 - Go into your project, if you haven't set it up, go to ./running-app-with-jupyter.md and do that first
-- Create a .env
+- Create an .env
   - You will have both a .env and a .env.local
-- Add both of these:
+- Add both of these to the .env:
 
 ```
 DATABASE_URL="postgresql://postgres.upykzizdesiqqhvoircc:[password]@aws-0-us-west-2.pooler.supabase.com:6543/postgres?pgbouncer=true"
