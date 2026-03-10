@@ -35,3 +35,12 @@ _In MT_
 >Phone: 303-910-0589
 >Availability: Weekends flexible?
 >Stack familiarity: Python, C++ (-), SQL, HTML
+
+**Stephanie**
+_In MT_
+
+>Github: sgillihan
+>Email: Stephanie.Gillihan@colorado.edu
+>Phone: 281-793-8849
+>Availability: Evenings and weekends
+>Stack familiarity: Python, C++
