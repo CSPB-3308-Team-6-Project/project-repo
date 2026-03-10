@@ -35,15 +35,15 @@ Teams may replace these with hand-drawn screenshots later.
 ### Page Title
 Home
 ### Page Description
-Purpose: Introduce HEalth & Emotion Tracker and display links to app functionalities.Provide a short feature summary so the purpose is clear before authentication.
+Purpose: Introduce Health & Emotion Tracker and display links to app functionalities.Provide a short feature summary so the purpose is clear before authentication.
 ### Parameters
 - **Route params**: n/a
 - **Query params**: n/a
 - **State params**: n/a
 ### Data
-- **Auth state**: None- accessible to new users
-- **API data**: 
-- **UI state**:
+- **Auth state**: Page is accessible to all users. The nav menu's options will depend on if the user is signed in or not. (Sign in and Register/Sign out and Profile)
+- **API data**: n/a
+- **UI state**: Nav UI buttons will change in the nav depending on it the user is signed in or not.
 ### Link Destinations
 
 ### List of Tests
@@ -57,12 +57,12 @@ Profile
 ### Page Description
 Purpose: Existing users can view their account profile and edit information such as password and email.
 ### Parameters
-- **Route params**:
-- **Query params**:
-- **State params**:
+- **Route params**: n/a
+- **Query params**: n/a
+- **State params**: n/a
 ### Data
-- **Auth state**: user must be authenticated- the page is only accessible to existing users
-- **API data**:
+- **Auth state**: User must be authenticated- the page is only accessible to existing users
+- **API data**: n/a
 - **UI state**:
 ### Link Destinations
 link
