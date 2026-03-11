@@ -49,6 +49,27 @@ Purpose: Introduce Health & Emotion Tracker and display links to app functionali
 ### List of Tests
 
 
+### Mock:
+```
+User signed in
++------------------------------------------------------------------------------------------------------+
+| HEALTH TRACKER [ Move home button to title? ] --- [ Home ] [ Profile ] [ Trackers ] [ Reports ] [ Meet the Team ] [ Sign Out ] |
+|------------------------------------------------------------------------------------------------------|
+| About the App                                                                                        |
+|                                                                                                      |
++------------------------------------------------------------------------------------------------------+
+```
+```
+User not Signed in
++-------------------------------------------------------------------------------------------------------+
+| HEALTH TRACKER [ Move home button to title? ] --- [ Home ] [ Register ] [ Meet the Team ] [ Sign In ] |
+|------------------------------------------------------------------------------------------------------ |
+| About the App                                                                                         |
+|                                                                                                       |
++-------------------------------------------------------------------------------------------------------+
+```
+
+
 ---
 
 ## 2) Profile Page
@@ -69,6 +90,20 @@ link
 ### List of Tests
 tests
 
+
+### Mock:
+```
++------------------------------------------------------+
+| StudySync                                            |
+| "Coordinate study sessions, tasks, and progress."    |
+|------------------------------------------------------|
+| [ Log In ]                               [ Sign Up ] |
+|------------------------------------------------------|
+| Features                                             |
+| Shared tasks with owners + due dates                 |
++------------------------------------------------------+
+```
+
 ---
 
 ## 3) Reports Page
@@ -88,6 +123,19 @@ Purpose: Existing users can view summary statistics and trends for their mood lo
 link
 ### List of Tests
 tests
+
+### Mock:
+```
++------------------------------------------------------+
+| StudySync                                            |
+| "Coordinate study sessions, tasks, and progress."    |
+|------------------------------------------------------|
+| [ Log In ]                               [ Sign Up ] |
+|------------------------------------------------------|
+| Features                                             |
+| Shared tasks with owners + due dates                 |
++------------------------------------------------------+
+```
 
 ---
 
@@ -119,6 +167,19 @@ Purpose: Existing users can log an emotion and its associated intensity. The pag
 10. Renders a link back to the Homepage
 11. Calls `createEntry` with the correct `{ emotion, val }` payload when the button is clicked
 
+### Mock:
+```
++------------------------------------------------------+
+| StudySync                                            |
+| "Coordinate study sessions, tasks, and progress."    |
+|------------------------------------------------------|
+| [ Log In ]                               [ Sign Up ] |
+|------------------------------------------------------|
+| Features                                             |
+| Shared tasks with owners + due dates                 |
++------------------------------------------------------+
+```
+
 ---
 
 ## 5) Mood List Page
@@ -146,6 +207,19 @@ Purpose: Existing users can view their entire history of emotion logging, with t
 7. Renders a Delete button for each entry
 8. Renders a link to create a new entry
 9. Clicking Delete calls `deleteEntry` with the correct entry id
+
+### Mock:
+```
++------------------------------------------------------+
+| StudySync                                            |
+| "Coordinate study sessions, tasks, and progress."    |
+|------------------------------------------------------|
+| [ Log In ]                               [ Sign Up ] |
+|------------------------------------------------------|
+| Features                                             |
+| Shared tasks with owners + due dates                 |
++------------------------------------------------------+
+```
 
 ---
 
@@ -196,388 +270,4 @@ Cancel button → redirects to /
 
 
 
-
----
----
-everything below is from the sample for reference and should be deleted once we populate the required information above.
-
----
----
-# PAGE_TESTING.md
-
-This document defines the **pages** StudySync will implement and what is required to (1) render them correctly and (2) test them consistently.
-
-At least **5 independent pages** are included below.
-
----
-
-## Conventions Used in This Document
-
-### Parameter Types
-- **Route params**: values embedded in the URL path (e.g., `/groups/:groupId`)
-- **Query params**: values after `?` in the URL (e.g., `?tab=tasks`)
-- **State params**: values passed through navigation state (optional; avoid for critical data)
-
-### Data Types
-- **Auth state**: current user identity + session token
-- **API data**: data fetched from backend services
-- **UI state**: transient values like form fields, selected filters, toggles
-
-### Mockups
-Each page includes a **low-fidelity mockup** (ASCII wireframe). Teams may replace these with hand-drawn screenshots later.
-
----
-
-# 1) Landing Page
-
-## Page Title
-Landing Page (Welcome)
-
-## Page Description
-Purpose: Introduce StudySync and allow users to log in or create an account. Provide a short feature summary so the purpose is clear before authentication.
-
-**Mockup (low-fidelity):**
-```
-+------------------------------------------------------+
-| StudySync                                            |
-| "Coordinate study sessions, tasks, and progress."    |
-|------------------------------------------------------|
-| [ Log In ]   [ Sign Up ]                             |
-|------------------------------------------------------|
-| Features                                             |
-|  • Availability overlap                              |
-|  • Shared tasks with owners + due dates              |
-|  • Progress overview per group                       |
-+------------------------------------------------------+
-```
-
-## Parameters Needed for the Page
-- Route params: none
-- Query params: optional `?redirect=/path` (if user was sent here from a protected page)
-
-## Data Needed to Render the Page
-- Minimal static content (app name, tagline, feature list)
-- Auth state (to redirect logged-in users)
-- Optional: A/B test or announcement banner content (static config)
-
-## Link Destinations for the Page
-- **Log In** → `/login`
-- **Sign Up** → `/signup`
-- (Optional) Learn more / About → `/about` (if implemented)
-
-## Tests for Verifying Rendering of the Page
-1. **Renders key UI elements**
-   - App title displays
-   - Log In and Sign Up buttons are visible and clickable
-2. **Redirect behavior for authenticated users**
-   - If user is logged in, navigating to `/` redirects to `/dashboard`
-3. **Redirect query param**
-   - Visiting `/?redirect=/groups/123` and clicking Log In should preserve redirect intent (either via query or state)
-
----
-
-# 2) Login Page
-
-## Page Title
-Log In
-
-## Page Description
-Purpose: Authenticate returning users.
-
-**Mockup (low-fidelity):**
-```
-+-------------------------------------------+
-| StudySync | Log In                        |
-|-------------------------------------------|
-| Email:    [____________________]          |
-| Password: [____________________]          |
-| [ Log In ]                                |
-|-------------------------------------------|
-| Forgot password?   Create account         |
-+-------------------------------------------+
-```
-
-## Parameters Needed for the Page
-- Query params: optional `?redirect=/path` (post-login redirect)
-- Route params: none
-
-## Data Needed to Render the Page
-- UI state: email, password, validation errors, loading state
-- API: auth endpoint response (token, user profile summary)
-- Auth state storage: token persistence (e.g., localStorage) and in-memory auth context
-
-## Link Destinations for the Page
-- Submit success → `/dashboard` (or `redirect` target if provided)
-- Create account → `/signup`
-- Forgot password → `/reset-password` (optional)
-
-## Tests for Verifying Rendering of the Page
-1. **Form elements render**
-   - Email input, password input, Log In button visible
-2. **Validation**
-   - Empty submit shows validation messages
-3. **Auth success flow**
-   - Successful login stores token and navigates to `/dashboard` (or redirect)
-4. **Auth failure flow**
-   - Invalid credentials display error banner/message and remain on page
-
----
-
-# 3) Dashboard Page
-
-## Page Title
-Dashboard
-
-## Page Description
-Purpose: Provide a snapshot of the user’s groups, upcoming sessions, and tasks.
-
-**Mockup (low-fidelity):**
-```
-+------------------------------------------------------+
-| Top Nav: [Dashboard] [Groups] [Availability] [Tasks] |
-+------------------------------------------------------+
-| My Groups                 | Upcoming Sessions        |
-|---------------------------+--------------------------|
-| • CS Project Team         | Tue 6–7pm (CS Project)   |
-| • Math Study Group        | Thu 5–6pm (Math)         |
-|                           |                          |
-+---------------------------+--------------------------+
-| My Tasks Due                                          |
-|------------------------------------------------------|
-| [ ] Finish UI mockups (Group A) - Fri                |
-| [ ] Review API design (Group B) - Sun                |
-+------------------------------------------------------+
-```
-
-## Parameters Needed for the Page
-- Route params: none
-- Query params (optional):
-  - `?group=GROUP_ID` to pre-filter task list
-  - `?view=compact|full` to toggle layout (optional)
-
-## Data Needed to Render the Page
-- Auth state: current user id
-- API data:
-  - `GET /api/groups?memberId=...` → list of groups
-  - `GET /api/sessions/upcoming?memberId=...` → upcoming sessions (optional if sessions are tracked)
-  - `GET /api/tasks?assigneeId=...&status!=complete` → tasks assigned to user
-- UI state:
-  - selected group filter (optional)
-
-## Link Destinations for the Page
-- Group name click → `/groups/:groupId`
-- “View all tasks” → `/tasks`
-- “Update availability” → `/availability`
-- “Create group” → `/groups/new` (optional)
-
-## Tests for Verifying Rendering of the Page
-1. **Protected route**
-   - Unauthenticated user is redirected to `/login`
-2. **Group list renders**
-   - If API returns groups, they appear in “My Groups”
-3. **Tasks list renders**
-   - Tasks show checkbox + title + due date
-4. **Empty states**
-   - If no groups, show message and CTA (e.g., “Create or join a group”)
-   - If no tasks, show “No tasks due” message
-5. **Navigation links**
-   - Clicking a group navigates to correct `/groups/:groupId`
-
----
-
-# 4) Group Page
-
-## Page Title
-Group Page (Collaboration Space)
-
-## Page Description
-Purpose: Provide a central view for a single group: membership, shared tasks, and availability overlap.
-
-**Mockup (low-fidelity):**
-```
-+------------------------------------------------------+
-| Top Nav ...                                          |
-+------------------------------------------------------+
-| Group: CS Project Team   Members: Alice, Ben, ...    |
-|------------------------------------------------------|
-| Overlap (common times)                               |
-|  • Thu 5–6pm                                         |
-|  • Tue 6–7pm                                         |
-|------------------------------------------------------|
-| Tasks                                                |
-| [ ] UI Prototype (Alice) - Fri                       |
-| [ ] DB Schema (Ben) - Sun                            |
-|------------------------------------------------------|
-| [Add Task]   [View Availability]                     |
-+------------------------------------------------------+
-```
-
-## Parameters Needed for the Page
-- Route params:
-  - `groupId` (required) from `/groups/:groupId`
-- Query params (optional):
-  - `?tab=overview|tasks|availability` (if using a tabbed view)
-
-## Data Needed to Render the Page
-- Auth state: current user id (to show permissions/actions)
-- API data:
-  - `GET /api/groups/:groupId` → group name, description, members
-  - `GET /api/availability/overlap?groupId=...` → computed overlap slots
-  - `GET /api/tasks?groupId=...` → group tasks
-- UI state:
-  - selected tab (if applicable)
-  - task filter (status, assignee) (optional)
-
-## Link Destinations for the Page
-- Member profile click (optional) → `/users/:userId`
-- Add task → `/groups/:groupId/tasks/new` (or open modal)
-- View tasks → `/tasks?groupId=:groupId`
-- View availability overlap / edit → `/availability?groupId=:groupId`
-
-## Tests for Verifying Rendering of the Page
-1. **Route param required**
-   - Visiting `/groups/` without `groupId` shows error or redirects
-2. **Group header renders**
-   - Group name + member list visible
-3. **Overlap section renders**
-   - If overlap exists, show list of common time slots
-   - If no overlap, show “No common time slot found” message
-4. **Task list renders**
-   - Tasks show title, assignee, due date
-5. **Actions available only to members**
-   - Non-members cannot access (redirect or “access denied”)
-6. **Links**
-   - “Add Task” navigates to correct route or opens modal
-
----
-
-# 5) Availability Input Page
-
-## Page Title
-Availability Input
-
-## Page Description
-Purpose: Allow a user to set weekly availability, and optionally preview overlap with a selected group.
-
-**Mockup (low-fidelity):**
-```
-+------------------------------------------------------+
-| StudySync | Availability                             |
-+------------------------------------------------------+
-| Week Grid (select time blocks)                       |
-|        Mon   Tue   Wed   Thu   Fri                   |
-| 8–10   [ ]   [X]   [ ]   [X]   [ ]                   |
-|10–12   [ ]   [X]   [ ]   [X]   [ ]                   |
-|12– 2   [ ]   [ ]   [ ]   [X]   [ ]                   |
-|------------------------------------------------------|
-| [ Save ]   [ Clear ]                                 |
-| Overlap Preview (optional): Thu 5–6pm, Tue 6–7pm      |
-+------------------------------------------------------+
-```
-
-## Parameters Needed for the Page
-- Route params: none
-- Query params (optional):
-  - `?groupId=:groupId` to show overlap preview for that group
-
-## Data Needed to Render the Page
-- Auth state: current user id
-- API data:
-  - `GET /api/availability?userId=...` → existing availability blocks
-  - `PUT /api/availability` → save updated availability
-  - If `groupId` provided:
-    - `GET /api/availability/overlap?groupId=...` → group overlap preview after user updates (optional live calc)
-- UI state:
-  - selected blocks (set of time tokens)
-  - save status (saving, saved, error)
-
-## Link Destinations for the Page
-- Back to dashboard → `/dashboard`
-- If group context provided → `/groups/:groupId`
-
-## Tests for Verifying Rendering of the Page
-1. **Grid renders**
-   - Time blocks appear for expected days and times
-2. **Selection behavior**
-   - Clicking a block toggles selection state
-3. **Load existing data**
-   - Pre-existing availability is pre-selected after load
-4. **Save flow**
-   - Clicking Save calls API and shows success message
-5. **Group overlap preview**
-   - With `?groupId=...`, overlap preview appears and updates after save (or after fetch)
-6. **Empty state**
-   - If no blocks selected, Save still works and clears availability on backend (if allowed)
-
----
-
-# 6) Task Management Page
-
-## Page Title
-Task Management
-
-## Page Description
-Purpose: Create, assign, and track tasks for a group (or across groups). Show tasks by status and allow updates.
-
-**Mockup (low-fidelity):**
-```
-+------------------------------------------------------+
-| StudySync | Tasks                                    |
-+------------------------------------------------------+
-| New Task: [________________________]                 |
-| Assign:  [ v ]   Due: [ mm/dd ]   Group: [ v ] [Add] |
-|------------------------------------------------------|
-| To Do                    In Progress        Complete |
-|------------------------------------------------------|
-| • UI Mockups (Dana)       • API Wiring (Carlos)      |
-| • DB Schema (Ben)                                 •  |
-+------------------------------------------------------+
-```
-
-## Parameters Needed for the Page
-- Route params: none
-- Query params (optional):
-  - `?groupId=:groupId` filter tasks to one group
-  - `?assigneeId=:userId` filter tasks by assignee
-  - `?status=todo|inprogress|complete` for focused view
-
-## Data Needed to Render the Page
-- Auth state: current user id
-- API data:
-  - `GET /api/tasks?...` → tasks (filtered)
-  - `POST /api/tasks` → create task
-  - `PATCH /api/tasks/:taskId` → update status, assignment, due date
-  - `GET /api/groups?memberId=...` → populate group filter
-  - `GET /api/groups/:groupId/members` → populate assignee dropdown (when group selected)
-- UI state:
-  - new-task form fields
-  - selected filters
-  - drag/drop state (optional if implementing kanban)
-
-## Link Destinations for the Page
-- Task detail (optional) → `/tasks/:taskId`
-- Back to group (if `groupId`) → `/groups/:groupId`
-- Dashboard → `/dashboard`
-
-## Tests for Verifying Rendering of the Page
-1. **List sections render**
-   - To Do, In Progress, Complete columns visible
-2. **Create task**
-   - Fill form and click Add creates task and appears in To Do
-3. **Update status**
-   - Changing status moves task to correct column
-4. **Filtering**
-   - With `?groupId=...`, only tasks from that group appear
-5. **Assignee dropdown**
-   - When a group is selected, assignee list populates with group members
-6. **Empty states**
-   - If no tasks, show “No tasks yet” message and keep form visible
-
----
-
-## Notes for Implementation
-- These pages are intended for **React** with a simple top navigation bar.
-- Tests can be implemented as:
-  - **Manual UI checklist** during development, and/or
-  - Automated tests using **React Testing Library** + mock API responses.
 
