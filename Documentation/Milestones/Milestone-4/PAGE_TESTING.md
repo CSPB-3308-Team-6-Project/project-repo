@@ -155,8 +155,8 @@ Register
 ### Page Description
 Purpose: This page allows a new user to create a profile by entering their basic account information. 
 ### Parameters
-- **Route params**:
-- **Query params**:
+- **Route params**: None
+- **Query params**: None
 - **State params**: Form input values for name, email, password, and cuID
 ### Data
 - **Auth state**: None- accessible to new users
