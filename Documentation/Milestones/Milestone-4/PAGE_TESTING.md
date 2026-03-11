@@ -154,9 +154,9 @@ Purpose: Existing users can view their entire history of emotion logging, with t
 Register
 ### Page Description
 Purpose: This page allows a new user to create a profile by entering their basic account information.
-
+```
 +----------------------------------------------+
-|               ###REGISTER                    |
+|              ####REGISTER                    |
 |                                              |
 |        First Name: [______________]          |
 |        Last Name:  [______________]          |
@@ -165,6 +165,8 @@ Purpose: This page allows a new user to create a profile by entering their basic
 |                                              |
 |                [ Submit ]                    |
 +----------------------------------------------+
+```
+
 ### Parameters
 - **Route params**: None
 - **Query params**: None
