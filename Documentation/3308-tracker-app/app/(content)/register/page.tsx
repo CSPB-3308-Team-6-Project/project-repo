@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 //Import the CreateUser function from actions file
-import { createUser } from "../actions";
+import { createUser } from "./actions";
 
 //Export default primary value module gives to app
 //RegisterPage Function essentially builds the page, which is the main function to be exported
