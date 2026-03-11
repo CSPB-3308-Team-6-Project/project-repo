@@ -153,19 +153,29 @@ Purpose: Existing users can view their entire history of emotion logging, with t
 ### Page Title
 Register
 ### Page Description
-Purpose: New users can sign up and create an account
+Purpose: This page allows a new user to create a profile by entering their basic account information. 
 ### Parameters
 - **Route params**:
 - **Query params**:
-- **State params**:
+- **State params**: Form input values for name, email, password, and cuID
 ### Data
 - **Auth state**: None- accessible to new users
-- **API data**:
-- **UI state**:
+- **API data**: None at the moment. This page uses a server action instead of an API route for form submission.
+- **UI state**: Empty form fields on initial render then user input values in the fields before submission
+
 ### Link Destinations
-link
+Register button → createUser → redirect to /profile
+
 ### List of Tests
-tests
+1. Register page loads
+2. Form fields appear on screen
+3. Fields are empty on initial load
+4. User can type in fields
+5. Register button appears
+6. Submit button appears
+7. Submitting valid data calls create server action
+8. Successful submission redirects correctly
+
 
 
 
