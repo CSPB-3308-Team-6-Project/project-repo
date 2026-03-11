@@ -93,15 +93,13 @@ tests
 
 ### Mock:
 ```
-+------------------------------------------------------+
-| StudySync                                            |
-| "Coordinate study sessions, tasks, and progress."    |
-|------------------------------------------------------|
-| [ Log In ]                               [ Sign Up ] |
-|------------------------------------------------------|
-| Features                                             |
-| Shared tasks with owners + due dates                 |
-+------------------------------------------------------+
++--------------------------------------------------------+
+| Health Tracker                              [Nav Items]|
+|--------------------------------------------------------|
+| Profile                                                |
+| User Information                                       |
+| [Edit Info]                           [Delete Account] |
++--------------------------------------------------------+
 ```
 
 ---
@@ -126,15 +124,12 @@ tests
 
 ### Mock:
 ```
-+------------------------------------------------------+
-| StudySync                                            |
-| "Coordinate study sessions, tasks, and progress."    |
-|------------------------------------------------------|
-| [ Log In ]                               [ Sign Up ] |
-|------------------------------------------------------|
-| Features                                             |
-| Shared tasks with owners + due dates                 |
-+------------------------------------------------------+
++--------------------------------------------------------+
+| Health Tracker                              [Nav Items]|
+|--------------------------------------------------------|
+| Reports                                      [Filters] |
+| {Chart or Stat info based on Filters and data loaded}  |
++--------------------------------------------------------+
 ```
 
 ---
@@ -169,15 +164,16 @@ Purpose: Existing users can log an emotion and its associated intensity. The pag
 
 ### Mock:
 ```
-+------------------------------------------------------+
-| StudySync                                            |
-| "Coordinate study sessions, tasks, and progress."    |
-|------------------------------------------------------|
-| [ Log In ]                               [ Sign Up ] |
-|------------------------------------------------------|
-| Features                                             |
-| Shared tasks with owners + due dates                 |
-+------------------------------------------------------+
++--------------------------------------------------------+
+| Health Tracker                              [Nav Items]|
+|--------------------------------------------------------|
+| Log a Mood                                             |
+|                                                        |
+|   {Form Information emptied initially}                 |
+|   {Form name}                                          |
+|   {Form Mood}                                          |
+|   {Etc.}                                               |
++--------------------------------------------------------+
 ```
 
 ---
@@ -210,15 +206,32 @@ Purpose: Existing users can view their entire history of emotion logging, with t
 
 ### Mock:
 ```
-+------------------------------------------------------+
-| StudySync                                            |
-| "Coordinate study sessions, tasks, and progress."    |
-|------------------------------------------------------|
-| [ Log In ]                               [ Sign Up ] |
-|------------------------------------------------------|
-| Features                                             |
-| Shared tasks with owners + due dates                 |
-+------------------------------------------------------+
++--------------------------------------------------------+
+| Health Tracker                              [Nav Items]|
+|--------------------------------------------------------|
+| Log a Mood                                             |
+|                                                        |
+|   [ Tracked Mood Item          [Edit/Delete Button] ]  |
+|   [ Tracked Mood Item          [Edit/Delete Button] ]  |
+|   [ Tracked Mood Item          [Edit/Delete Button] ]  |
+|   [ Tracked Mood Item          [Edit/Delete Button] ]  |
++--------------------------------------------------------+
+```
+
+### Mock:
+```
++--------------------------------------------------------+
+| Health Tracker                              [Nav Items]|
+|--------------------------------------------------------|
+| Mood Log Edit Form                        [Delete Log] |
+|                                                        |
+|   {Logged Modd Form Filled in}                         |
+|   {Form name filled in}                                |
+|   {Form Mood filled in}                                |
+|   {Etc.}                                               |
+|                                                        |
+|   [Save Changes]                                       |
++--------------------------------------------------------+
 ```
 
 ---
@@ -233,10 +246,11 @@ Purpose: This page allows a new user to create a profile by entering their basic
 +----------------------------------------------+
 |                   REGISTER                   |
 |                                              |
-|        First Name: [______________]          |
-|        Last Name:  [______________]          |
-|        Email:      [______________]          |
-|        Password:   [______________]          |
+|             Name*: [______________]          |
+|            Email*: [______________]          |
+|              CuID: [______________]          |
+|         Password*: [______________]          |
+|  Confirm Password: [______________]          |
 |                                              |
 |                [ Submit ]                    |
 +----------------------------------------------+
