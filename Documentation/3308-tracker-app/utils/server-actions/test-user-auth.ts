@@ -25,7 +25,7 @@ export async function TestUserAuth({ userToSet }: { userToSet: IUser }) {
         if (!newUser) {
             return {worked: false, message: 'Error creating user'}
         }
-
+        
         return {worked: true, message: 'Success'}
 
     } catch (e: any) {
