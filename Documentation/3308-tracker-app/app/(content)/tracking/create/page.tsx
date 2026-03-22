@@ -5,7 +5,7 @@
 // - renders CreateButton
 // - clicking CreateButton triggers entry creation logic
 // - displays success or error message
-
+/*
 'use client' //required at the top of any interactive component
 import { href } from '../../../../lib/url-helper';
 
@@ -21,7 +21,7 @@ export default function CreateEntryPage() {
     const handleCreate = async () => {
         setState('loading')
         try {
-            const result = await createEntry({ val: Number(val), emotion })
+            const result = await createEntry({ val: Number(val), emotion: emotion })
             if (result.success) {
                 setState('success')
             } else {
@@ -48,3 +48,4 @@ export default function CreateEntryPage() {
         </div>
     )
 }
+    */
