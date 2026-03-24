@@ -1,10 +1,20 @@
+import { IUser } from '@/types/user/user'
+
 export default function ProfilePage() {
 
-    const mockUser = {
+    // const mockUser = {
+    //   name: "Test User",
+    //   email: "test@email.com",
+    //   dob: "3/21/2000",
+    //   joined: "1/1/2026"
+    // }
+    const mockUser: IUser = {
+      id: 1,
       name: "Test User",
       email: "test@email.com",
-      dob: "3/21/2000",
-      joined: "1/1/2026"
+      cuID: "cu123",
+      trackerIDs: [],
+      createdAt: new Date("2026-01-01")
     }
   
     return (
@@ -18,8 +28,7 @@ export default function ProfilePage() {
   
           <p><strong>Name:</strong> {mockUser.name}</p>
           <p><strong>Email:</strong> {mockUser.email}</p>
-          <p><strong>DOB:</strong> {mockUser.dob}</p>
-          <p><strong>Member Since:</strong> {mockUser.joined}</p>
+          <p><strong>Member Since:</strong> {mockUser.createdAt.toLocaleDateString()}</p>
   
         </div>
   
