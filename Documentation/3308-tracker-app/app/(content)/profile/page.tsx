@@ -1,41 +1,45 @@
-import { IUser } from '@/types/user/user'
+import { Card, Container, Stack, Text, Title } from '@mantine/core';
+import ProfileActions from './ProfileActions';
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+  const user = {
+    id: 1,
+    firstName: 'Ledy',
+    lastName: 'User',
+    email: 'ledy@example.com',
+    cuID: '123456789',
+    createdAt: new Date('2026-01-01'), /*Mock data for now*/
+  };
 
-    // const mockUser = {
-    //   name: "Test User",
-    //   email: "test@email.com",
-    //   dob: "3/21/2000",
-    //   joined: "1/1/2026"
-    // }
-    const mockUser: IUser = { //remove this when auth is ready
-      id: 1,
-      name: "Test User",
-      email: "test@email.com",
-      cuID: "cu123",
-      trackerIDs: [],
-      createdAt: new Date("2026-01-01")
-    }
-    // const session = await getServerSession(authOptions)
-    // const mockUser = await prisma.user.findUnique({
-    // where: { email: session.user.email }
-    // }) as IUser
-  
-    return (
-      <div>
-  
-        <h1 className="text-3xl font-bold mb-4">Profile</h1>
-  
-        <p>This page shows information about the logged in user.</p>
-  
-        <div className="mt-6 border p-4 rounded">
-  
-          <p><strong>Name:</strong> {mockUser.name}</p>
-          <p><strong>Email:</strong> {mockUser.email}</p>
-          <p><strong>Member Since:</strong> {mockUser.createdAt.toLocaleDateString()}</p>
-  
-        </div>
-  
-      </div>
-    )
-  }
+  return (
+    <Container size="sm" py="xl">
+      <Stack gap="lg">
+        <Title order={1}>Profile</Title>
+
+        <Card shadow="sm" padding="lg" radius="md" withBorder>
+          <Stack gap="xs">
+            <Text>
+              <strong>First Name:</strong> {user.firstName}
+            </Text>
+            <Text>
+              <strong>Last Name:</strong> {user.lastName}
+            </Text>
+            <Text>
+              <strong>Email:</strong> {user.email}
+            </Text>
+            <Text>
+              <strong>CU ID:</strong> {user.cuID}
+            </Text>
+            <Text>
+              <strong>Member Since:</strong>{' '}
+              {user.createdAt.toLocaleDateString()}
+            </Text>
+          </Stack>
+        </Card>
+
+        <ProfileActions user={user} />
+      </Stack>
+    </Container>
+  );
+}
+
