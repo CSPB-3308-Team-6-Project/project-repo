@@ -8,7 +8,7 @@ export default function ProfilePage() {
     //   dob: "3/21/2000",
     //   joined: "1/1/2026"
     // }
-    const mockUser: IUser = {
+    const mockUser: IUser = { //remove this when auth is ready
       id: 1,
       name: "Test User",
       email: "test@email.com",
@@ -16,6 +16,10 @@ export default function ProfilePage() {
       trackerIDs: [],
       createdAt: new Date("2026-01-01")
     }
+    // const session = await getServerSession(authOptions)
+    // const mockUser = await prisma.user.findUnique({
+    // where: { email: session.user.email }
+    // }) as IUser
   
     return (
       <div>
