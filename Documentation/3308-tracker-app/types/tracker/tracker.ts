@@ -1,5 +1,7 @@
+import { ITrackerPost } from './tracker-post'
+
 export interface ITracker {
-    _id: string,
+    id: string,
     title: string,
-    trackerPostIDs: string[],
+    trackerPosts:  ITrackerPost[],
 }

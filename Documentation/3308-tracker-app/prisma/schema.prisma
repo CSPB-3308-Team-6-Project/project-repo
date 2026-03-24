@@ -28,7 +28,7 @@ model User {
 model Tracker {
   id              String  @id  @default(uuid())
   title           String
-  trackerPostIDs  String[] 
+  trackerPosts    TrackerPost[] 
 } 
 
 enum Emotion {
@@ -43,4 +43,6 @@ model TrackerPost {
   val         Int
   emotion     Emotion
   recordedAt  DateTime @default(now())
+  tracker     Tracker @relation(fields: [trackerID], references: [id])
+  trackerID   String
 }                 
