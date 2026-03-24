@@ -39,7 +39,7 @@ enum Emotion {
 
 model TrackerPost {
   id          String  @id  @default(uuid())
-  val         Int
+  rating       Int
   emotion     Emotion
   recordedAt  DateTime @default(now())
   tracker     Tracker @relation(fields: [trackerID], references: [id])
