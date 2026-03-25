@@ -1,14 +1,15 @@
 import { Card, Container, Stack, Text, Title } from '@mantine/core';
 import ProfileActions from './ProfileActions';
+import { IUser } from '@/types/user/user';
 
 export default async function ProfilePage() {
-  const user = {
+  const user: IUser = {
     id: 1,
-    firstName: 'Ledy',
-    lastName: 'User',
+    name: 'Ledy User',
     email: 'ledy@example.com',
     cuID: '123456789',
-    createdAt: new Date('2026-01-01'), /*Mock data for now*/
+    trackerIDs: [],
+    createdAt: new Date('2026-01-01'),
   };
 
   return (
@@ -18,12 +19,7 @@ export default async function ProfilePage() {
 
         <Card shadow="sm" padding="lg" radius="md" withBorder>
           <Stack gap="xs">
-            <Text>
-              <strong>First Name:</strong> {user.firstName}
-            </Text>
-            <Text>
-              <strong>Last Name:</strong> {user.lastName}
-            </Text>
+            <Text><strong>Name:</strong> {user.name}</Text>
             <Text>
               <strong>Email:</strong> {user.email}
             </Text>
@@ -37,7 +33,13 @@ export default async function ProfilePage() {
           </Stack>
         </Card>
 
-        <ProfileActions user={user} />
+        <ProfileActions user={{
+          firstName: user.name.split(' ')[0],
+          lastName: user.name.split(' ')[1] || '',
+          email: user.email,
+          cuID: user.cuID,
+  }}
+/>
       </Stack>
     </Container>
   );
