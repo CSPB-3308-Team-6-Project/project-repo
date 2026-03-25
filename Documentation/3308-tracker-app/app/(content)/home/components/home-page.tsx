@@ -34,7 +34,7 @@ export default function HomePage() {
           <Button
             size="lg"
             component={Link}
-            href={href('/mood/create')}
+            href={href('/tracking/create')}
           >
             Log Your Mood
           </Button>

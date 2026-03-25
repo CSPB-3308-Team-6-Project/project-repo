@@ -9,10 +9,7 @@ export default function NavWrapper({ children }: { children: React.ReactNode }) 
 
   return (
 
-    <AppShell
-      header={{ height: 60 }}
-      padding="md"
-    >
+    <AppShell header={{ height: 60 }} padding="md">
 
       <AppShell.Header style={{ borderBottom: "3px solid #eaeaea" }}>
 
@@ -34,12 +31,10 @@ export default function NavWrapper({ children }: { children: React.ReactNode }) 
               Reports
             </Button>
 
-            <Button component={Link} href={href('/mood/create')}>
-              Create Mood
-            </Button>
+            {/* NEW TRACKING STRUCTURE */}
 
-            <Button component={Link} href={href('/mood/list')} variant="outline">
-              Mood List
+            <Button component={Link} href={href('/tracking')}>
+              Tracking
             </Button>
 
             <Button component={Link} href={href('/register')} color="green">
