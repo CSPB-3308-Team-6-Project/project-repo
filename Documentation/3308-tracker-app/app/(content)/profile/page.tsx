@@ -26,6 +26,7 @@ export default async function Page() {
         where: { email: session.user. email }
       }) as IUser;
 
+      //From Carl: Perfect, no changes I can see right now
       if (userDoc) {
         userInfo = userDoc;
       }

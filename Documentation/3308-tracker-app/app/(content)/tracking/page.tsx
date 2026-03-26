@@ -57,6 +57,12 @@ export default async function Page() {
             }
         }
 
+        //From Carl: Very well done! (Copied note from reports page)
+        //There is concept in engineering called "never nesting", 
+        //where you don't nest if statements within eachother.
+        //Also, you could maybe add some console logs in case 
+        //but outside those minor details, great job here
+
     } catch (e) {
         console.log('Error with db: ', e);
     }

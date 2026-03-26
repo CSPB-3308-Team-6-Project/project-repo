@@ -1,39 +1,41 @@
-//Lindas
+// Linda's
 
-import HomePage from './(content)/home/components/home-page';
-//import type { IUser} from '@/types/user/user';
+//Note from Carl: Moved this file to page.tsx below layout since we need 1 for the default page. 
 
-export default async function Home() {
 
-    // const session = await getServerSession()
-    // let userInfo: IUser | null = null
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
+import { prisma } from "@/lib/prisma";
+import HomePage from "./(content)/home/components/home-page";
+import { IUser } from "@/types/user/user";
 
-    //Fake user data - replace with session data when auth set up
-//TODO: Uncomment and pass to HomePage once Connor updates component    
-    // const fakeUser: IUser = {
-    //     id: 1,
-    //     name: "Linda",
-    //     email: "lima7804@colorado.edu",
-    //     password: "added by carl -- sorry (change to what you want)"
-    //     cuID: "lima7804",
-    //     trackerIDs: [],
-    //     createdAt: new Date(),
-    // }
-    //Example of a Server Action
+export default async function Page() {
 
-// TODO: Pass userInfo to HomePage once Conner updates the component to accept props
-    // //this utilizes server sessions which reduces our need for API routes
-    // //I imagine we will do API RESTful so as to be in line with class expectations
-    // if (session?.user?.email) {
-    //   try {
-    //     const userDoc = await prisma.user.findUnique({
-    //       where: { email: session.user.email }
-    //     }) as IUser;
-    //     userInfo = userDoc ? userDoc : null
-    //   } catch (e) {
-    //     console.log('Error with db: ', e)
-    //   }
-    // }
-  
-    return <HomePage />
+    let userInfo = null as IUser | null;
+
+    const session = await getServerSession(authOptions);
+
+    // If signed in, try to get their info to pass down
+    if (session?.user?.email) {
+        try {
+
+            //From Carl: added these so it sets and passed userInfo if it's there. 
+            //I had forgot to add the params to homepage, so not problem there.
+            const userDoc = await prisma.user.findUnique({
+                where: { email: session.user.email }
+            }) as IUser;
+
+            if (userDoc) {
+                userInfo = userDoc;
+            }
+            
+            
+        } catch (e) {
+            console.log('Error with db: ', e);
+        }
+    }
+
+    //return <HomePage userInfo={userInfo} />;
+    //TEMP - once Connor's page is ready, uncomment above and delete below
+    return <HomePage userInfo={userInfo}/>
 }

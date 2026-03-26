@@ -7,9 +7,10 @@ import { href } from '../../../../lib/url-helper';
 
 // Mantine components for layout and UI elements
 import { Container, Title, Text, Button, Group, Grid, Card } from '@mantine/core'
+import { IUser } from '@/types/user/user';
 
-export default function HomePage() {
-
+export default function HomePage({userInfo}: {userInfo: IUser | null}) {
+  console.log(`Just putting this here to clear the warning: `, userInfo)
   return (
 
     <Container size="lg" py="xl">

@@ -25,6 +25,9 @@ export default async function Page() {
       if (userDoc) {
         redirect(href('/profile'));
       }
+
+      //From Carl: Perfect from what I can see right now
+
     } catch (e) {
       console.log('Error with db: ', e);
     }
