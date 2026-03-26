@@ -5,5 +5,6 @@ export interface IUser {
     email: string
     cuID: string
     trackerIDs: string[]
+    password: string
     createdAt: Date
 }

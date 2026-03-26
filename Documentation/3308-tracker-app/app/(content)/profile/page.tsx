@@ -1,47 +1,17 @@
-import { Card, Container, Stack, Text, Title } from '@mantine/core';
-import ProfileActions from './ProfileActions';
-import { IUser } from '@/types/user/user';
+//Linda's
 
-export default async function ProfilePage() {
-  const user: IUser = {
-    id: 1,
-    name: 'Ledy User',
-    email: 'ledy@example.com',
-    cuID: '123456789',
-    trackerIDs: [],
-    createdAt: new Date('2026-01-01'),
-  };
+import { IUser } from "@/types/user/user";
+import ProfilePage from "@/app/(content)/profile/(ledy)/profile-page"
 
-  return (
-    <Container size="sm" py="xl">
-      <Stack gap="lg">
-        <Title order={1}>Profile</Title>
+export default async function Page() {
+  // user
 
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-          <Stack gap="xs">
-            <Text><strong>Name:</strong> {user.name}</Text>
-            <Text>
-              <strong>Email:</strong> {user.email}
-            </Text>
-            <Text>
-              <strong>CU ID:</strong> {user.cuID}
-            </Text>
-            <Text>
-              <strong>Member Since:</strong>{' '}
-              {user.createdAt.toLocaleDateString()}
-            </Text>
-          </Stack>
-        </Card>
+  let userInfo = null as IUser | null;
 
-        <ProfileActions user={{
-          firstName: user.name.split(' ')[0],
-          lastName: user.name.split(' ')[1] || '',
-          email: user.email,
-          cuID: user.cuID,
-  }}
-/>
-      </Stack>
-    </Container>
-  );
+  //Linda get the server session using getServerSession, check the db for the user and pass the info it's there
+
+
+
+  return <ProfilePage userInfo={userInfo}/>
 }
 

@@ -1,6 +1,6 @@
 'use server' //this is a backend page, and API calls are handled indirectly through the server
 
-import { prisma } from '../../../../lib/prisma'
+import { prisma } from '../../../../../lib/prisma'
 
 export async function getEntries() {
     try {

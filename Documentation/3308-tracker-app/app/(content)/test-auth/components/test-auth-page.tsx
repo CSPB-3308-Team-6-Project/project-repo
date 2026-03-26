@@ -8,7 +8,7 @@ import { UseFormReturnType } from "@mantine/form";
 import { useState } from "react";
 import { href } from "@/lib/url-helper";
 import { signIn } from "next-auth/react";
-//import { hashPassword } from "@/lib/auth";
+import { hashPassword } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 
 export default function TestAuthPage({ userEmail }: { userEmail: string }) {
@@ -65,7 +65,7 @@ export default function TestAuthPage({ userEmail }: { userEmail: string }) {
 
             const values = testUserForm.getValues();
 
-            //const hashed = await hashPassword(values.password);
+            const hashed = await hashPassword(values.password);
 
             const userToPass = {
                 id: 0,
@@ -73,7 +73,8 @@ export default function TestAuthPage({ userEmail }: { userEmail: string }) {
                 email: values.email,
                 cuID: values.cuID,
                 trackerIDs: [],
-                createdAt: new Date(new Date().toLocaleDateString())
+                createdAt: new Date(new Date().toLocaleDateString()),
+                password: hashed
             } as IUser
 
             const path = href('/test-auth')

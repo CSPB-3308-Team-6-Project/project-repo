@@ -21,6 +21,7 @@ model User {
   name       String  
   cuID       String   @unique
   trackerIDs String[]
+  password  String
   createdAt  DateTime @default(now())
 }
 

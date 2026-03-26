@@ -1,6 +1,6 @@
 'use server' //this is a backend page, and API calls are handled indirectly through the server
 
-import { prisma } from '../../../../lib/prisma'
+import { prisma } from '../../../../../lib/prisma'
 // Prisma generate issue is causing the line below to error. Fix later?
 //import { Emotion } from '../../../../lib/generated/prisma/client'
 

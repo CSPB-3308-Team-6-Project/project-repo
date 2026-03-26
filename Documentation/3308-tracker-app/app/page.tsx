@@ -1,3 +1,5 @@
+//Lindas
+
 import HomePage from './(content)/home/components/home-page';
 //import type { IUser} from '@/types/user/user';
 

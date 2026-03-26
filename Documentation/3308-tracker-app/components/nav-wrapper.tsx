@@ -1,11 +1,38 @@
+//Conner/Carl page
+
 'use client'
 
 import Link from "next/link"
 import { href } from "@/lib/url-helper"
 
-import { AppShell, Group, Button, Title } from "@mantine/core"
+import { AppShell, Group, Button, Title } from "@mantine/core";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { CheckUser } from "@/utils/server-actions/check-user";
 
 export default function NavWrapper({ children }: { children: React.ReactNode }) {
+
+  const [user, setUser] = useState(false);
+  const { data: session } = useSession();
+
+  const checkingUser = async (email: string) => {
+    const userChecked = await CheckUser(email);
+    if (userChecked) {
+      setUser(true)
+    } else {
+      setUser(false)
+    }
+  }
+
+  useEffect(() => {
+    if (session && session.user && session.user.email) {
+      checkingUser(session.user.email)
+    } else {
+      setUser(false)
+    }
+  }, [session]);
+
+  console.log(session ? session : 'no sesh');
 
   return (
 
@@ -23,23 +50,39 @@ export default function NavWrapper({ children }: { children: React.ReactNode }) 
               Home
             </Button>
 
-            <Button component={Link} href={href('/profile')} variant="light">
-              Profile
-            </Button>
 
-            <Button component={Link} href={href('/reports')} variant="light">
+            {user && <Button component={Link} href={href('/reports')} variant="light">
               Reports
-            </Button>
+            </Button>}
 
             {/* NEW TRACKING STRUCTURE */}
 
-            <Button component={Link} href={href('/tracking')}>
-              Tracking
-            </Button>
+            {user ? (
+              <Button component={Link} href={href('/tracking')}>
+                Tracking
+              </Button>
+            ) : (
+              <Button component={Link} href={href('/login')}>
+                Login
+              </Button>
+            )}
 
-            <Button component={Link} href={href('/register')} color="green">
-              Register
-            </Button>
+            {user ? (
+              <Button component={Link} href={href('/profile')} variant="light">
+                Profile
+              </Button>
+
+            ) : (
+              <Button component={Link} href={href('/register')} color="green">
+                Register
+              </Button>
+            )}
+
+            {user &&
+              <button onClick={() => console.log('clicked log out')}>
+                Logout
+              </button>
+            }
 
           </Group>
 
