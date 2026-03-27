@@ -21,14 +21,14 @@ model User {
   name       String  
   cuID       String   @unique
   trackerIDs String[]
-  password  String
+  password   String
   createdAt  DateTime @default(now())
 }
 
 model Tracker {
-  id              String  @id  @default(uuid())
-  title           String
-  trackerPosts    TrackerPost[] 
+  id                String  @id  @default(uuid())
+  title             String
+  trackerPostIDs    String[] 
 } 
 
 enum Emotion {
@@ -43,6 +43,4 @@ model TrackerPost {
   rating       Int
   emotion     Emotion
   recordedAt  DateTime @default(now())
-  tracker     Tracker @relation(fields: [trackerID], references: [id])
-  trackerID   String
 }                 

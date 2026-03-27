@@ -8,7 +8,7 @@ import { ITracker } from "@/types/tracker/tracker"
 import { ITrackerPost } from "@/types/tracker/tracker-post"
 import { IUser } from "@/types/user/user"
 
-export default function TrackingPage({userInfo, trackerInfo, trackerPosts}: {userInfo: IUser | null, trackerInfo: ITracker | null, trackerPosts: ITrackerPost[]}) {
+export default function TrackingPage({userInfo, trackerInfo, trackerPosts}: {userInfo: IUser | null, trackerInfo: ITracker[] | null, trackerPosts: ITrackerPost[]}) {
   console.log(`Just putting this here to clear the warning: `, userInfo, trackerInfo, trackerPosts)
   return (
 

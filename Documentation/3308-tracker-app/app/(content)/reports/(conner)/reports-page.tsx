@@ -9,19 +9,35 @@ import { ITracker } from '@/types/tracker/tracker'
 import { IUser } from '@/types/user/user'
 import { ITrackerPost } from '@/types/tracker/tracker-post'
 
-export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {userInfo: IUser | null, trackerInfo: ITracker | null, trackerPosts: ITrackerPost[]}) {
+//Carl 3/27, adding this to work with your current set up and mix both trackerInfo and trackerPosts
+export interface MixedTracker {
+  id: string
+  title: string
+  trackerPosts: ITrackerPost[]
+}
+
+export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {userInfo: IUser | null, trackerInfo: ITracker[] | null, trackerPosts: ITrackerPost[]}) {
   console.log(`Just putting this here to clear the warning: `, userInfo, trackerInfo, trackerPosts)
 
-  const mockData: ITracker = {
+
+  // Carl 3/27, reworking this to work with the real data
+  const mockData = {
     id: "tracker-1",
     title: "My Mood Tracker",
-    trackerPosts: [
-      { id: "post-1", rating: 3, emotion: "Angry", recordedAt: new Date("2026-03-01") },
-      { id: "post-2", rating: 8, emotion: "Excited", recordedAt: new Date("2026-03-02") },
-      { id: "post-3", rating: 4, emotion: "Lonely", recordedAt: new Date("2026-03-03") },
-      { id: "post-4", rating: 7, emotion: "Restful", recordedAt: new Date("2026-03-04") },
-    ]
-  }
+    trackerPosts: trackerPosts
+  } as MixedTracker
+
+  //Old mock saved for you convience:
+  // const mockData: ITracker = {
+  //   id: "tracker-1",
+  //   title: "My Mood Tracker",
+  //   trackerPosts: [
+  //     { id: "post-1", rating: 3, emotion: "Angry", recordedAt: new Date("2026-03-01") },
+  //     { id: "post-2", rating: 8, emotion: "Excited", recordedAt: new Date("2026-03-02") },
+  //     { id: "post-3", rating: 4, emotion: "Lonely", recordedAt: new Date("2026-03-03") },
+  //     { id: "post-4", rating: 7, emotion: "Restful", recordedAt: new Date("2026-03-04") },
+  //   ]
+  // }
 
   /*
     Transform data into format Mantine expects for charts
