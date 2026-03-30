@@ -1,26 +1,32 @@
 'use client' //this is a client component page
 
 import { useState, useEffect } from 'react'
-import { createEntry } from '../create/actions' // Import server action for creating an entry
-import { updateEntry, deleteEntry, getEntries } from './actions';
+import { Title, Stack, Group, Card, Button, TextInput, NumberInput, Select, Text} from '@mantine/core'
+// Import server action for creating an entry, edit entry, delete entry, and get entries. These functions are defined in actions.ts and handle API calls to the backend
+import { createEntry, updateEntry, deleteEntry, getEntries } from './actions';
 
 export default function MoodListPage() {
   //useState is a react hook that create a stateful variable. It takes an initial value and returns the current value and a function to update it
-  const [entries, setEntries] = useState<{ id: string; val: number; emotion: string; recordedAt: Date }[]>([])
+  const [entries, setEntries] = useState<{ id: string; rating: number; emotion: string; recordedAt: Date }[]>([])
   const [newDate, setNewDate] = useState('')
   const [newEmotion, setNewEmotion] = useState('')
-  const [newVal, setNewVal] = useState('')
+  const [newRating, setNewRating] = useState('')
   const [editingID, setEditingID] = useState<string | null>(null)
   const [editDate, setEditDate] = useState('')
   const [editEmotion, setEditEmotion] = useState('')
-  const [editVal, setEditVal] = useState('')
+  const [editRating, setEditRating] = useState('')
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   // load Entries- call getEntries(), updates entries state
   const loadEntries = async() => {
     const result = await getEntries()
     if (result.success) {
-      setEntries(result.data)
+      setEntries(result.data.map((entry: any) => ({
+        id: entry.id,
+        rating: entry.rating,
+        emotion: entry.emotion,
+        recordedAt: entry.recordedAt
+      })))
     }
   }
   // useEffect runs code AFTER the component renders. The empty array [] means only run when the page loads, not on every re-render. Ensures no infinite loop
@@ -31,13 +37,13 @@ export default function MoodListPage() {
   const handleCreate = async () => {
     setState('loading')
     try {
-      const result = await createEntry({ date: newDate, emotion: newEmotion, val: Number(newVal) })
+      const result = await createEntry({ date: newDate, emotion: newEmotion, rating: Number(newRating) })
       console.log('createEntry results:', result)
       if (result.success) {
         //clear three form fields
         setNewDate('')
         setNewEmotion('')
-        setNewVal('')
+        setNewRating('')
         loadEntries()
         setState('success')
       } 
@@ -53,7 +59,7 @@ export default function MoodListPage() {
   const handleEdit = (entry: any) => {
     setEditingID(entry.id)
     setEditDate(new Date(entry.recordedAt).toISOString().split('T')[0])
-    setEditVal(String(entry.val))
+    setEditRating(String(entry.rating))
     setEditEmotion(entry.emotion)
   }
   // handle Save- calls updateEntry(), clears edit state, reloads entries
@@ -61,7 +67,7 @@ export default function MoodListPage() {
     if (!editingID) return //stops function if no editing ID
     setState('loading')
     try {
-      const result = await updateEntry({ id: editingID, val: Number(editVal), emotion: editEmotion, date: editDate })
+      const result = await updateEntry({ id: editingID, rating: Number(editRating), emotion: editEmotion, date: editDate })
       if (result.success) {
         //clear three form fields
         setEditingID(null)
@@ -88,49 +94,83 @@ export default function MoodListPage() {
   // Return statement will render the new entry form and the entries list
   return (
     <div>
-      <h1>My Emotion Tracker</h1>
-    <div>
-      <h2>New Entry</h2>
-      <input type="date" value={newDate} onChange={(e) => setNewDate(e.target.value)} />
-      <select value={newEmotion} onChange={(e) => setNewEmotion(e.target.value)}>
-        <option value="">Select a mood</option>
-        <option value="Angry">Angry</option>
-        <option value="Excited">Excited</option>
-        <option value="Lonely">Lonely</option>
-        <option value="Restful">Restful</option>
-      </select>
-      <input type="number" min={1} max={10} value={newVal} onChange={(e) => setNewVal(e.target.value)} />
-      <button onClick={handleCreate} disabled={state === 'loading'}>Create</button>
+        <Title order={1} mb="md">My Emotion Tracker</Title>
+
+        <Card shadow="sm" padding="lg" withBorder mb="xl">
+            <Title order={3} mb="md">New Entry</Title>
+            <Stack>
+                <TextInput
+                    type="date"
+                    label="Date"
+                    value={newDate}
+                    onChange={(e) => setNewDate(e.target.value)}
+                />
+                <Select
+                    label="Emotion"
+                    placeholder="Select a mood"
+                    value={newEmotion}
+                    onChange={(val) => setNewEmotion(val ?? '')}
+                    data={['Angry', 'Excited', 'Lonely', 'Restful']}
+                />
+                <NumberInput
+                    label="Rating (1-10)"
+                    min={1}
+                    max={10}
+                    value={newRating}
+                    onChange={(val) => setNewRating(String(val))}
+                />
+                <Button onClick={handleCreate} disabled={state === 'loading'}>
+                    Create
+                </Button>
+            </Stack>
+        </Card>
+
+        <Title order={3} mb="md">Your Entries</Title>
+        <Stack>
+            {entries.map((entry) => (
+                <Card key={entry.id} shadow="sm" padding="lg" withBorder>
+                    {editingID === entry.id ? (
+                        <Stack>
+                            <TextInput
+                                type="date"
+                                label="Date"
+                                value={editDate}
+                                onChange={(e) => setEditDate(e.target.value)}
+                            />
+                            <Select
+                                label="Emotion"
+                                placeholder="Select a mood"
+                                value={editEmotion}
+                                onChange={(val) => setEditEmotion(val ?? '')}
+                                data={['Angry', 'Excited', 'Lonely', 'Restful']}
+                            />
+                            <NumberInput
+                                label="Rating (1-10)"
+                                min={1}
+                                max={10}
+                                value={editRating}
+                                onChange={(val) => setEditRating(String(val))}
+                            />
+                            <Button onClick={handleSave} disabled={state === 'loading'}>
+                                Save
+                            </Button>
+                        </Stack>
+                    ) : (
+                        <Group justify="space-between">
+                            <Stack gap={4}>
+                                <Text fw={600}>{entry.emotion}</Text>
+                                <Text c="dimmed" size="sm">{new Date(entry.recordedAt).toISOString().split('T')[0]}</Text>
+                                <Text size="sm">Rating: {entry.rating} / 10</Text>
+                            </Stack>
+                            <Group>
+                                <Button variant="outline" onClick={() => handleEdit(entry)}>Edit</Button>
+                                <Button color="red" variant="outline" onClick={() => handleDelete(entry.id)}>Delete</Button>
+                            </Group>
+                        </Group>
+                    )}
+                </Card>
+            ))}
+        </Stack>
     </div>
-    <div>
-      <h2>Edit Entry</h2>
-      {entries.map((entry) => (
-        <div key={entry.id}>
-          {editingID === entry.id ? (
-            <>
-            <input type="date" value={editDate} onChange={(e) => setEditDate(e.target.value)} />
-            <select value={editEmotion} onChange={(e) => setEditEmotion(e.target.value)}>
-              <option value="">Select a mood</option>
-              <option value="Angry">Angry</option>
-              <option value="Excited">Excited</option>
-              <option value="Lonely">Lonely</option>
-              <option value="Restful">Restful</option>
-            </select>
-            <input type="number" min={1} max={10} value={editVal} onChange={(e) => setEditVal(e.target.value)} />
-            <button onClick={handleSave} disabled={state === 'loading'}>Save</button>
-          </>
-          ) : (
-            <>
-              <p>{new Date(entry.recordedAt).toISOString().split('T')[0]}</p>
-              <p>{entry.emotion}</p>
-              <p>{entry.val}</p>
-              <button onClick={() => handleEdit(entry)}>Edit</button>
-              <button onClick={() => handleDelete(entry.id)}>Delete</button>
-            </>
-          )}
-        </div>
-      ))}
-      </div>
-    </div>
-  )
+)
 }

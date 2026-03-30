@@ -4,13 +4,13 @@ import { prisma } from '../../../../../lib/prisma'
 // Prisma generate issue is causing the line below to error. Fix later?
 //import { Emotion } from '../../../../lib/generated/prisma/client'
 
-export async function createEntry({ val, emotion, date }: { val: number; emotion: string, date: string }) {
+export async function createEntry({ rating, emotion, date }: { rating: number; emotion: string, date?: string }) {
     try {
         await prisma.trackerPost.create({
             data: {
-                val,
+                rating,
                 emotion: emotion as any,  // must match your Emotion enum (but for now any)
-                recordedAt: new Date(date)
+                ...(date ? { recordedAt: new Date(date) } : {})
             },
         })
         return { success: true }

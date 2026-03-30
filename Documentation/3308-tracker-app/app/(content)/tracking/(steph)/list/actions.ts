@@ -2,6 +2,22 @@
 
 import { prisma } from '../../../../../lib/prisma'
 
+export async function createEntry({ rating, emotion, date }: { rating: number; emotion: string, date?: string }) {
+    try {
+        await prisma.trackerPost.create({
+            data: {
+                rating,
+                emotion: emotion as any,  // must match your Emotion enum (but for now any)
+                ...(date ? { recordedAt: new Date(date) } : {})
+            },
+        })
+        return { success: true }
+    } catch (error) {
+        console.log('createEntry error:', error)
+        return { success: false }
+    }
+}
+
 export async function getEntries() {
     try {
         // fetch all entries, order by newest date first(descending)
@@ -15,9 +31,9 @@ export async function getEntries() {
     }
 }
 
-export async function updateEntry({id, val, emotion, date}: {
+export async function updateEntry({id, rating, emotion, date}: {
     id: string
-    val: number
+    rating: number
     emotion: string
     date: string
 }) {
@@ -27,7 +43,7 @@ export async function updateEntry({id, val, emotion, date}: {
             where: { id },
             // data tells prisma what to change. fields below are updated
             data: {
-                val,
+                rating,
                 emotion: emotion as any, //work around prisma enum import issue
                 recordedAt: new Date(date), // user types a string, so this line converts to Date object
             }

@@ -21,7 +21,7 @@ export default function CreateEntryPage() {
     const handleCreate = async () => {
         setState('loading')
         try {
-            const result = await createEntry({ val: Number(val), emotion: emotion })
+            const result = await createEntry({ rating: Number(val), emotion: emotion })
             if (result.success) {
                 setState('success')
             } else {
@@ -36,7 +36,14 @@ export default function CreateEntryPage() {
             <h1>Create New Entry</h1>
             <p>Create a new mood entry.</p>
             <label htmlFor="emotion">Emotion:</label>
-            <input id="emotion" name="emotion" type="text" value={emotion} onChange={(e) => setEmotion(e.target.value)} />
+            <select id="emotion" name="emotion" value={emotion} onChange={(e) => setEmotion(e.target.value)}>
+                <option value="">Select a mood</option>
+                <option value="Angry">Angry</option>
+                <option value="Excited">Excited</option>
+                <option value="Lonely">Lonely</option>
+                <option value="Restful">Restful</option>
+            </select>
+
             <label htmlFor="value">Value:</label>
             <input id="value" name="val" type="number" value={val} onChange={(e) => setVal(e.target.value)} />
             <CreateButton onClick={handleCreate} disabled={state === 'loading'} loading={state === 'loading'} />
