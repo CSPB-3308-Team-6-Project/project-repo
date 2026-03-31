@@ -2,8 +2,15 @@
 
 import { Button } from '@mantine/core';
 import { deleteAccount } from './actions';
+import { useRouter } from 'next/navigation';
 
-export default function DeleteButton() {
+type DeleteButtonProps = {
+  userId: number;
+};
+
+export default function DeleteButton({ userId }: DeleteButtonProps) {
+  const router = useRouter();
+
   async function handleDelete() {
     const confirmed = window.confirm(
       'Are you sure you want to delete your account and all tracking data?'
@@ -11,7 +18,9 @@ export default function DeleteButton() {
 
     if (!confirmed) return;
 
-    await deleteAccount();
+    await deleteAccount(userId);
+    router.push('/');
+    router.refresh();
   }
 
   return (

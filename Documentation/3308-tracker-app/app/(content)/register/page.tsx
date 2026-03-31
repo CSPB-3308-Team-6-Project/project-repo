@@ -1,3 +1,4 @@
+
 //Lindas page
 //get user
 
@@ -33,4 +34,5 @@ export default async function Page() {
     }
   }
   return <RegisterPage userInfo={userInfo}/>
+
 }

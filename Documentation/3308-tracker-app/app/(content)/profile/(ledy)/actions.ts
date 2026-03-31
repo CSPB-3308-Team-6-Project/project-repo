@@ -1,41 +1,99 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
+
+export type PasswordResult = {
+  error: string;
+  success: string;
+};
 
 export async function updateUser(formData: FormData) {
-  const firstName = formData.get('firstName');
-  const lastName = formData.get('lastName');
-  const email = formData.get('email');
-  const cuID = formData.get('cuID');
+  const userId = Number(formData.get('userId'));
+  const firstName = formData.get('firstName')?.toString().trim();
+  const lastName = formData.get('lastName')?.toString().trim();
+  const email = formData.get('email')?.toString().trim();
+  const cuID = formData.get('cuID')?.toString().trim();
 
-  console.log('Updating user info:');
-  console.log({ firstName, lastName, email, cuID });
-
-  // TODO: update the database here later
-}
-
-export async function changePassword(formData: FormData) {
-  const oldPassword = formData.get('oldPassword');
-  const newPassword = formData.get('newPassword');
-  const confirmPassword = formData.get('confirmPassword');
-
-  if (newPassword !== confirmPassword) {
-    throw new Error('New passwords do not match.');
+  if (!userId || !firstName || !lastName || !email || !cuID) {
+    throw new Error('All fields are required.');
   }
 
-  console.log('Changing password:');
-  console.log({ oldPassword, newPassword });
+  const fullName = `${firstName} ${lastName}`.trim();
 
-  // TODO: verify old password
-  // TODO: hash new password
-  // TODO: save new password
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      name: fullName,
+      email,
+      cuID,
+    },
+  });
+
+  revalidatePath('/profile');
+  redirect('/profile');
 }
 
-export async function deleteAccount() {
-  console.log('Deleting account and tracking data');
+export async function changePassword(formData: FormData): Promise<PasswordResult> {
+  const userId = Number(formData.get('userId'));
+  const oldPassword = formData.get('oldPassword')?.toString().trim();
+  const newPassword = formData.get('newPassword')?.toString().trim();
+  const confirmPassword = formData.get('confirmPassword')?.toString().trim();
 
-  // TODO: delete user profile
-  // TODO: delete tracking data
+  if (!userId || !oldPassword || !newPassword || !confirmPassword) {
+    return {
+      error: 'All password fields are required.',
+      success: '',
+    };
+  }
 
-  redirect('/');
+  if (newPassword !== confirmPassword) {
+    return {
+      error: 'New passwords do not match.',
+      success: '',
+    };
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!user) {
+    return {
+      error: 'User not found.',
+      success: '',
+    };
+  }
+
+  if (user.password !== oldPassword) {
+    return {
+      error: 'Old password is incorrect.',
+      success: '',
+    };
+  }
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      password: newPassword,
+    },
+  });
+
+  revalidatePath('/profile');
+
+  return {
+    error: '',
+    success: 'Password updated successfully.',
+  };
+}
+
+export async function deleteAccount(userId: number) {
+  if (!userId) {
+    throw new Error('User ID is required.');
+  }
+
+  await prisma.user.delete({
+    where: { id: userId },
+  });
 }

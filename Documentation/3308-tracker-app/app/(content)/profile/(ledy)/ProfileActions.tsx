@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button, Group, Modal } from '@mantine/core';
 import ChangePasswordForm from './ChangePasswordForm';
 import DeleteButton from './DeleteButton';
 import EditProfileForm from './EditProfileForm';
+import { useRouter } from 'next/navigation';
 
 type ProfileActionsProps = {
   user: {
+    id: number;
     firstName: string;
     lastName: string;
     email: string;
@@ -18,6 +20,12 @@ type ProfileActionsProps = {
 export default function ProfileActions({ user }: ProfileActionsProps) {
   const [editOpened, setEditOpened] = useState(false);
   const [passwordOpened, setPasswordOpened] = useState(false);
+  const router = useRouter();
+
+  const handlePasswordSuccess = useCallback(() => {
+    setPasswordOpened(false);
+    router.refresh();
+  }, [router]);
 
   return (
     <>
@@ -30,7 +38,7 @@ export default function ProfileActions({ user }: ProfileActionsProps) {
           Change Password
         </Button>
 
-        <DeleteButton />
+        <DeleteButton userId={user.id} />
       </Group>
 
       <Modal
@@ -48,7 +56,10 @@ export default function ProfileActions({ user }: ProfileActionsProps) {
         title="Change Password"
         centered
       >
-        <ChangePasswordForm />
+        <ChangePasswordForm
+          userId={user.id}
+          onSuccess={handlePasswordSuccess}
+        />
       </Modal>
     </>
   );

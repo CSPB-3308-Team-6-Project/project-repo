@@ -1,71 +1,122 @@
-'use client'
+'use client';
 
-import Link from "next/link";
-import { createUser } from "./actions";
-import { IUser } from "@/types/user/user";
+import Link from 'next/link';
+import { useActionState, useEffect, useState } from 'react';
+import { signIn } from 'next-auth/react';
+import {
+  Anchor,
+  Alert,
+  Button,
+  Paper,
+  PasswordInput,
+  Stack,
+  Text,
+  TextInput,
+  Title,
+} from '@mantine/core';
+import { IUser } from '@/types/user/user';
+import { href } from '@/lib/url-helper';
+import { createUser, type RegisterState } from './actions';
 
-//Import the CreateUser function from actions file
-
-
-//Export default primary value module gives to app
-//RegisterPage Function essentially builds the page, which is the main function to be exported
-//need user from Linda
+const initialState: RegisterState = {
+  error: '',
+  success: false,
+};
 
 export default function RegisterPage({ userInfo }: { userInfo: IUser | null }) {
-    console.log(`Just putting this here to clear the warning: `, userInfo)
-    //Everything inside these parentheses is what will show on the page
-    return (
-        <div>
-            {/* Main Title*/}
-            <h1>Register</h1>
-            {/* This is the form. This part means that when the user eventually clicks the submit button,
-       It'll redirect the input to the createUser funtion. This s what it means to be 'connected to the server action'*/}
-            <form action={createUser}>
+  void userInfo;
 
-                {/* First Name input */}
-                {/* labels the box. So this field is called 'First Name'*/}
-                <div>
-                    <label htmlFor="firstName">First Name</label>
-                    {/* This is adds the actual field the user types into. It's connected to 'First Name'*/}
-                    <input id="firstName" name="firstName" type="text" />
-                </div>
+  const [state, formAction] = useActionState(createUser, initialState);
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
-                {/* Last Name input; Same thing */}
-                <div>
-                    <label htmlFor="lastName">Last Name</label>
-                    <input id="lastName" name="lastName" type="text" />
-                </div>
-                {/* Same Idea for the Rest*/}
-                <div>
-                    <label htmlFor="email">Email</label>
-                    {/* Watch out for the 'types'. In this case, its type email bc it should only pass email format*/}
-                    <input id="email" name="email" type="email" />
-                </div>
+  useEffect(() => {
+    async function autoLogin() {
+      if (!state.success || !emailValue || !passwordValue || isSigningIn) return;
 
-                <div>
-                    {/* type password hides what the user types by only showing dots or other*/}
-                    <label htmlFor="password">Password</label>
-                    <input id="password" name="password" type="password" />
-                </div>
+      setIsSigningIn(true);
 
-                <div>
-                    <label htmlFor="cuID">CU ID</label>
-                    <input id="cuID" name="cuID" type="text" />
-                </div>
+      await signIn('credentials', {
+        email: emailValue,
+        password: passwordValue,
+        callbackUrl: href('/profile'),
+      });
+    }
 
-                <div>
-                    {/* this is the submit button.clicking this button causes the form data to be sent to createUser.
-         I named the button 'Register', we can change it to submit if preferred.
-        */}
-                    <button type="submit">Register</button>
+    autoLogin();
+  }, [state.success, emailValue, passwordValue, isSigningIn]);
 
-                    {/* In case the user no longer wants to register, redirect to the homepage. '/' is homepage*/}
-                    <Link href="/">
-                        <button type="button">Cancel</button>
-                    </Link>
-                </div>
+  return (
+    <Paper radius="md" p="xl" withBorder maw={400} mx="auto" mt="xl">
+      <Title order={2} ta="center" mb="md">
+        Create an Account
+      </Title>
 
-            </form>
-        </div>
-    );
+      <form action={formAction}>
+        <Stack>
+          {state.error && (
+            <Alert color="red" title="Error">
+              {state.error}
+            </Alert>
+          )}
+
+          <TextInput
+            label="First Name"
+            name="firstName"
+            placeholder="Enter your first name"
+            required
+          />
+
+          <TextInput
+            label="Last Name"
+            name="lastName"
+            placeholder="Enter your last name"
+            required
+          />
+
+          <TextInput
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+            value={emailValue}
+            onChange={(event) => setEmailValue(event.currentTarget.value)}
+          />
+
+          <PasswordInput
+            label="Password"
+            name="password"
+            placeholder="Create a password"
+            required
+            value={passwordValue}
+            onChange={(event) => setPasswordValue(event.currentTarget.value)}
+          />
+
+          <TextInput
+            label="CU ID"
+            name="cuID"
+            placeholder="Enter your CU ID"
+            required
+          />
+
+          <Button type="submit" loading={isSigningIn}>
+            Register
+          </Button>
+
+          <Button component={Link} href={href('/')} variant="subtle">
+            Cancel
+          </Button>
+
+          <Text size="sm" ta="center">
+            Already have an account?{' '}
+            <Anchor component={Link} href={href('/login')}>
+              Log in
+            </Anchor>
+          </Text>
+        </Stack>
+      </form>
+    </Paper>
+  );
 }

@@ -4,6 +4,7 @@ import SubmitButton from './SubmitButton';
 
 type EditProfileFormProps = {
   user: {
+    id: number;
     firstName: string;
     lastName: string;
     email: string;
@@ -14,6 +15,8 @@ type EditProfileFormProps = {
 export default function EditProfileForm({ user }: EditProfileFormProps) {
   return (
     <form action={updateUser}>
+      <input type="hidden" name="userId" value={user.id} />
+
       <Stack>
         <TextInput
           label="First Name"
