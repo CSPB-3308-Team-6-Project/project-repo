@@ -6,7 +6,7 @@ import Link from "next/link"
 import { href } from "@/lib/url-helper"
 
 import { AppShell, Group, Button, Title } from "@mantine/core";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { CheckUser } from "@/utils/server-actions/check-user";
 
@@ -32,7 +32,14 @@ export default function NavWrapper({ children }: { children: React.ReactNode }) 
     }
   }, [session]);
 
-  console.log(session ? session : 'no sesh');
+  // console.log(session ? session : 'no sesh');
+
+  const signOutAttempt = () => {
+    //confirm with the user they want to signout or not.
+    // if they do, use this:
+
+    signOut();
+  }
 
   return (
 
@@ -79,7 +86,7 @@ export default function NavWrapper({ children }: { children: React.ReactNode }) 
             )}
 
             {user &&
-              <button onClick={() => console.log('clicked log out')}>
+              <button onClick={signOutAttempt}>
                 Logout
               </button>
             }
