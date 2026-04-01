@@ -2,20 +2,37 @@
 
 'use client'
 
-import Link from "next/link"
 import { href } from "@/lib/url-helper"
-
-import { AppShell, Group, Button, Title } from "@mantine/core";
+import { AppShell, Group, Button, Title, Box, LoadingOverlay } from "@mantine/core";
 import { signOut, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CheckUser } from "@/utils/server-actions/check-user";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useDisclosure } from "@mantine/hooks";
 
 export default function NavWrapper({ children }: { children: React.ReactNode }) {
 
   const [user, setUser] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
+  const pathname = usePathname();
+  const [visible, { open, close }] = useDisclosure(false); // use open/close instead of toggle
+  const navigatingTo = useRef<string | null>(null);
+
+  // When the pathname actually changes, hide the overlay
+  useEffect(() => {
+    if (navigatingTo.current !== null) {
+      close();
+      navigatingTo.current = null;
+    }
+  }, [pathname]);
+
+  const navigate = (url: string) => {
+    const urlToGo = href(url);
+    navigatingTo.current = urlToGo;
+    open();
+    router.push(urlToGo);
+  }
 
   const checkingUser = async (email: string) => {
     const userChecked = await CheckUser(email);
@@ -39,15 +56,21 @@ export default function NavWrapper({ children }: { children: React.ReactNode }) 
   const signOutAttempt = async () => {
     //confirm with the user they want to signout or not.
     // if they do, use this:
+    //
     // taken care of by Carl 4/1
+
+    open()
 
     if (!user) {
       router.replace(href('/'))
+      close()
+      return;
     }
 
     const confirm = window.confirm('Are you sure you want to log out?');
 
     if (!confirm) {
+      close()
       return;
     }
 
@@ -55,72 +78,77 @@ export default function NavWrapper({ children }: { children: React.ReactNode }) 
 
     if (signingOut) {
       router.replace(href('/'))
+      close()
+      return;
     }
 
-    
+
   }
 
   return (
+    <Box pos="relative">
+      <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+      {/* ...other content */}
 
-    <AppShell header={{ height: 60 }} padding="md">
+      <AppShell header={{ height: 60 }} padding="md">
 
-      <AppShell.Header style={{ borderBottom: "3px solid #eaeaea" }}>
+        <AppShell.Header style={{ borderBottom: "3px solid #eaeaea" }}>
 
-        <Group justify="space-between" px="md" h="100%">
+          <Group justify="space-between" px="md" h="100%">
 
-          <Title order={3}>Health Tracker</Title>
+            <Title order={3}>Health Tracker</Title>
 
-          <Group>
+            <Group>
 
-            <Button component={Link} href={href('/')}>
-              Home
-            </Button>
-
-
-            {user && <Button component={Link} href={href('/reports')} variant="light">
-              Reports
-            </Button>}
-
-            {/* NEW TRACKING STRUCTURE */}
-
-            {user ? (
-              <Button component={Link} href={href('/tracking')}>
-                Tracking
-              </Button>
-            ) : (
-              <Button component={Link} href={href('/login')}>
-                Login
-              </Button>
-            )}
-
-            {user ? (
-              <Button component={Link} href={href('/profile')} variant="light">
-                Profile
+              <Button onClick={() => navigate('/')} className="cursor-pointer">
+                Home
               </Button>
 
-            ) : (
-              <Button component={Link} href={href('/register')} color="green">
-                Register
-              </Button>
-            )}
 
-            {user &&
-              <button onClick={signOutAttempt}>
-                Logout
-              </button>
-            }
+              {user && <Button onClick={() => navigate('/reports')} className="cursor-pointer" variant="light">
+                Reports
+              </Button>}
+
+              {/* NEW TRACKING STRUCTURE */}
+
+              {user ? (
+                <Button onClick={() => navigate('/tracking')} className="cursor-pointer" variant="light">
+                  Tracking
+                </Button>
+              ) : (
+                <Button onClick={() => navigate('/login')} className="cursor-pointer" variant="light">
+                  Login
+                </Button>
+              )}
+
+              {user ? (
+                <Button onClick={() => navigate('/profile')} className="cursor-pointer" variant="light">
+                  Profile
+                </Button>
+
+              ) : (
+                <Button onClick={() => navigate('/register')} className="cursor-pointer" color="green">
+                  Register
+                </Button>
+              )}
+
+              {user &&
+                <button onClick={signOutAttempt}>
+                  Logout
+                </button>
+              }
+
+            </Group>
 
           </Group>
 
-        </Group>
+        </AppShell.Header>
 
-      </AppShell.Header>
+        <AppShell.Main>
+          {children}
+        </AppShell.Main>
 
-      <AppShell.Main>
-        {children}
-      </AppShell.Main>
-
-    </AppShell>
-
+      </AppShell>
+    </Box>
   )
 }
