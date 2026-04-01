@@ -1,9 +1,11 @@
 
 'use client'
 
-import { Title, Text, Card, Grid } from '@mantine/core'
+import { Title, Text, Card, Grid, Select } from '@mantine/core'
 
 import { LineChart } from '@mantine/charts'
+
+import { useState } from 'react'
 
 import { ITracker } from '@/types/tracker/tracker'
 import { IUser } from '@/types/user/user'
@@ -61,9 +63,26 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
     mockData.trackerPosts.reduce((sum, e) => sum + e.rating, 0) /
     mockData.trackerPosts.length
 
-  // Count how many times user felt "Happy" (Excited as example)
-  const happyCount =
-    mockData.trackerPosts.filter(e => e.emotion === "Excited").length
+  // Count how many times user felt specified emotion
+  const [selectedEmotion, setSelectedEmotion] = useState<string | null>("Excited")
+
+  const emotionOptions = Array.from(
+    new Set(trackerPosts.map(e => e.emotion))
+  ).map(e => ({
+    value: e,
+    label: e
+  }))
+
+  const selectedCount = selectedEmotion ? trackerPosts.filter(e => e.emotion === selectedEmotion).length : 0
+
+  const emotionCounts: Record<string, number> = {}
+
+  trackerPosts.forEach(e => {
+    emotionCounts[e.emotion] = (emotionCounts[e.emotion] || 0) + 1
+  })
+    
+  const mostFrequentEmotion = Object.entries(emotionCounts)
+    .sort((a, b) => b[1] - a[1])[0]?.[0] || "N/A"
 
   return (
 
@@ -84,7 +103,7 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
       <Grid mb="xl">
 
         {/* Average Rating */}
-        <Grid.Col span={{ base: 12, md: 6 }}>
+        <Grid.Col span={{ base: 12, md: 4 }}>
           <Card shadow="sm" padding="lg" withBorder>
 
             <Title order={4}>Average Mood</Title>
@@ -97,21 +116,41 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
         </Grid.Col>
 
 
-        {/* Happy Count */}
-        <Grid.Col span={{ base: 12, md: 6 }}>
+        {/* Selected Emotion Count */}
+        <Grid.Col span={{ base: 12, md: 4 }}>
           <Card shadow="sm" padding="lg" withBorder>
 
-            <Title order={4}>Times Felt Excited</Title>
+            <Title order={4}>Times Felt</Title>
 
+            {/* DROPDOWN */}
+            <Select
+              mt="sm"
+              data={emotionOptions}
+              value={selectedEmotion}
+              onChange={setSelectedEmotion}
+              placeholder="Select emotion"
+            />
+
+            {/* RESULT */}
             <Text size="xl" mt="sm">
-              {happyCount}
+              {selectedCount}
             </Text>
 
           </Card>
         </Grid.Col>
 
-      </Grid>
 
+      {/* Most Frequent Emotion */}
+        <Grid.Col span={{ base: 12, md: 4 }}>
+          <Card shadow="sm" padding="lg" withBorder>
+
+          <Title order={4}>Most Frequent Emotion</Title>
+          <Text size="xl">{mostFrequentEmotion}</Text>
+
+          </Card>
+        </Grid.Col>
+      
+      </Grid>
 
       {/* ---------------- GRAPH SECTION ---------------- */}
 
