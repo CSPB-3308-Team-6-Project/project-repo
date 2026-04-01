@@ -9,11 +9,13 @@ import { AppShell, Group, Button, Title } from "@mantine/core";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { CheckUser } from "@/utils/server-actions/check-user";
+import { useRouter } from "next/navigation";
 
 export default function NavWrapper({ children }: { children: React.ReactNode }) {
 
   const [user, setUser] = useState(false);
   const { data: session } = useSession();
+  const router = useRouter();
 
   const checkingUser = async (email: string) => {
     const userChecked = await CheckUser(email);
@@ -34,11 +36,28 @@ export default function NavWrapper({ children }: { children: React.ReactNode }) 
 
   // console.log(session ? session : 'no sesh');
 
-  const signOutAttempt = () => {
+  const signOutAttempt = async () => {
     //confirm with the user they want to signout or not.
     // if they do, use this:
+    // taken care of by Carl 4/1
 
-    signOut();
+    if (!user) {
+      router.replace(href('/'))
+    }
+
+    const confirm = window.confirm('Are you sure you want to log out?');
+
+    if (!confirm) {
+      return;
+    }
+
+    const signingOut = await signOut();
+
+    if (signingOut) {
+      router.replace(href('/'))
+    }
+
+    
   }
 
   return (
