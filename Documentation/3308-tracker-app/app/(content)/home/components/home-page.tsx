@@ -34,22 +34,48 @@ export default function HomePage({userInfo}: {userInfo: IUser | null}) {
 
         <Group justify="center" mt="xl">
 
-          <Button
-            size="lg"
-            component={Link}
-            href={href('/tracking/create')}
-          >
-            Log Your Mood
-          </Button>
+        {userInfo ? (
+          <>
+            {/* USER IS LOGGED IN */}
+            <Button
+              size="lg"
+              component={Link}
+              href={href('/tracking')}
+            >
+              Log Your Mood
+            </Button>
 
-          <Button
-            size="lg"
-            variant="light"
-            component={Link}
-            href={href('/reports')}
-          >
-            View Reports
-          </Button>
+            <Button
+              size="lg"
+              variant="light"
+              component={Link}
+              href={href('/reports')}
+            >
+              View Reports
+            </Button>
+          </>
+        ) : (
+          <>
+            {/* USER IS NOT LOGGED IN */}
+            <Button
+              size="lg"
+              component={Link}
+              href={href('/register')}
+            >
+              Sign Up
+            </Button>
+
+            <Button
+              size="lg"
+              variant="light"
+              component={Link}
+              href={href('/login')}
+            >
+              Log In
+            </Button>
+            
+          </>
+        )}
 
         </Group>
 
