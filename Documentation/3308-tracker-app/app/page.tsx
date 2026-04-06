@@ -38,4 +38,4 @@ export default async function Page() {
     //return <HomePage userInfo={userInfo} />;
     //TEMP - once Connor's page is ready, uncomment above and delete below
     return <HomePage userInfo={userInfo}/>
-}
+} 
