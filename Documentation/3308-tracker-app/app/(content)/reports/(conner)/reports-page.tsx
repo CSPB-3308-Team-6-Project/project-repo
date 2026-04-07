@@ -1,7 +1,7 @@
 
 'use client'
 
-import { Title, Text, Card, Grid, Select } from '@mantine/core'
+import { Title, Text, Card, Grid, Select, Container } from '@mantine/core'
 
 import { LineChart } from '@mantine/charts'
 
@@ -49,44 +49,82 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
       { date: "label", value: number }
     ]
   */
-  const chartData = mockData.trackerPosts.map((entry) => ({
-    date: entry.recordedAt.toISOString().split('T')[0], // "YYYY-MM-DD"
-    rating: entry.rating
-  }))
+
+  // old chart data
+  // const chartData = mockData.trackerPosts.map((entry) => ({
+  //   date: entry.recordedAt.toISOString().split('T')[0], // "YYYY-MM-DD"
+  //   rating: entry.rating
+  // }))
+
+  const emotions = ["Angry", "Excited", "Lonely", "Restful"]
+
+  const chartDataMap: Record<string, any> = {}
+
+  // build grouped data by date
+  trackerPosts.forEach((entry) => {
+    const date = entry.recordedAt.toISOString().split('T')[0]
+
+    if (!chartDataMap[date]) {
+      chartDataMap[date] = { date }
+
+      // initialize all emotions to null
+      emotions.forEach((emotion) => {
+        chartDataMap[date][emotion] = null
+      })
+    }
+
+  chartDataMap[date][entry.emotion] = entry.rating
+  })
+
+  const chartData = Object.values(chartDataMap)
+
+  // hardcoded data to see line graph
+  // const chartData = [
+  //   { date: "2026-04-01", Angry: 3, Excited: 7, Lonely: 4, Restful: 6 },
+  //   { date: "2026-04-02", Angry: 5, Excited: 6, Lonely: 2, Restful: 8 },
+  //   { date: "2026-04-03", Angry: 2, Excited: 9, Lonely: 3 },
+  //   { date: "2026-04-04", Angry: 6, Excited: 5, Lonely: 5, Restful: 4 },
+  // ]
 
   /*
     STAT CALCULATIONS
   */
 
-  // Average mood rating
-  const avgRating =
-    mockData.trackerPosts.reduce((sum, e) => sum + e.rating, 0) /
-    mockData.trackerPosts.length
-
-  // Count how many times user felt specified emotion
+  
+  // Count how many times user felt specified emotion and 
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>("Excited")
+  
+  const emotionOptions = [
+    { value: "Angry", label: "Angry" },
+    { value: "Excited", label: "Excited" },
+    { value: "Lonely", label: "Lonely" },
+    { value: "Restful", label: "Restful" },
+  ]
 
-  const emotionOptions = Array.from(
-    new Set(trackerPosts.map(e => e.emotion))
-  ).map(e => ({
-    value: e,
-    label: e
-  }))
-
-  const selectedCount = selectedEmotion ? trackerPosts.filter(e => e.emotion === selectedEmotion).length : 0
+  const selectedCount = trackerPosts.filter(e => e.emotion === selectedEmotion).length || 0
 
   const emotionCounts: Record<string, number> = {}
 
   trackerPosts.forEach(e => {
     emotionCounts[e.emotion] = (emotionCounts[e.emotion] || 0) + 1
   })
+
+  // Average logged emotion intensities
+  const [selectedAvgEmotion, setSelectedAvgEmotion] = useState<string>("Angry")
+  
+  const filteredForAvg = trackerPosts.filter((e) => e.emotion === selectedAvgEmotion)
     
+  const avgRating =
+  filteredForAvg.length > 0
+    ? filteredForAvg.reduce((sum, e) => sum + e.rating, 0) / filteredForAvg.length
+    : 0
+
   const mostFrequentEmotion = Object.entries(emotionCounts)
     .sort((a, b) => b[1] - a[1])[0]?.[0] || "N/A"
 
   return (
 
-    <div>
+    <Container size="lg">
 
       {/* PAGE TITLE */}
       <Title order={1} mb="md">
@@ -106,7 +144,14 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
         <Grid.Col span={{ base: 12, md: 4 }}>
           <Card shadow="sm" padding="lg" withBorder>
 
-            <Title order={4}>Average Mood</Title>
+            <Title order={4}>Average Mood Intensity</Title>
+
+            <Select
+              mt="sm"
+              data={emotionOptions}
+              value={selectedAvgEmotion}
+              onChange={(value) => setSelectedAvgEmotion(value || "Angry")}
+            />
 
             <Text size="xl" mt="sm">
               {avgRating.toFixed(1)} / 10
@@ -114,6 +159,18 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
 
           </Card>
         </Grid.Col>
+
+        {/* Most Frequent Emotion */}
+        <Grid.Col span={{ base: 12, md: 4 }}>
+          <Card shadow="sm" padding="lg" withBorder>
+
+          <Title order={4}>Most Frequent Emotion</Title>
+          <Text size="xl">{mostFrequentEmotion}</Text>
+
+          </Card>
+        </Grid.Col>
+      
+      
 
 
         {/* Selected Emotion Count */}
@@ -138,18 +195,7 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
 
           </Card>
         </Grid.Col>
-
-
-      {/* Most Frequent Emotion */}
-        <Grid.Col span={{ base: 12, md: 4 }}>
-          <Card shadow="sm" padding="lg" withBorder>
-
-          <Title order={4}>Most Frequent Emotion</Title>
-          <Text size="xl">{mostFrequentEmotion}</Text>
-
-          </Card>
-        </Grid.Col>
-      
+        
       </Grid>
 
       {/* ---------------- GRAPH SECTION ---------------- */}
@@ -169,18 +215,24 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
           */
           dataKey="date"
 
+          withLegend
+          legendProps={{ verticalAlign: 'top' }}
+
           /*
             series defines what lines to draw
           */
-          series={[
-            { name: "rating", label: "Mood Rating" }
-          ]}
+            series={[
+              { name: "Angry", label: "😡 Angry", color: "red" },
+              { name: "Excited", label: "😄 Excited", color: "yellow" },
+              { name: "Lonely", label: "😔 Lonely", color: "blue" },
+              { name: "Restful", label: "😌 Restful", color: "green" },
+            ]}
 
         />
 
       </Card>
 
-    </div>
+    </Container>
 
   )
 }
