@@ -12,7 +12,7 @@ import { Emotion } from '@prisma/client';
 import { colors } from '@/lib/color-scheme';
 
 export default function TrackingPage({ userInfo, trackerInfo, trackerPosts }: { userInfo: IUser | null, trackerInfo: ITracker[] | null, trackerPosts: ITrackerPost[] }) {
-  console.log('trackerInfo:', trackerInfo);
+
   //useState is a react hook that create a stateful variable. It takes an initial value and returns the current value and a function to update it
   //const [entries, setEntries] = useState<{ id: string; rating: number; emotion: string; recordedAt: Date }[]>([])
   const [editingPost, setEditingPost] = useState<ITrackerPost | null>(null)
