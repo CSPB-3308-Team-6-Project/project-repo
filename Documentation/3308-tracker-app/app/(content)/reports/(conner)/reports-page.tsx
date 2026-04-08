@@ -21,7 +21,7 @@ export interface MixedTracker {
 export default function ReportsPage({ trackerPosts, trackers, userInfo }: { trackerPosts: ITrackerPost[], trackers: ITracker[], userInfo: IUser | null }) {
 
   const { width, height } = useWindowSizes();
-  const containerHeight = height ? height - 60 : '90dvh';
+  const containerHeight = height ? height - 60 : '80dvh';
 
   // Carl 3/27, reworking this to work with the real data
   // const mockData = {
@@ -203,12 +203,11 @@ export default function ReportsPage({ trackerPosts, trackers, userInfo }: { trac
         <LogMoodModal trackers={trackers} userInfo={userInfo} buttonWidth='' size='' />
       </div>
 
-
       {/* ---------------- STATS SECTION ---------------- */}
 
-      <ScrollArea h={width > 638 ? '80dvh' : '72dvh'} w={'100%'} type="auto" scrollbarSize={8} classNames={{ root: 'w-full', viewport: 'w-full' }}>
+      <ScrollArea h={width > 1000 ? '80dvh' : width > 820 ? '75dvh' : width < 500 ? '60dvh' : width < 300 ? '20dvh' : '70dvh'} w={'100%'} type="auto" scrollbarSize={8} classNames={{ root: 'w-full', viewport: 'w-full' }}>
         <div
-          className='gap-4 z-3 flex flex-col justify-start items-center rounded-md p-4 w-full min-h-[72dvh]'
+          className='gap-4 z-3 flex flex-col justify-start items-center rounded-md p-4 w-full min-h-[50dvh] max-h-[80dvh]'
           style={{
             backgroundColor: colors.sectionInner,
             boxShadow: `inset 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 -4px 12px rgba(0, 0, 0, 0.6), inset 0 0 0 1px ${colors.divider}`,
