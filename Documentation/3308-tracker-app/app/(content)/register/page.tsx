@@ -1,5 +1,3 @@
-'use server'
-
 //Linda's page
 
 import RegisterPage from "./(ledy)/register-page";

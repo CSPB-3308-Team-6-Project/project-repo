@@ -1,5 +1,3 @@
-'use server'
-
 //Linda's
 
 import ProfilePage from "@/app/(content)/profile/(ledy)/profile-page"
@@ -12,9 +10,11 @@ import { authOptions } from "@/lib/auth/auth";
 import { ITracker } from "@/types/tracker/tracker";
 import { ITrackerPost } from "@/types/tracker/tracker-post";
 
+// Force dynamic rendering since this page requires authentication
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
 
-  let userInfo = null as IUser | null
   let trackerInfo = [] as ITracker[];
   let trackerPosts = [] as ITrackerPost[];
 
@@ -47,8 +47,6 @@ export default async function Page() {
     if (!userDoc) {
       redirect(href('/login'));
     }
-
-    userInfo = userDoc;
 
     // Step 2: use the user's trackerIDs to find their tracker
     if (userDoc.trackerIDs && userDoc.trackerIDs.length > 0) {

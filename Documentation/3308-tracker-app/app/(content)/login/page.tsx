@@ -1,5 +1,3 @@
-'use server'
-
 //Linda's
 
 import { getServerSession } from "next-auth/next";

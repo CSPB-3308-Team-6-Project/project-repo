@@ -1,5 +1,3 @@
-'use server'
-
 import { ITracker } from "@/types/tracker/tracker";
 import { ITrackerPost } from "@/types/tracker/tracker-post";
 import { IUser } from "@/types/user/user";
@@ -9,6 +7,9 @@ import { authOptions } from "@/lib/auth/auth";
 import { href } from "@/lib/url-helper";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+
+// Force dynamic rendering since this page requires authentication
+export const dynamic = 'force-dynamic';
 
 export default async function Page() {
     let userInfo = null as IUser | null

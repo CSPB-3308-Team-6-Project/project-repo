@@ -1,5 +1,3 @@
-'use server'
-
 //Lindas
 
 import { ITracker } from "@/types/tracker/tracker";
@@ -11,6 +9,9 @@ import { authOptions } from "@/lib/auth/auth";
 import { href } from "@/lib/url-helper";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+
+// Force dynamic rendering since this page requires authentication
+export const dynamic = 'force-dynamic';
 
 export default async function Page() {
 

@@ -1,4 +1,3 @@
-'use server' 
 // Linda's
 
 //Note from Carl: Moved this file to page.tsx below layout since we need 1 for the default page. 
