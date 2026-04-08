@@ -1,4 +1,4 @@
-import { Emotion } from '@/lib/generated/prisma/enums'
+import { Emotion } from '@prisma/client'
 
 export interface ITrackerPost {
     id: string,

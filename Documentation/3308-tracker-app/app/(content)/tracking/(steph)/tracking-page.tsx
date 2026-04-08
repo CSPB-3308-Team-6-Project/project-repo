@@ -8,7 +8,7 @@ import { ITracker } from '@/types/tracker/tracker';
 import { ITrackerPost } from '@/types/tracker/tracker-post';
 import { IUser } from '@/types/user/user';
 import { LogMoodModal } from './create/components/createButton';
-import { Emotion } from '@/lib/generated/prisma/enums';
+import { Emotion } from '@prisma/client';
 import { colors } from '@/lib/color-scheme';
 
 export default function TrackingPage({ userInfo, trackerInfo, trackerPosts }: { userInfo: IUser | null, trackerInfo: ITracker[] | null, trackerPosts: ITrackerPost[] }) {
