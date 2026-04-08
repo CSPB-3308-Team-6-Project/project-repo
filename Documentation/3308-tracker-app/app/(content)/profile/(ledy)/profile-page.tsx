@@ -9,10 +9,15 @@ import { IUser } from '@/types/user/user';
 export default function ProfilePage({ userInfo }: { userInfo: IUser | null }) {
   if (!userInfo) {
     return (
-      <Container size="sm" py="xl">
-        <Stack gap="lg">
-          <Title order={1}>Profile</Title>
-          <Text>No user found yet. Please register first.</Text>
+      //changes to make the page less cramped and centered
+      <Container size="md" py={50}>
+        <Stack gap="xl">
+          <Title order={1} ta="center">
+            Profile
+          </Title>
+          <Text ta="center" c="dimmed">
+            No user found yet. Please register first.
+          </Text>
         </Stack>
       </Container>
     );
@@ -21,23 +26,25 @@ export default function ProfilePage({ userInfo }: { userInfo: IUser | null }) {
   const nameParts = userInfo.name.split(' ');
 
   return (
-    <Container size="sm" py="xl">
-      <Stack gap="lg">
-        <Title order={1}>Profile</Title>
+    <Container size="md" py={50}>
+      <Stack gap="xl">
+        <Title order={1} ta="center">
+          Profile
+        </Title>
 
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-          <Stack gap="xs">
-            <Text><strong>Name:</strong> {userInfo.name}</Text>
-            <Text><strong>Email:</strong> {userInfo.email}</Text>
-            <Text><strong>CU ID:</strong> {userInfo.cuID}</Text>
-            <Text>
+        <Card shadow="md" padding="xl" radius="lg" withBorder>
+          <Stack gap="md">
+            <Text size="md"><strong>Name:</strong> {userInfo.name}</Text>
+            <Text size="md"><strong>Email:</strong> {userInfo.email}</Text>
+            <Text size="md"><strong>CU ID:</strong> {userInfo.cuID}</Text>
+            <Text size="md">
               <strong>Member Since:</strong>{' '}
               {new Date(userInfo.createdAt).toLocaleDateString()}
             </Text>
           </Stack>
         </Card>
 
-        <ProfileActions
+        *<ProfileActions
           user={{
             id: userInfo.id,
             firstName: nameParts[0] || '',
@@ -46,6 +53,7 @@ export default function ProfilePage({ userInfo }: { userInfo: IUser | null }) {
             cuID: userInfo.cuID,
           }}
         />
+        <Text>Profile actions temporarily removed for testing.</Text>
       </Stack>
     </Container>
   );

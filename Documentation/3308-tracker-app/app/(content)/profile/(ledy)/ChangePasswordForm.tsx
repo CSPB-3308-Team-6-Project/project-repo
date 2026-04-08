@@ -52,7 +52,7 @@ export default function ChangePasswordForm({
     <form onSubmit={handleSubmit}>
       <input type="hidden" name="userId" value={userId} />
 
-      <Stack>
+      <Stack gap="md">
         {error && (
           <Alert color="red" title="Error">
             {error}
@@ -66,18 +66,24 @@ export default function ChangePasswordForm({
         )}
 
         <PasswordInput
+          radius="md"
+          size="md"
           label="Old Password"
           name="oldPassword"
           required
         />
 
         <PasswordInput
+          radius="md"
+          size="md"
           label="New Password"
           name="newPassword"
           required
         />
 
         <PasswordInput
+          radius="md"
+          size="md"
           label="Confirm New Password"
           name="confirmPassword"
           required

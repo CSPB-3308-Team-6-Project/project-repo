@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useActionState, useEffect, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import {
+  Container,
   Anchor,
   Alert,
   Button,
@@ -48,13 +49,15 @@ export default function RegisterPage({ userInfo }: { userInfo: IUser | null }) {
   }, [state.success, emailValue, passwordValue, isSigningIn]);
 
   return (
-    <Paper radius="md" p="xl" withBorder maw={400} mx="auto" mt="xl">
+    //UI Changes; wrap in Mantine container, Style register card
+      <Container size="sm" py={60}>
+      <Paper radius="md" p="xl" withBorder shadow="md" maw={500} mx="auto" mt="xl">
       <Title order={2} ta="center" mb="md">
         Create an Account
       </Title>
 
       <form action={formAction}>
-        <Stack>
+        <Stack gap="md">
           {state.error && (
             <Alert color="red" title="Error">
               {state.error}
@@ -62,6 +65,8 @@ export default function RegisterPage({ userInfo }: { userInfo: IUser | null }) {
           )}
 
           <TextInput
+            radius="md"
+            size="md"
             label="First Name"
             name="firstName"
             placeholder="Enter your first name"
@@ -69,6 +74,8 @@ export default function RegisterPage({ userInfo }: { userInfo: IUser | null }) {
           />
 
           <TextInput
+            radius="md"
+            size="md"
             label="Last Name"
             name="lastName"
             placeholder="Enter your last name"
@@ -76,6 +83,8 @@ export default function RegisterPage({ userInfo }: { userInfo: IUser | null }) {
           />
 
           <TextInput
+            radius="md"
+            size="md"
             label="Email"
             name="email"
             type="email"
@@ -86,6 +95,8 @@ export default function RegisterPage({ userInfo }: { userInfo: IUser | null }) {
           />
 
           <PasswordInput
+            radius="md"
+            size="md"
             label="Password"
             name="password"
             placeholder="Create a password"
@@ -95,6 +106,8 @@ export default function RegisterPage({ userInfo }: { userInfo: IUser | null }) {
           />
 
           <TextInput
+            radius="md"
+            size="md"
             label="CU ID"
             name="cuID"
             placeholder="Enter your CU ID"
@@ -118,5 +131,6 @@ export default function RegisterPage({ userInfo }: { userInfo: IUser | null }) {
         </Stack>
       </form>
     </Paper>
+    </Container>
   );
 }

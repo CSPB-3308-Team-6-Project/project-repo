@@ -17,8 +17,10 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
     <form action={updateUser}>
       <input type="hidden" name="userId" value={user.id} />
 
-      <Stack>
+      <Stack gap="md">
         <TextInput
+          radius="md"
+          size="md"
           label="First Name"
           name="firstName"
           defaultValue={user.firstName}
@@ -26,6 +28,8 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
         />
 
         <TextInput
+          radius="md"
+          size="md"
           label="Last Name"
           name="lastName"
           defaultValue={user.lastName}
@@ -33,6 +37,8 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
         />
 
         <TextInput
+          radius="md"
+          size="md"
           label="Email"
           name="email"
           type="email"
@@ -41,6 +47,8 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
         />
 
         <TextInput
+          radius="md"
+          size="md"
           label="CU ID"
           name="cuID"
           defaultValue={user.cuID}

@@ -13,7 +13,7 @@ export default function SubmitButton({
   color,
 }: SubmitButtonProps) {
   return (
-    <Button type="submit" color={color}>
+    <Button type="submit" color={color} fullWidth radius="md">
       {label}
     </Button>
   );

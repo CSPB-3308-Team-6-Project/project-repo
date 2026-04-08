@@ -3,12 +3,14 @@
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { hashPassword, verifyPassword } from '@/lib/auth';
 
 export type PasswordResult = {
   error: string;
   success: string;
 };
 
+//check empty fields
 export async function updateUser(formData: FormData) {
   const userId = Number(formData.get('userId'));
   const firstName = formData.get('firstName')?.toString().trim();
@@ -47,7 +49,7 @@ export async function changePassword(formData: FormData): Promise<PasswordResult
       success: '',
     };
   }
-
+//check passwords match
   if (newPassword !== confirmPassword) {
     return {
       error: 'New passwords do not match.',
@@ -55,6 +57,7 @@ export async function changePassword(formData: FormData): Promise<PasswordResult
     };
   }
 
+  //get user
   const user = await prisma.user.findUnique({
     where: { id: userId },
   });
@@ -66,19 +69,43 @@ export async function changePassword(formData: FormData): Promise<PasswordResult
     };
   }
 
-  if (user.password !== oldPassword) {
+// check old password
+//Verify the password the user typed actually matches the hashed password in our database
+  const passwordMatches = await verifyPassword(oldPassword, user.password);
+
+  if (!passwordMatches) {
     return {
       error: 'Old password is incorrect.',
       success: '',
     };
   }
 
+  //Make sure new password is not the same as the old password 
+  const sameAsOld = await verifyPassword(newPassword, user.password);
+
+  if (sameAsOld) {
+    return {
+      error: 'New password must be different from the old password.',
+      success: '',
+    };
+  }
+
+  //update password
+  //Hash the new password before saving 
+  const hashedNewPassword = await hashPassword(newPassword);
   await prisma.user.update({
     where: { id: userId },
     data: {
-      password: newPassword,
+      password: hashedNewPassword,
     },
   });
+
+  //await prisma.user.update({
+  //  where: { id: userId },
+  //  data: {
+  //    password: newPassword,
+  //  },
+  //});
 
   revalidatePath('/profile');
 
