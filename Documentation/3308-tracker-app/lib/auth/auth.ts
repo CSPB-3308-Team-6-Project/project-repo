@@ -12,25 +12,41 @@ export const authOptions: NextAuthOptions = {
             },
             authorize: async (credentials): Promise<{ id: string; email: string; name: string } | null> => {
                 try {
+                    console.log("[AUTH] Starting authorization attempt");
                     const { email, password } = credentials as Record<string, string>;
 
-                    if (!email || !password) return null;
+                    if (!email || !password) {
+                        console.log("[AUTH] Missing email or password");
+                        return null;
+                    }
 
+                    console.log("[AUTH] Attempting to find user:", email);
                     // Prisma equivalent of MongoUser.findOne({ email })
                     const user = await prisma.user.findUnique({ where: { email } });
 
-                    if (!user) return null;
+                    if (!user) {
+                        console.log("[AUTH] User not found:", email);
+                        return null;
+                    }
 
+                    console.log("[AUTH] User found, verifying password");
                     const hashedPassword = user.password;
-                    if (!hashedPassword) return null;
+                    if (!hashedPassword) {
+                        console.log("[AUTH] No hashed password in database");
+                        return null;
+                    }
 
                     const validPassword = await verifyPassword({ password: password, hashedPassword: hashedPassword });
 
-                    if (!validPassword) return null;
+                    if (!validPassword) {
+                        console.log("[AUTH] Invalid password");
+                        return null;
+                    }
 
+                    console.log("[AUTH] Authorization successful for:", email);
                     return { id: user.id.toString(), email: user.email, name: user.name };
                 } catch (error) {
-                    console.error("Error during authorization:", error);
+                    console.error("[AUTH] Error during authorization:", error);
                     return null;
                 }
             },
