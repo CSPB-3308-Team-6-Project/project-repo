@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@mantine/core';
+import { colors } from '@/lib/color-scheme';
 
 type SubmitButtonProps = {
   label: string;
@@ -13,7 +14,7 @@ export default function SubmitButton({
   color,
 }: SubmitButtonProps) {
   return (
-    <Button type="submit" color={color} fullWidth radius="md">
+    <Button type="submit" color={color || colors.buttonSubmit} fullWidth radius="md">
       {label}
     </Button>
   );

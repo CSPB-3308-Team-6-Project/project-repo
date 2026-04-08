@@ -1,2 +1,2 @@
-const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const BASE = process.env.NODE_ENV === 'production' ? (process.env.NEXT_BASE_PATH ?? '') : '';
 export const href = (path: string) => `${BASE}${path}`;

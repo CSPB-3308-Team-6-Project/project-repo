@@ -3,7 +3,9 @@
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { hashPassword, verifyPassword } from '@/lib/auth';
+import { hashPassword, verifyPassword } from '@/lib/auth/password-helpers';
+import { ITracker } from '@/types/tracker/tracker';
+import { ITrackerPost } from '@/types/tracker/tracker-post';
 
 export type PasswordResult = {
   error: string;
@@ -13,16 +15,15 @@ export type PasswordResult = {
 //check empty fields
 export async function updateUser(formData: FormData) {
   const userId = Number(formData.get('userId'));
-  const firstName = formData.get('firstName')?.toString().trim();
-  const lastName = formData.get('lastName')?.toString().trim();
+  const name = formData.get('name')?.toString().trim();
   const email = formData.get('email')?.toString().trim();
   const cuID = formData.get('cuID')?.toString().trim();
 
-  if (!userId || !firstName || !lastName || !email || !cuID) {
+  if (!userId || !name || !email || !cuID) {
     throw new Error('All fields are required.');
   }
 
-  const fullName = `${firstName} ${lastName}`.trim();
+  const fullName = `${name}`.trim();
 
   await prisma.user.update({
     where: { id: userId },
@@ -49,7 +50,7 @@ export async function changePassword(formData: FormData): Promise<PasswordResult
       success: '',
     };
   }
-//check passwords match
+  //check passwords match
   if (newPassword !== confirmPassword) {
     return {
       error: 'New passwords do not match.',
@@ -69,9 +70,9 @@ export async function changePassword(formData: FormData): Promise<PasswordResult
     };
   }
 
-// check old password
-//Verify the password the user typed actually matches the hashed password in our database
-  const passwordMatches = await verifyPassword(oldPassword, user.password);
+  // check old password
+  //Verify the password the user typed actually matches the hashed password in our database
+  const passwordMatches = await verifyPassword({ password: oldPassword, hashedPassword: user.password });
 
   if (!passwordMatches) {
     return {
@@ -80,8 +81,8 @@ export async function changePassword(formData: FormData): Promise<PasswordResult
     };
   }
 
-  //Make sure new password is not the same as the old password 
-  const sameAsOld = await verifyPassword(newPassword, user.password);
+  //Make sure new password is not the same as the old password
+  const sameAsOld = await verifyPassword({ password: newPassword, hashedPassword: user.password });
 
   if (sameAsOld) {
     return {
@@ -115,12 +116,38 @@ export async function changePassword(formData: FormData): Promise<PasswordResult
   };
 }
 
-export async function deleteAccount(userId: number) {
+export async function deleteAccount(userId: number, trackers: ITracker[] | null, trackerPosts: ITrackerPost[] | null): Promise<{ success: boolean; error: string }> {
+
   if (!userId) {
-    throw new Error('User ID is required.');
+    return { success: false, error: 'User ID is required.' };
   }
 
-  await prisma.user.delete({
-    where: { id: userId },
-  });
+  try {
+
+    if (trackerPosts && trackerPosts.length > 0) {
+
+      await prisma.trackerPost.deleteMany({
+        where: { id: { in: trackerPosts.map(post => post.id) } },
+      });
+
+    }
+
+    if (trackers && trackers.length > 0) {
+
+      await prisma.tracker.deleteMany({
+        where: { id: { in: trackers.map(tracker => tracker.id) } },
+      });
+
+    }
+
+    await prisma.user.delete({
+      where: { id: userId },
+    });
+
+    return { success: true, error: '' };
+  } catch (error) {
+    console.error('Error deleting account:', error);
+    return { success: false, error: 'An error occurred while deleting the account.' };
+  }
+
 }

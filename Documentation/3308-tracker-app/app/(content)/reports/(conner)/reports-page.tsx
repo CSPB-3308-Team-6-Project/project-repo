@@ -1,15 +1,15 @@
 
 'use client'
 
-import { Title, Text, Card, Grid, Select, Container } from '@mantine/core'
-
+import { Title, Text, Card, Grid, Select, Container, ScrollArea } from '@mantine/core'
 import { LineChart } from '@mantine/charts'
-
 import { useState } from 'react'
-
+import { ITrackerPost } from '@/types/tracker/tracker-post'
+import { LogMoodModal } from '../../tracking/(steph)/create/components/createButton'
 import { ITracker } from '@/types/tracker/tracker'
 import { IUser } from '@/types/user/user'
-import { ITrackerPost } from '@/types/tracker/tracker-post'
+import { colors } from '@/lib/color-scheme'
+import { useWindowSizes } from '@/context/window-sizes'
 
 //Carl 3/27, adding this to work with your current set up and mix both trackerInfo and trackerPosts
 export interface MixedTracker {
@@ -18,16 +18,17 @@ export interface MixedTracker {
   trackerPosts: ITrackerPost[]
 }
 
-export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {userInfo: IUser | null, trackerInfo: ITracker[] | null, trackerPosts: ITrackerPost[]}) {
-  console.log(`Just putting this here to clear the warning: `, userInfo, trackerInfo, trackerPosts)
+export default function ReportsPage({ trackerPosts, trackers, userInfo }: { trackerPosts: ITrackerPost[], trackers: ITracker[], userInfo: IUser | null }) {
 
+  const { width, height } = useWindowSizes();
+  const containerHeight = height ? height - 60 : '90dvh';
 
   // Carl 3/27, reworking this to work with the real data
-  const mockData = {
-    id: "tracker-1",
-    title: "My Mood Tracker",
-    trackerPosts: trackerPosts
-  } as MixedTracker
+  // const mockData = {
+  //   id: "tracker-1",
+  //   title: "My Mood Tracker",
+  //   trackerPosts: trackerPosts
+  // } as MixedTracker
 
   //Old mock saved for you convience:
   // const mockData: ITracker = {
@@ -73,10 +74,13 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
       })
     }
 
-  chartDataMap[date][entry.emotion] = entry.rating
+    chartDataMap[date][entry.emotion] = entry.rating
   })
 
-  const chartData = Object.values(chartDataMap)
+  // Sort chart data by date for proper chronological display
+  const chartData = Object.values(chartDataMap).sort((a: any, b: any) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime()
+  })
 
   // hardcoded data to see line graph
   // const chartData = [
@@ -90,11 +94,12 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
     STAT CALCULATIONS
   */
 
-  
+
   // Count how many times user felt specified emotion and 
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>("Excited")
-  
+
   const emotionOptions = [
+    { value: "All", label: "All" },
     { value: "Angry", label: "Angry" },
     { value: "Excited", label: "Excited" },
     { value: "Lonely", label: "Lonely" },
@@ -110,129 +115,155 @@ export default function ReportsPage({userInfo, trackerInfo, trackerPosts}: {user
   })
 
   // Average logged emotion intensities
-  const [selectedAvgEmotion, setSelectedAvgEmotion] = useState<string>("Angry")
-  
-  const filteredForAvg = trackerPosts.filter((e) => e.emotion === selectedAvgEmotion)
-    
+  const [selectedAvgEmotion, setSelectedAvgEmotion] = useState<string>("All")
+
+  const filteredForAvg = selectedAvgEmotion === "All"
+    ? trackerPosts
+    : trackerPosts.filter((e) => e.emotion === selectedAvgEmotion)
+
   const avgRating =
-  filteredForAvg.length > 0
-    ? filteredForAvg.reduce((sum, e) => sum + e.rating, 0) / filteredForAvg.length
-    : 0
+    filteredForAvg.length > 0
+      ? filteredForAvg.reduce((sum, e) => sum + e.rating, 0) / filteredForAvg.length
+      : 0
 
   const mostFrequentEmotion = Object.entries(emotionCounts)
     .sort((a, b) => b[1] - a[1])[0]?.[0] || "N/A"
 
-  return (
+  const cards = [
+    (
+      <Card shadow="sm" padding="lg" withBorder h={width > 900 ? '162px' : width > 638 ? '180' : 'auto'} bg={colors.card} w={'100%'}>
 
-    <Container size="lg">
+        <Title order={4} c={colors.textPrimary} size={width > 638 ? 'h4' : 'h5'}>Average Mood Intensity</Title>
+
+        <Select
+          mt="sm"
+          data={emotionOptions}
+          value={selectedAvgEmotion}
+          onChange={(value) => setSelectedAvgEmotion(value || "All")}
+          styles={{
+            input: { backgroundColor: colors.input, color: colors.textPrimary, borderColor: colors.inputBorder },
+            label: { color: colors.label }
+          }}
+        />
+
+        <Text size="xl" mt="sm" c={colors.textAccent}>
+          {avgRating.toFixed(1)} / 10
+        </Text>
+
+      </Card>
+    ),
+    (
+      <Card shadow="sm" padding="lg" withBorder h={width > 900 ? '162px' : width > 638 ? '180' : 'auto'} bg={colors.card} w={'100%'}>
+
+        <Title order={4} c={colors.textPrimary} size={width > 638 ? 'h4' : 'h5'}>Most Frequent Emotion</Title>
+        <Text size="xl" c={colors.textAccent}>{mostFrequentEmotion}</Text>
+
+      </Card>
+    ),
+    (
+      <Card shadow="sm" padding="lg" withBorder h={width > 900 ? '162px' : width > 638 ? '180' : 'auto'} bg={colors.card} w={'100%'}>
+
+        <Title order={4} c={colors.textPrimary} size={width > 638 ? 'h4' : 'h5'}>Times Felt</Title>
+
+        {/* DROPDOWN */}
+        <Select
+          mt="sm"
+          data={emotionOptions.filter(e => e.value !== "All")} // remove "All" option for this stat
+          value={selectedEmotion}
+          onChange={setSelectedEmotion}
+          placeholder="Select emotion"
+          styles={{
+            input: { backgroundColor: colors.input, color: colors.textPrimary, borderColor: colors.inputBorder },
+            label: { color: colors.label }
+          }}
+        />
+
+        {/* RESULT */}
+        <Text size="xl" mt="sm" c={colors.textAccent}>
+          {selectedCount}
+        </Text>
+
+      </Card>
+    )]
+
+
+  return (
+    <Container size="lg" h={containerHeight} style={{ overflow: 'hidden' }}>
 
       {/* PAGE TITLE */}
-      <Title order={1} mb="md">
-        Reports
-      </Title>
-
-      <Text c="dimmed" mb="xl">
-        View trends and statistics based on your mood tracking data.
-      </Text>
+      <div className='flex flex-row justify-between items-center px-4 w-full '>
+        <div className='flex flex-col w-3/5'>
+          <Title order={1} mb="md" c={colors.textPrimary}>
+            Reports
+          </Title>
+          <Text c={colors.textSecondary} mb="xl">
+            View trends and statistics based on your mood tracking data.
+          </Text>
+        </div>
+        <LogMoodModal trackers={trackers} userInfo={userInfo} buttonWidth='' size='' />
+      </div>
 
 
       {/* ---------------- STATS SECTION ---------------- */}
 
-      <Grid mb="xl">
+      <ScrollArea h={width > 638 ? '80dvh' : '72dvh'} w={'100%'} type="auto" scrollbarSize={8} classNames={{ root: 'w-full', viewport: 'w-full' }}>
+        <div
+          className='gap-4 z-3 flex flex-col justify-start items-center rounded-md p-4 w-full min-h-[72dvh]'
+          style={{
+            backgroundColor: colors.sectionInner,
+            boxShadow: `inset 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 -4px 12px rgba(0, 0, 0, 0.6), inset 0 0 0 1px ${colors.divider}`,
+            border: `1px solid ${colors.divider}`
+          }}
+        >
+          <Grid mb="xl" w={'100%'} h={'auto'}>
 
-        {/* Average Rating */}
-        <Grid.Col span={{ base: 12, md: 4 }}>
-          <Card shadow="sm" padding="lg" withBorder>
+            {cards.map((card, index) => (
+              width && width > 638
+                ? <Grid.Col key={index} span={4} w={'100%'}>{card}</Grid.Col>
+                : <Grid.Col key={index} span={12} w={'33%'}>{card}</Grid.Col>
+            ))}
 
-            <Title order={4}>Average Mood Intensity</Title>
+          </Grid>
 
-            <Select
-              mt="sm"
-              data={emotionOptions}
-              value={selectedAvgEmotion}
-              onChange={(value) => setSelectedAvgEmotion(value || "Angry")}
+          {/* ---------------- GRAPH SECTION ---------------- */}
+
+          <Card shadow="sm" padding="lg" withBorder bg={colors.reportSection} w={'100%'}>
+
+            <Title order={3} mb="md" c={colors.textPrimary}>
+              Mood Trend Over Time
+            </Title>
+
+            <LineChart
+              h={300}
+              w={'100%'}
+              data={chartData}
+              styles={{
+                legendItemName: { color: colors.textPrimary },
+              }}
+
+              /*
+                dataKey = what goes on X axis
+              */
+              dataKey="date"
+
+              withLegend
+              legendProps={{ verticalAlign: 'top' }}
+
+              /*
+                series defines what lines to draw
+              */
+              series={[
+                { name: "Angry", label: "😡 Angry", color: "red" },
+                { name: "Excited", label: "😄 Excited", color: "yellow" },
+                { name: "Lonely", label: "😔 Lonely", color: "blue" },
+                { name: "Restful", label: "😌 Restful", color: "green" },
+              ]}
+
             />
 
-            <Text size="xl" mt="sm">
-              {avgRating.toFixed(1)} / 10
-            </Text>
-
           </Card>
-        </Grid.Col>
-
-        {/* Most Frequent Emotion */}
-        <Grid.Col span={{ base: 12, md: 4 }}>
-          <Card shadow="sm" padding="lg" withBorder>
-
-          <Title order={4}>Most Frequent Emotion</Title>
-          <Text size="xl">{mostFrequentEmotion}</Text>
-
-          </Card>
-        </Grid.Col>
-      
-      
-
-
-        {/* Selected Emotion Count */}
-        <Grid.Col span={{ base: 12, md: 4 }}>
-          <Card shadow="sm" padding="lg" withBorder>
-
-            <Title order={4}>Times Felt</Title>
-
-            {/* DROPDOWN */}
-            <Select
-              mt="sm"
-              data={emotionOptions}
-              value={selectedEmotion}
-              onChange={setSelectedEmotion}
-              placeholder="Select emotion"
-            />
-
-            {/* RESULT */}
-            <Text size="xl" mt="sm">
-              {selectedCount}
-            </Text>
-
-          </Card>
-        </Grid.Col>
-        
-      </Grid>
-
-      {/* ---------------- GRAPH SECTION ---------------- */}
-
-      <Card shadow="sm" padding="lg" withBorder>
-
-        <Title order={3} mb="md">
-          Mood Trend Over Time
-        </Title>
-
-        <LineChart
-          h={300}
-          data={chartData}
-
-          /*
-            dataKey = what goes on X axis
-          */
-          dataKey="date"
-
-          withLegend
-          legendProps={{ verticalAlign: 'top' }}
-
-          /*
-            series defines what lines to draw
-          */
-            series={[
-              { name: "Angry", label: "😡 Angry", color: "red" },
-              { name: "Excited", label: "😄 Excited", color: "yellow" },
-              { name: "Lonely", label: "😔 Lonely", color: "blue" },
-              { name: "Restful", label: "😌 Restful", color: "green" },
-            ]}
-
-        />
-
-      </Card>
-
+        </div>
+      </ScrollArea>
     </Container>
-
   )
 }

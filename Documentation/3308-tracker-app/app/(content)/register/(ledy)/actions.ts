@@ -2,62 +2,74 @@
 
 import { prisma } from '@/lib/prisma';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { hashPassword } from '@/lib/auth';
+import { hashPassword } from '@/lib/auth/password-helpers';
+import { RegisterFormValues } from './register-page';
 
 export type RegisterState = {
   error: string;
+  message: string;
   success: boolean;
 };
 
 export async function createUser(
-  _prevState: RegisterState,
-  formData: FormData
+  formData: RegisterFormValues
 ): Promise<RegisterState> {
-  const firstName = formData.get('firstName')?.toString().trim();
-  const lastName = formData.get('lastName')?.toString().trim();
-  const email = formData.get('email')?.toString().trim().toLowerCase();
-  const password = formData.get('password')?.toString().trim();
-  const cuID = formData.get('cuID')?.toString().trim();
 
-  if (!firstName || !lastName || !email || !password || !cuID) {
+  const name = formData.name?.toString().trim();
+  const email = formData.email?.toString().trim().toLowerCase();
+  const password = formData.password?.toString().trim();
+  const cuID = formData.cuID?.toString().trim();
+
+  if (!name || !email || !password) {
     return {
-      error: 'All fields are required.',
+      error: 'invalid params',
+      message: 'All fields are required.',
       success: false,
     };
   }
 
-  const fullName = `${firstName} ${lastName}`.trim();
   const hashedPassword = await hashPassword(password);
 
   try {
-    await prisma.user.create({
+    const createdUser = await prisma.user.create({
       data: {
-        name: fullName,
-        email,
+        name: name,
+        email: email,
         password: hashedPassword,
-        cuID,
+        cuID: cuID ? cuID : '',
         trackerIDs: [],
       },
     });
-  } catch (error: unknown) {
+
+    if (!createdUser) {
+      return {
+        error: 'no user',
+        message: 'Failed to create user.',
+        success: false,
+      };
+    }
+    return {
+      error: '',
+      message: '',
+      success: true,
+    };
+
+  } catch (error: any) {
     if (
       error instanceof PrismaClientKnownRequestError &&
       error.code === 'P2002'
     ) {
       return {
-        error: 'An account with this email already exists.',
+        error: 'duplicate user',
+        message: 'An account with this email already exists.',
         success: false,
       };
     }
 
     return {
-      error: 'Something went wrong while creating the account.',
+      error: 'error',
+      message: 'Something went wrong while creating the account.',
       success: false,
     };
   }
-
-  return {
-    error: '',
-    success: true,
-  };
 }

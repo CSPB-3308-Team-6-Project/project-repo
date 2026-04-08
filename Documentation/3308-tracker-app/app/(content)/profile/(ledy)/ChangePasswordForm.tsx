@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Alert, PasswordInput, Stack } from '@mantine/core';
 import { changePassword } from './actions';
 import SubmitButton from './SubmitButton';
+import { colors } from '@/lib/color-scheme';
 
 type ChangePasswordFormProps = {
   userId: number;
@@ -71,6 +72,10 @@ export default function ChangePasswordForm({
           label="Old Password"
           name="oldPassword"
           required
+          styles={{
+            input: { backgroundColor: colors.input, color: colors.textPrimary, borderColor: colors.inputBorder },
+            label: { color: colors.label }
+          }}
         />
 
         <PasswordInput
@@ -79,6 +84,10 @@ export default function ChangePasswordForm({
           label="New Password"
           name="newPassword"
           required
+          styles={{
+            input: { backgroundColor: colors.input, color: colors.textPrimary, borderColor: colors.inputBorder },
+            label: { color: colors.label }
+          }}
         />
 
         <PasswordInput
@@ -87,6 +96,10 @@ export default function ChangePasswordForm({
           label="Confirm New Password"
           name="confirmPassword"
           required
+          styles={{
+            input: { backgroundColor: colors.input, color: colors.textPrimary, borderColor: colors.inputBorder },
+            label: { color: colors.label }
+          }}
         />
 
         <SubmitButton

@@ -1,53 +1,69 @@
 'use server' //this is a backend page, and API calls are handled indirectly through the server
 
+import { revalidatePath } from 'next/cache';
 import { prisma } from '../../../../../lib/prisma'
 
-export async function createEntry({ rating, emotion, date }: { rating: number; emotion: string, date?: string }) {
-    try {
-        await prisma.trackerPost.create({
-            data: {
-                rating,
-                emotion: emotion as any,  // must match your Emotion enum (but for now any)
-                ...(date ? { recordedAt: new Date(date) } : {})
-            },
-        })
-        return { success: true }
-    } catch (error) {
-        console.log('createEntry error:', error)
-        return { success: false }
-    }
-}
+// export async function createEntry({ rating, emotion, date }: { rating: number; emotion: string, date?: string }) {
+//     try {
+//         await prisma.trackerPost.create({
+//             data: {
+//                 rating,
+//                 emotion: emotion as any,  // must match your Emotion enum (but for now any)
+//                 ...(date ? { recordedAt: new Date(date) } : {})
+//             },
+//         })
+//         return { success: true }
+//     } catch (error) {
+//         console.log('createEntry error:', error)
+//         return { success: false }
+//     }
+// }
 
-export async function getEntries() {
-    try {
-        // fetch all entries, order by newest date first(descending)
-        const entries = await prisma.trackerPost.findMany({
-            orderBy: { recordedAt: 'desc' }
-        })
-        return { success: true, data: entries}
-    }
-    catch (error) {
-        return { success: false, data: [] }
-    }
-}
+// export async function getEntries() {
+//     try {
+//         // fetch all entries, order by newest date first(descending)
+//         const entries = await prisma.trackerPost.findMany({
+//             orderBy: { recordedAt: 'desc' }
+//         })
+//         return { success: true, data: entries}
+//     }
+//     catch (error) {
+//         return { success: false, data: [] }
+//     }
+// }
 
 export async function updateEntry({id, rating, emotion, date}: {
     id: string
     rating: number
     emotion: string
-    date: string
+    date: Date
 }) {
+
+    if (!id) {
+        console.log('updateEntry error: No ID provided')
+        return { success: false }
+    }
+
     try {
-        await prisma.trackerPost.update({
+        
+        const updatedPost = await prisma.trackerPost.update({
             // where tells prisma which row to update
             where: { id },
             // data tells prisma what to change. fields below are updated
             data: {
                 rating,
                 emotion: emotion as any, //work around prisma enum import issue
-                recordedAt: new Date(date), // user types a string, so this line converts to Date object
+                recordedAt: date, // user types a string, so this line converts to Date object
             }
         })
+
+        if (!updatedPost) {
+            console.log('updateEntry error: No post found with ID', id)
+            return { success: false }
+        }
+
+        revalidatePath('/tracking')
+
         return { success: true }
     }
     catch (error) {
@@ -57,8 +73,17 @@ export async function updateEntry({id, rating, emotion, date}: {
 
 
 export async function deleteEntry(id: string) {
+    if (!id) {
+        console.log('deleteEntry error: No ID provided')
+        return { success: false }
+    }
     try {
-        await prisma.trackerPost.delete({ where: { id } })
+        const deleted = await prisma.trackerPost.delete({ where: { id } })
+        if (!deleted) {
+            console.log('deleteEntry error: No post found with ID', id)
+            return { success: false }
+        }
+        revalidatePath('/tracking')
         return { success: true }
     } catch (error) {
         return { success: false }

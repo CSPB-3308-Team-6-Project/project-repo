@@ -4,12 +4,12 @@ const withBundleAnalyzerConfig = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const assetPrefix = process.env.NEXT_ASSET_PREFIX ?? '';
-const basePath = process.env.NEXT_BASE_PATH ?? '';
+const assetPrefix = process.env.NODE_ENV === 'production' ? (process.env.NEXT_ASSET_PREFIX ?? '') : '';
+const basePath = process.env.NODE_ENV === 'production' ? (process.env.NEXT_BASE_PATH ?? '') : '';
   
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  assetPrefix,
+  ...(assetPrefix && { assetPrefix }),
   ...(basePath && { basePath }),
 
   async headers() {

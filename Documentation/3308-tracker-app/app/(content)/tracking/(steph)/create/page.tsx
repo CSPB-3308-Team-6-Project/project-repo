@@ -8,12 +8,12 @@ export default function CreateEntryPage() {
   const [opened, { open, close }] = useDisclosure(false)  // controls modal open/close
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [emotion, setEmotion] = useState('')
-  const [rating, setRating] = useState<string | number>('')
+  const [rating, setRating] = useState<number>(0)
 
   const handleCreate = async () => {
     setState('loading')
     try {
-      const result = await createEntry({ rating: Number(rating), emotion })
+      const result = await createEntry({ rating: rating, emotion, date: new Date(), email: 'fake@gmail.com', trackers: null })
       setState(result.success ? 'success' : 'error')
     } catch {
       setState('error')
@@ -25,7 +25,7 @@ export default function CreateEntryPage() {
     // reset form for next time
     setState('idle')
     setEmotion('')
-    setRating('')
+    setRating(0)
   }
 
   return (
@@ -52,7 +52,7 @@ export default function CreateEntryPage() {
               min={1}
               max={10}
               value={rating}
-              onChange={setRating}
+              onChange={(val) => setRating(Number(val) ?? 0)}
             />
             {state === 'error' && <Text c="red">Failed to log mood. Try again.</Text>}
             <Button onClick={handleCreate} loading={state === 'loading'}>
