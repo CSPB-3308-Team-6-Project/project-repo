@@ -104,8 +104,8 @@ export default function LoginPage() {
 
     return (
         <div className="flex flex-col justify-start items-center w-[dvw] h-[dvh] space-y-12">
-            <form id="modaluserForm" onSubmit={userForm.onSubmit(() => handleSignInAttempt({ userForm }))} className="w-full">
-                <Fieldset legend="Personal Information" style={{ backgroundColor: colors.card, borderColor: colors.inputBorder, color: colors.textPrimary }}>
+            <form id="modaluserForm" onSubmit={userForm.onSubmit(() => handleSignInAttempt({ userForm }))} className="w-full md:w-1/2 p-5 flex flex-col justify-start items-center" style={{ backgroundColor: colors.background, borderColor: colors.inputBorder }}>
+                <Fieldset legend="Personal Information" style={{ backgroundColor: colors.card, borderColor: colors.inputBorder, color: colors.textPrimary }} w={'100%'} p={10} radius="md">
                     <TextInput
                         id="testRegEmail"
                         name="testRegEmail"
@@ -137,7 +137,7 @@ export default function LoginPage() {
                 </Fieldset>
                 <div className="flex flex-row w-full justify-evenly items-center pt-5">
                     <button type='submit' className={`border rounded-md p-2 w-1/5 text-xs sm:text-sm cursor-pointer ${colorScheme.buttonLogin}`} aria-label={'test-db-with-register'}>
-                        {'Login In'}
+                        {'Login'}
                     </button>
                 </div>
             </form>
