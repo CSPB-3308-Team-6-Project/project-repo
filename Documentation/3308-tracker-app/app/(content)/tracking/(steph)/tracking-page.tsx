@@ -7,6 +7,7 @@ import { Title, Text, Card, Button, Stack } from "@mantine/core"
 import { ITracker } from "@/types/tracker/tracker"
 import { ITrackerPost } from "@/types/tracker/tracker-post"
 import { IUser } from "@/types/user/user"
+import { LogMoodModal } from "./create/components/createButton"
 
 export default function TrackingPage({userInfo, trackerInfo, trackerPosts}: {userInfo: IUser | null, trackerInfo: ITracker[] | null, trackerPosts: ITrackerPost[]}) {
   console.log(`Just putting this here to clear the warning: `, userInfo, trackerInfo, trackerPosts)
@@ -34,9 +35,7 @@ export default function TrackingPage({userInfo, trackerInfo, trackerPosts}: {use
             Record how you're feeling right now with a rating and emotion.
           </Text>
 
-          <Button component={Link} href={href('/tracking/create')}>
-            Go to Log Mood
-          </Button>
+          <LogMoodModal />
 
         </Card>
 

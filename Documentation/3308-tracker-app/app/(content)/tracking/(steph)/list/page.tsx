@@ -16,6 +16,7 @@ export default function MoodListPage() {
   const [editEmotion, setEditEmotion] = useState('')
   const [editRating, setEditRating] = useState('')
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [sortBy, setSortBy] = useState<'date' | 'emotion' | 'rating'>('date')
 
   // load Entries- call getEntries(), updates entries state
   const loadEntries = async() => {
@@ -91,6 +92,14 @@ export default function MoodListPage() {
     }
   }
 
+  const sortedEntries = [...entries].sort((a, b) => {
+    if (sortBy === 'date') return new Date(b.recordedAt).getTime() - new Date(a.recordedAt).getTime()
+    if (sortBy === 'emotion') return a.emotion.localeCompare(b.emotion)
+    if (sortBy === 'rating') return b.rating - a.rating
+    return 0
+  })
+
+
   // Return statement will render the new entry form and the entries list
   return (
     <div>
@@ -125,9 +134,23 @@ export default function MoodListPage() {
             </Stack>
         </Card>
 
-        <Title order={3} mb="md">Your Entries</Title>
+        <Group justify="space-between" mb="md">
+        <Title order={3}>Your Entries</Title>
+          <Select
+            label="Sort by"
+            value={sortBy}
+            onChange={(val) => setSortBy(val as 'date' | 'emotion' | 'rating')}
+            data={[
+              { value: 'date', label: 'Date' },
+              { value: 'emotion', label: 'Emotion' },
+              { value: 'rating', label: 'Intensity' },
+          ]}
+            w={150}
+          />
+        </Group>
+
         <Stack>
-            {entries.map((entry) => (
+            {sortedEntries.map((entry) => (
                 <Card key={entry.id} shadow="sm" padding="lg" withBorder>
                     {editingID === entry.id ? (
                         <Stack>
