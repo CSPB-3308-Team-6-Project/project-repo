@@ -5,7 +5,6 @@ import { Button, Group, Modal } from '@mantine/core';
 import ChangePasswordForm from './ChangePasswordForm';
 import DeleteButton from './DeleteButton';
 import EditProfileForm from './EditProfileForm';
-import SeedDataButton from './SeedDataButton';
 import { useRouter } from 'next/navigation';
 import { IUser } from '@/types/user/user';
 import { ITracker } from '@/types/tracker/tracker';
@@ -40,11 +39,6 @@ export default function ProfileActions({ user, trackers, trackerPosts }: Profile
         </Button>
 
         <DeleteButton userId={user.id} trackerPosts={trackerPosts} trackers={trackers} />
-      </Group>
-
-      {/* Seed Database Button - for testing/demo purposes */}
-      <Group justify='center' mt="md">
-        <SeedDataButton email={user.email} trackers={trackers} />
       </Group>
 
       <Modal
