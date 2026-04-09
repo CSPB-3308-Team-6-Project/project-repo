@@ -1,7 +1,7 @@
 
 'use client'
 
-import { Title, Text, Card, Grid, Select, Container, ScrollArea } from '@mantine/core'
+import { Title, Text, Card, Grid, Select, ScrollArea, Group, Stack } from '@mantine/core'
 import { LineChart } from '@mantine/charts'
 import { useState } from 'react'
 import { ITrackerPost } from '@/types/tracker/tracker-post'
@@ -20,8 +20,7 @@ export interface MixedTracker {
 
 export default function ReportsPage({ trackerPosts, trackers, userInfo }: { trackerPosts: ITrackerPost[], trackers: ITracker[], userInfo: IUser | null }) {
 
-  const { width, height } = useWindowSizes();
-  const containerHeight = height ? height - 60 : '80dvh';
+  const { width } = useWindowSizes();
 
   // Carl 3/27, reworking this to work with the real data
   // const mockData = {
@@ -187,82 +186,92 @@ export default function ReportsPage({ trackerPosts, trackers, userInfo }: { trac
     )]
 
 
+
+
+
   return (
-    <Container size="lg" h={containerHeight} style={{ overflow: 'hidden' }}>
+
+    <div className='gap-4 max-h-[90dvh] overflow-hidden flex flex-col justify-start items-center rounded-md p-1 w-full'>
+
 
       {/* PAGE TITLE */}
-      <div className='flex flex-row justify-between items-center px-4 w-full '>
-        <div className='flex flex-col w-3/5'>
-          <Title order={1} mb="md" c={colors.textPrimary}>
-            Reports
-          </Title>
-          <Text c={colors.textSecondary} mb="xl">
-            View trends and statistics based on your mood tracking data.
-          </Text>
+      <Group justify="space-between" mb="md" w={'100%'}>
+        <div className='flex flex-row justify-between items-center px-4 w-full'>
+          <div className='flex flex-col w-3/5'>
+            <Title order={1} mb="md" c={colors.textPrimary}>
+              Reports
+            </Title>
+            <Text c={colors.textSecondary} mb="xl">
+              View trends and statistics based on your mood tracking data.
+            </Text>
+          </div>
+          <LogMoodModal trackers={trackers} userInfo={userInfo} buttonWidth='' size='' />
         </div>
-        <LogMoodModal trackers={trackers} userInfo={userInfo} buttonWidth='' size='' />
-      </div>
+      </Group>
 
       {/* ---------------- STATS SECTION ---------------- */}
 
-      <ScrollArea h={width > 1000 ? '80dvh' : width > 820 ? '75dvh' : width < 500 ? '60dvh' : width < 300 ? '20dvh' : '70dvh'} w={'100%'} type="auto" scrollbarSize={8} classNames={{ root: 'w-full', viewport: 'w-full' }}>
-        <div
-          className='gap-4 z-3 flex flex-col justify-start items-center rounded-md p-4 w-full min-h-[50dvh] max-h-[80dvh]'
-          style={{
-            backgroundColor: colors.sectionInner,
-            boxShadow: `inset 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 -4px 12px rgba(0, 0, 0, 0.6), inset 0 0 0 1px ${colors.divider}`,
-            border: `1px solid ${colors.divider}`
-          }}
-        >
-          <Grid mb="xl" w={'100%'} h={'auto'}>
+      <Stack w={'100%'} align="center" h={'80dvh'}>
+        <ScrollArea h={'70dvh'} w={'100%'} type="auto" scrollbarSize={8} classNames={{ root: 'w-full', viewport: 'w-full' }}>
+          <div
+            className='gap-4 z-3 flex flex-col justify-start items-center rounded-md p-4 w-full min-h-[70dvh]'
+            style={{
+              backgroundColor: colors.sectionInner,
+              boxShadow: `inset 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 -4px 12px rgba(0, 0, 0, 0.6), inset 0 0 0 1px ${colors.divider}`,
+              border: `1px solid ${colors.divider}`
+            }}
+          >
 
-            {cards.map((card, index) => (
-              width && width > 638
-                ? <Grid.Col key={index} span={4} w={'100%'}>{card}</Grid.Col>
-                : <Grid.Col key={index} span={12} w={'33%'}>{card}</Grid.Col>
-            ))}
+            <Grid mb="xl" w={'100%'} h={'fit-content'} mah={width > 900 ? '162px' : width > 638 ? '180px' : 'fit-content'}>
 
-          </Grid>
+              {cards.map((card, index) => (
+                width && width > 638
+                  ? <Grid.Col key={index} span={4} w={'100%'}>{card}</Grid.Col>
+                  : <Grid.Col key={index} span={12} w={'33%'}>{card}</Grid.Col>
+              ))}
 
-          {/* ---------------- GRAPH SECTION ---------------- */}
+            </Grid>
 
-          <Card shadow="sm" padding="lg" withBorder bg={colors.reportSection} w={'100%'}>
+            {/* ---------------- GRAPH SECTION ---------------- */}
 
-            <Title order={3} mb="md" c={colors.textPrimary}>
-              Mood Trend Over Time
-            </Title>
+            <Card shadow="sm" padding="lg" withBorder bg={colors.reportSection} w={'100%'}>
 
-            <LineChart
-              h={300}
-              w={'100%'}
-              data={chartData}
-              styles={{
-                legendItemName: { color: colors.textPrimary },
-              }}
+              <Title order={3} mb="md" c={colors.textPrimary}>
+                Mood Trend Over Time
+              </Title>
 
-              /*
-                dataKey = what goes on X axis
-              */
-              dataKey="date"
+              <div className={`flex flex-col justify-start items-center w-full ${width > 638 ? 'h-[350px]' : 'h-[300px]'}`}>
+                <LineChart
+                  h={'100%'}
+                  w={'95%'}
+                  p={0}
+                  m={0}
+                  data={chartData}
+                  styles={{
+                    legendItemName: { color: colors.textPrimary },
+                  }}
+                  /*
+                    dataKey = what goes on X axis
+                  */
+                  dataKey="date"
+                  withLegend
+                  legendProps={{ verticalAlign: 'top' }}
+                  /*
+                    series defines what lines to draw
+                  */
+                  series={[
+                    { name: "Angry", label: "😡 Angry", color: "red" },
+                    { name: "Excited", label: "😄 Excited", color: "yellow" },
+                    { name: "Lonely", label: "😔 Lonely", color: "blue" },
+                    { name: "Restful", label: "😌 Restful", color: "green" },
+                  ]}
+                />
+              </div>
 
-              withLegend
-              legendProps={{ verticalAlign: 'top' }}
-
-              /*
-                series defines what lines to draw
-              */
-              series={[
-                { name: "Angry", label: "😡 Angry", color: "red" },
-                { name: "Excited", label: "😄 Excited", color: "yellow" },
-                { name: "Lonely", label: "😔 Lonely", color: "blue" },
-                { name: "Restful", label: "😌 Restful", color: "green" },
-              ]}
-
-            />
-
-          </Card>
-        </div>
-      </ScrollArea>
-    </Container>
+            </Card>
+          </div>
+        </ScrollArea>
+      </Stack>
+    </div>
   )
 }

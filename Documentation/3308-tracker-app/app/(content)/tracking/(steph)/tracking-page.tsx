@@ -118,9 +118,9 @@ export default function TrackingPage({ userInfo, trackerInfo, trackerPosts }: { 
       </Group>
 
       <Stack w={'100%'} align="center">
-        <ScrollArea h={'65dvh'} w={'100%'} type="auto" scrollbarSize={8} classNames={{ root: 'w-full', viewport: 'w-full' }}>
+        <ScrollArea h={'70dvh'} w={'100%'} type="auto" scrollbarSize={8} classNames={{ root: 'w-full', viewport: 'w-full' }}>
           <div 
-            className='gap-4 z-3 flex flex-col justify-start items-center rounded-md p-4 w-full min-h-[65dvh]' 
+            className='gap-4 z-3 flex flex-col justify-start items-center rounded-md p-4 w-full min-h-[70dvh]' 
             style={{ 
               backgroundColor: colors.sectionInner,
               boxShadow: `inset 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 -4px 12px rgba(0, 0, 0, 0.6), inset 0 0 0 1px ${colors.divider}`,
