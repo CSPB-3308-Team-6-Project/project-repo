@@ -195,13 +195,13 @@ export default function ReportsPage({ trackerPosts, trackers, userInfo }: { trac
 
 
       {/* PAGE TITLE */}
-      <Group justify="space-between" mb="md" w={'100%'}>
+      <Group justify="space-between" mb="md" w={'100%'} mah={width > 900 ? '162px' : width > 638 ? '180px' : 'fit-content'} h={'fit-content'}>
         <div className='flex flex-row justify-between items-center px-4 w-full'>
           <div className='flex flex-col w-3/5'>
-            <Title order={1} mb="md" c={colors.textPrimary}>
+            <Title order={1} c={colors.textPrimary} size={width > 638 ? 'h2' : 'h3'}>
               Reports
             </Title>
-            <Text c={colors.textSecondary} mb="xl">
+            <Text c={colors.textSecondary} mb="sm" size={width > 638 ? 'sm' : 'xs'}>
               View trends and statistics based on your mood tracking data.
             </Text>
           </div>

@@ -12,8 +12,8 @@ import { colors } from '@/lib/color-scheme';
 export default function ProfilePage({ userInfo, trackers, trackerPosts }: { userInfo: IUser, trackers: ITracker[] | null, trackerPosts: ITrackerPost[] | null }) {
 
   return (
-    <Container size="md" py={50}>
-      <Stack gap="xl">
+    <Container size="md" py={50} w={'100%'}>
+      <Stack gap="xl" w={'100%'}>
         <Title order={1} ta="center" c={colors.textPrimary}>
           Profile
         </Title>

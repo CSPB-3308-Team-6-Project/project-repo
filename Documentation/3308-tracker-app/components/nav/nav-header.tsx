@@ -8,12 +8,10 @@ import { Group } from "@mantine/core";
 import { colors } from "@/lib/color-scheme";
 import { useState } from "react";
 import NavMenu from "./nav-menu";
-import { useDisclosure } from "@mantine/hooks";
 
-export default function NavHeader({ width, setLoading, navigate, pathname }: { width: number, setLoading: (loading: boolean) => void, navigate: (url: string) => void, pathname: string }) {
+export default function NavHeader({ width, setLoading, navigate, pathname, opened, close, open }: { width: number, setLoading: (loading: boolean) => void, navigate: (url: string) => void, pathname: string, opened: boolean, close: () => void, open: () => void }) {
 
   const [isHovering, setIsHovering] = useState(false);
-  const [opened, { open, close }] = useDisclosure(false);
 
   const homeButtonClasses = pathname !== '/' ? 'text-xl font-bold hover:underline' : 'text-xl font-bold';
 

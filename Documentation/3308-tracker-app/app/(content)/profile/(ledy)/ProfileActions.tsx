@@ -10,6 +10,7 @@ import { IUser } from '@/types/user/user';
 import { ITracker } from '@/types/tracker/tracker';
 import { ITrackerPost } from '@/types/tracker/tracker-post';
 import { colors } from '@/lib/color-scheme';
+import { useWindowSizes } from '@/context/window-sizes';
 
 type ProfileActionsProps = {
   user: IUser;
@@ -18,6 +19,8 @@ type ProfileActionsProps = {
 };
 
 export default function ProfileActions({ user, trackers, trackerPosts }: ProfileActionsProps) {
+
+  const { width } = useWindowSizes();
   const [editOpened, setEditOpened] = useState(false);
   const [passwordOpened, setPasswordOpened] = useState(false);
   const router = useRouter();
@@ -29,16 +32,16 @@ export default function ProfileActions({ user, trackers, trackerPosts }: Profile
 
   return (
     <>
-      <Group justify='center' mt="md">
-        <Button onClick={() => setEditOpened(true)} color={colors.buttonEdit} w={150}>
+      <Group justify='center' mt="md" w={'100%'} gap="sm">
+        <Button onClick={() => setEditOpened(true)} color={colors.buttonEdit} w={width > 768 ? '1/4' : width > 480 ? '60%' : '90%'} size={width > 768 ? 'md' : 'sm'}>
           Edit Profile
         </Button>
 
-        <Button variant="outline" onClick={() => setPasswordOpened(true)} color={colors.buttonSubmit} w={150}>
+        <Button variant="outline" onClick={() => setPasswordOpened(true)} color={colors.buttonSubmit} w={width > 768 ? '1/4' : width > 480 ? '60%' : '90%'} size={width > 768 ? 'md' : 'sm'}>
           Change Password
         </Button>
 
-        <DeleteButton userId={user.id} trackerPosts={trackerPosts} trackers={trackers} />
+        <DeleteButton userId={user.id} trackerPosts={trackerPosts} trackers={trackers} width={width} />
       </Group>
 
       <Modal

@@ -8,6 +8,7 @@ import { useWindowSizes } from "@/context/window-sizes";
 import { href } from "@/lib/url-helper";
 import { usePathname, useRouter } from "next/navigation";
 import { colors } from "@/lib/color-scheme";
+import { useDisclosure } from "@mantine/hooks";
 
 const routes = [
     { label: 'Home', url: '/' },
@@ -20,6 +21,7 @@ const routes = [
 
 export default function BaseWrapper({ children }: { children: React.ReactNode }) {
 
+    const [opened, { open, close }] = useDisclosure(false);
     const { loading, setLoading } = useLoading();
     const { width } = useWindowSizes();
     const router = useRouter();
@@ -38,6 +40,7 @@ export default function BaseWrapper({ children }: { children: React.ReactNode })
 
     const navigate = (url: string) => {
         setLoading(true);
+        close();
         const urlToGo = href(url);
         router.push(urlToGo);
     }
@@ -54,7 +57,7 @@ export default function BaseWrapper({ children }: { children: React.ReactNode })
             />
             <AppShell header={{ height: 60 }} padding="md" style={{ backgroundColor: colors.background }} bg={colors.background}>
                 <AppShell.Header style={{ borderBottom: `1px solid ${colors.divider}`, backgroundColor: colors.nav }}>
-                    <NavHeader width={width} setLoading={setLoading} navigate={navigate} pathname={pathname} />
+                    <NavHeader width={width} setLoading={setLoading} navigate={navigate} pathname={pathname} opened={opened} close={close} open={open} />
                 </AppShell.Header>
                 <AppShell.Main h={'calc(100dvh - 60px)'} style={{ backgroundColor: colors.background, overflow: 'hidden' }}>
                     {children}

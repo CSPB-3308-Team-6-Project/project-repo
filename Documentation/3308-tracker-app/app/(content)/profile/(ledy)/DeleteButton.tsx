@@ -13,9 +13,10 @@ type DeleteButtonProps = {
   userId: number;
   trackers: ITracker[] | null;
   trackerPosts: ITrackerPost[] | null;
+  width: number;
 };
 
-export default function DeleteButton({ userId, trackers, trackerPosts }: DeleteButtonProps) {
+export default function DeleteButton({ userId, trackers, trackerPosts, width }: DeleteButtonProps) {
   const router = useRouter();
 
   async function handleDelete() {
@@ -43,7 +44,7 @@ export default function DeleteButton({ userId, trackers, trackerPosts }: DeleteB
   }
 
   return (
-    <Button color={colors.buttonDelete} onClick={handleDelete} w={150}>
+    <Button color={colors.buttonDelete} onClick={handleDelete} w={width > 768 ? '1/4' : width > 480 ? '60%' : '90%'} size={width > 768 ? 'md' : 'sm'}>
       Delete Account
     </Button>
   );
