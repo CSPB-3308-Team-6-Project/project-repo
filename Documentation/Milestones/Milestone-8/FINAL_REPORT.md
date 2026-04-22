@@ -1,7 +1,7 @@
 # Team 6 Project README
 
 ## Project Title
-Health Tracker - General Health/feeling with numerical answers to basic questions + stats/graphs/report
+Health Tracker - General Health/feeling app + profile/emotions-list/reporting
 
 ## Team Information
 - **Team Number:** 6
