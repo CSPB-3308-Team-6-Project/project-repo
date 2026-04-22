@@ -16,22 +16,15 @@ _For more info, in the Repo go to Documentation -> Collaborators_Info_
 - **Linda Maccagnan** (GitHub: `lmaccagnan`, Email: Linda.Maccagnan@colorado.edu)
 - **Stephanie Gillihan** (GitHub: `sgillihan`, Email: Stephanie.Gillihan@colorado.edu)
 
-### Scheduled Weekly Team Meeting
-**Wednesdays, 5:00 PM MT**
-30-60 minutes via Zoom
-- Project tracker (instructor can access): [Github Project Board](https://github.com/CSPB-3308-Team-6-Project/project-repo/projects?query=is%3Aopen)
-- Version control repository (instructors have access): [GitHub
-Repo](https://github.com/CSPB-3308-Team-6-Project/project-repo/tree/main)
-
-
-
 ## Needs updating from here ##
 
 - 5-minute customer demo video: [Demo Video](https://youtu.be/studysync-demo)
 - Public deployment site: [StudySync Deployment](https://studysync-production.app)
+
 ## Repository Readiness
 All team members have verified that their latest work is pushed to the remote
 repository.
+
 The repository contains the following required files and assets:
 - README.md
 - WEEKLY_STATUS.md
@@ -43,7 +36,9 @@ The repository contains the following required files and assets:
 - Source code (frontend and backend)
 - Test cases (unit and integration)
 - Source documentation and auto-generated documentation files
+  
 ## Final Status Report
+
 ### What We Completed
 - Working MVP including:
 - User authentication
@@ -56,11 +51,13 @@ The repository contains the following required files and assets:
 - PostgreSQL database with a relational schema
 - Public deployment of the application
 - Project presentation slides and a customer-facing demo video
+  
 ### What We Were in the Middle of Implementing
 - Improved ranking of suggested meeting times
 - Messaging improvements (moving from polling toward real-time updates)
 - UI polish and accessibility pass
 - Expanded automated test coverage
+  
 ### What We Planned for the Future
 - Mobile-first redesign
 - Calendar integrations (Google Calendar, Outlook)
@@ -68,45 +65,59 @@ The repository contains the following required files and assets:
 - Rich messaging features (threads, attachments)
 - Additional themes (including dark mode)
 - More advanced scheduling preferences
+  
 ### Known Problems and Limitations
 - Messaging uses polling rather than WebSockets
 - Scheduling logic is heuristic-based and may not scale well to very large groups
 - Mobile layout is usable but not fully optimized
 - Error handling is solid for common paths but needs more edge-case coverage
+  
 ## System Overview
-StudySync uses a standard three-tier architecture:
-- Frontend: React
-- Backend: FastAPI
-- Database: PostgreSQL
+
+TRACKERS uses a standard three-tier architecture:
+- Frontend: Next.js/React
+- Backend: Next.js/Prisma
+- Database: Supabase/PostgreSQL
+  
 The system was designed to support incremental development, clear separation of
 concerns, and straightforward testing.
+
 ## Pages That Access Database Information
 - Login: users
 - Dashboard: users, groups, tasks
 - Group Page: groups, group_members, tasks, availability
 - Availability Page: availability
 - Task Management Page: tasks, users
+  
 ## Page Data Access Tests (High-Level)
+
 ### Use case name
 Dashboard loads correct data for the logged-in user
+
 ### Description
 Verify the dashboard displays only the logged-in user's groups and tasks.
+
 ### Pre-conditions
 - User account exists
 - User is logged in
 - User belongs to at least one group
 - User has at least one assigned task
+  
 ### Test steps
 1. Navigate to Dashboard
 2. Observe Groups list
 3. Observe Tasks Due list
+   
 ### Expected result
 - Groups list includes only groups where the user is a member
 - Tasks list includes only tasks assigned to the user (excluding completed tasks)
+  
 ### Actual result
 - Dashboard shows the correct groups and tasks for the user
+  
 ### Status
 Pass
+
 ### Notes
 N/A
 ### Post-conditions
