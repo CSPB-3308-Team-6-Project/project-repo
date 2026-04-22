@@ -12,14 +12,14 @@ _For more info, in the Repo go to Documentation -> Collaborators_Info_
 
 - **Carl Seaholm** (GitHub: `cdseaholm`, Email: cdseaholm@gmail.com)
 - **Conner Mongoven** (GitHub: `mongovencm`, Email: Conner.Mongoven@colorado.edu)
-- **Ledys De La Rosa** (GitHub: `ledy11`, Email: Ledy.DeLaRosa@colorado.edu)
+- **Ledy De La Rosa** (GitHub: `ledy11`, Email: Ledy.DeLaRosa@colorado.edu)
 - **Linda Maccagnan** (GitHub: `lmaccagnan`, Email: Linda.Maccagnan@colorado.edu)
 - **Stephanie Gillihan** (GitHub: `sgillihan`, Email: Stephanie.Gillihan@colorado.edu)
 
 ## Needs updating from here ##
 
-- 5-minute customer demo video: [Demo Video](https://youtu.be/studysync-demo)
-- Public deployment site: [StudySync Deployment](https://studysync-production.app)
+- 5-minute customer demo video: [Demo Video](https://youtu.be/studysync-demo) -- update to last piece of presentation
+- Public deployment site: [Trackers APP](https://trackers-3308.vercel.app/)
 
 ## Repository Readiness
 All team members have verified that their latest work is pushed to the remote
@@ -41,92 +41,63 @@ The repository contains the following required files and assets:
 
 ### What We Completed
 - Working MVP including:
-- User authentication
-- Study group creation and membership management
-- Task creation, assignment, and status tracking
-- Weekly availability input
-- Availability overlap calculation
-- React frontend with a consistent navigation flow
-- FastAPI backend with REST endpoints
-- PostgreSQL database with a relational schema
-- Public deployment of the application
-- Project presentation slides and a customer-facing demo video
-  
-### What We Were in the Middle of Implementing
-- Improved ranking of suggested meeting times
-- Messaging improvements (moving from polling toward real-time updates)
-- UI polish and accessibility pass
-- Expanded automated test coverage
+  - User authentication
+  - Profile Creation and Profile management
+  - Emotion creation, editing and removal from correct databases; updated in the UI for user convience.
+  - Next.js/React frontend with a consistent navigation wrapper
+  - FastAPI backend with REST endpoints
+  - PostgreSQL database with a relational schema, including 3 tables
+  - Public deployment of the application via Verclel
+  - Reports page which displays multiple statistical views of saved emotions
+  - Project presentation slides and a customer-facing demo video
   
 ### What We Planned for the Future
-- Mobile-first redesign
-- Calendar integrations (Google Calendar, Outlook)
-- Notifications for upcoming sessions and deadlines
-- Rich messaging features (threads, attachments)
+- Creating more trackers for the user to utilize. I.E. Water Intake, Monthly Cycle, Nutrition, Excercise, Medications, Pet Supplments
 - Additional themes (including dark mode)
-- More advanced scheduling preferences
+- More advanced UI features
+- More in depth report charts + views.
   
 ### Known Problems and Limitations
-- Messaging uses polling rather than WebSockets
-- Scheduling logic is heuristic-based and may not scale well to very large groups
-- Mobile layout is usable but not fully optimized
-- Error handling is solid for common paths but needs more edge-case coverage
-  
-## System Overview
+- None that have been reported
+
+
+## System and Tests General Overview
 
 TRACKERS uses a standard three-tier architecture:
 - Frontend: Next.js/React
 - Backend: Next.js/Prisma
 - Database: Supabase/PostgreSQL
-  
-The system was designed to support incremental development, clear separation of
-concerns, and straightforward testing.
 
 ## Pages That Access Database Information
-- Login: users
-- Dashboard: users, groups, tasks
-- Group Page: groups, group_members, tasks, availability
-- Availability Page: availability
-- Task Management Page: tasks, users
+| Page     | Tables Accessed               |
+|----------|-------------------------------|
+| Login    | users                         |
+| Profile  | users, trackers               |
+| Reports  | users, trackers, trackerPosts |
+| Tracking | users, trackers, trackerPosts |
+| Register | users                         |
   
 ## Page Data Access Tests (High-Level)
 
 ### Use case name
-Dashboard loads correct data for the logged-in user
+Server Prefetch
 
 ### Description
-Verify the dashboard displays only the logged-in user's groups and tasks.
+Server page loads initially with data fetch for page
 
 ### Pre-conditions
 - User account exists
 - User is logged in
-- User belongs to at least one group
-- User has at least one assigned task
   
 ### Test steps
-1. Navigate to Dashboard
-2. Observe Groups list
-3. Observe Tasks Due list
+1. Assure correct navigation buttons are visible for logged in user vs non-logged in user
+2. Only user info is displayed if logged in
    
 ### Expected result
-- Groups list includes only groups where the user is a member
-- Tasks list includes only tasks assigned to the user (excluding completed tasks)
+- Correct UI is present and data is displayed in a meaningful way.
   
 ### Actual result
-- Dashboard shows the correct groups and tasks for the user
+- Correct UI is present and data is displayed in a meaningful way.
   
 ### Status
 Pass
-
-### Notes
-N/A
-### Post-conditions
-No data is modified.
-## Reflection
-This project provided hands-on experience building, testing, deploying, and
-presenting a full-stack application.
-Key takeaways:
-- Scope control matters. The MVP focus kept the project shippable.
-- Frequent integration reduces surprises later.
-- Clear task ownership and weekly check-ins kept progress steady.
-- Deployment and CI/CD work early paid off during final integration.
