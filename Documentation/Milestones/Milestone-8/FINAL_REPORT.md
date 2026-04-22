@@ -18,7 +18,7 @@ _For more info, in the Repo go to Documentation -> Collaborators_Info_
 
 ## Needs updating from here ##
 
-- 5-minute customer demo video: [Demo Video](https://youtu.be/studysync-demo) -- update to last piece of presentation
+- 5-minute customer demo video: [Demo Video](https://drive.google.com/file/d/1NNVuk7L1M8BSWAvRYAjaJXzMINYVIfN0/view?usp=sharing)
 - Public deployment site: [Trackers APP](https://trackers-3308.vercel.app/)
 
 ## Repository Readiness
